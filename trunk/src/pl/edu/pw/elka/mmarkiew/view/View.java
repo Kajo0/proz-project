@@ -1,98 +1,82 @@
 package pl.edu.pw.elka.mmarkiew.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.UIManager;
 
-import pl.edu.pw.elka.mmarkiew.controller.Controller;
-import pl.edu.pw.elka.mmarkiew.model.ColorChange;
+import pl.edu.pw.elka.mmarkiew.exceptions.NoViewException;
 
-public class View {
+/**
+ * @author Acer
+ *
+ */
+public class View extends JFrame{
+	public static final int WIDTH_DEFAULT;
+	public static final int HEIGHT_DEFAULT;
+	public static final Point GAME_CORNER;
+	public static final Point OPTION_CORNER;
+	private final static View instance;
+	private GamePane gamePanel;
+	private OptionPane optionPanel;
 	
-	private JFrame defaultFrame;
-	private JSlider redSlider, greenSlider, blueSlider;
-	private JPanel panel;
-	private JLabel label;
-	
-	
-	public View() {
-		initView();
-		initListeners();
+	static {
+		WIDTH_DEFAULT = 800;
+		HEIGHT_DEFAULT = 600;
+		GAME_CORNER = new Point(0, 0);
+		OPTION_CORNER = new Point(HEIGHT_DEFAULT + 5, 0);
+		instance = new View();
 	}
 	
-	private void initView() {
-		defaultFrame = new JFrame("Sample");
-		
-		defaultFrame.setBounds(500, 300, 200, 200);
-		defaultFrame.setVisible(true);
-		defaultFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		defaultFrame.setAlwaysOnTop(true);
-		defaultFrame.setResizable(false);
-
-		redSlider = new JSlider(0, 255, 0);
-		greenSlider = new JSlider(0, 255, 0);
-		blueSlider = new JSlider(0, 255, 0);
-		
-		panel = new JPanel();
-		label = new JLabel();
-		
-		panel.setBorder(new TitledBorder("Title"));
-		panel.add(label);
-		
-		defaultFrame.setLayout(new GridLayout(4, 1));
-		defaultFrame.add(redSlider);
-		defaultFrame.add(greenSlider);
-		defaultFrame.add(blueSlider);
-		defaultFrame.add(panel);
-		
+	/**
+	 * to get view frame
+	 * @return view panel
+	 * @throws NoViewException
+	 */
+	public static View getInstance() throws NoViewException {
+		if (instance != null)
+			return instance;
+		else
+			throw new NoViewException();
 	}
 	
-	private void initListeners() {
-		redSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				try {
-					Controller.queue.put(new ColorChange(ColorChange.colors.RED, redSlider.getValue()));
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		greenSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				try {
-					Controller.queue.put(new ColorChange(ColorChange.colors.GREEN, greenSlider.getValue()));
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		blueSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				try {
-					Controller.queue.put(new ColorChange(ColorChange.colors.BLUE, blueSlider.getValue()));
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+	private View() {
+		super("Bomberman version 0.0");
+		
+		init();
 	}
+	
+	/**
+	 * Initialize view frame and components
+	 */
+	private void init() {
+		
+			// Main frame initialization
+		setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - WIDTH_DEFAULT) / 2,
+					(Toolkit.getDefaultToolkit().getScreenSize().height - HEIGHT_DEFAULT) / 2,
+					WIDTH_DEFAULT, HEIGHT_DEFAULT + 28);
 
-	public void changeSth(Color cc) {
-		panel.setBackground(cc);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		setAlwaysOnTop(true);
+		setLayout(null);
+		setVisible(true);
+		
+			// Both panels adding
+		gamePanel = new GamePane(GAME_CORNER, HEIGHT_DEFAULT, HEIGHT_DEFAULT);
+		optionPanel = new OptionPane(OPTION_CORNER, WIDTH_DEFAULT - HEIGHT_DEFAULT - 5, HEIGHT_DEFAULT);
+		
+		add(gamePanel);
+		add(optionPanel);
+
 	}
 }

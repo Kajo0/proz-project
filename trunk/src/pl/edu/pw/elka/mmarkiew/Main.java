@@ -1,8 +1,9 @@
 package pl.edu.pw.elka.mmarkiew;
 
-import pl.edu.pw.elka.mmarkiew.controller.Controller;
-import pl.edu.pw.elka.mmarkiew.model.Model;
-import pl.edu.pw.elka.mmarkiew.view.View;
+import pl.edu.pw.elka.mmarkiew.controller.*;
+import pl.edu.pw.elka.mmarkiew.exceptions.NoViewException;
+import pl.edu.pw.elka.mmarkiew.model.*;
+import pl.edu.pw.elka.mmarkiew.view.*;
 
 /**
  * @author Miko³aj Markiewicz
@@ -12,15 +13,20 @@ import pl.edu.pw.elka.mmarkiew.view.View;
 public class Main {
 
 	/**
-	 * Main class, the begin of the program
+	 * Main class, begin of the program
 	 */
 	public Main() {
-		View view = new View();
-		Model model = new Model();
-		Controller controller = new Controller(model, view);
-		
-		Thread th = new Thread(controller);
-		th.start();
+		try {
+			View view = View.getInstance();
+		} catch (NoViewException e) {
+			e.printStackTrace();
+			return;
+		}
+//		Model model = new Model();
+//		Controller controller = new Controller(model, view);
+//		
+//		Thread th = new Thread(controller);
+//		th.start();
 	}
 	public static void main(String[] args) {
 		Main main = new Main();
