@@ -1,5 +1,10 @@
 package pl.edu.pw.elka.mmarkiew;
 
+import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+
 import pl.edu.pw.elka.mmarkiew.controller.*;
 import pl.edu.pw.elka.mmarkiew.exceptions.NoViewException;
 import pl.edu.pw.elka.mmarkiew.model.*;
@@ -16,17 +21,16 @@ public class Main {
 	 * Main class, begin of the program
 	 */
 	public Main() {
-		try {
-			View view = View.getInstance();
-		} catch (NoViewException e) {
-			e.printStackTrace();
-			return;
-		}
-//		Model model = new Model();
-//		Controller controller = new Controller(model, view);
-//		
-//		Thread th = new Thread(controller);
-//		th.start();
+		View view = new View();
+		Model model = new Model();
+		Controller controller = new Controller(model, view);
+		
+		ExecutorService exec = Executors.newCachedThreadPool();
+		exec.execute(model);
+		exec.execute(view);
+		exec.execute(controller);
+		
+		exec.shutdown();
 	}
 	public static void main(String[] args) {
 		Main main = new Main();

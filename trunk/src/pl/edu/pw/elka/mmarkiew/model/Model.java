@@ -1,25 +1,57 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
-import java.awt.Color;
+import java.io.IOException;
 
-public class Model {
-	private int red, green, blue;
-	private String text;
+/**
+ * 
+ * @author Acer
+ *
+ */
+public class Model implements Runnable {
+	private GameMap map;
+	private boolean paused = false;
 	
+	/**
+	 * Create game model with level 1
+	 */
 	public Model() {
-		this.red = 0;
-		this.green = 0;
-		this.blue = 0;
-		this.text = "RGB(" + this.red + "," + this.green + "," + this.blue + ")";
+		this.map = null;
+		setMap("maps/1.txt");
 	}
 	
-	public Color calculate(ColorChange cc) {
-		switch (cc.getColor()) {
-			case RED	: red = cc.getValue(); System.out.println("r"); break;
-			case GREEN	: green = cc.getValue(); System.out.println("g"); break;
-			case BLUE	: blue = cc.getValue(); System.out.println("b"); break;
+	/**
+	 * Sets new map<br>
+	 * If file doesn't exist set null map
+	 * @param path path to map
+	 */
+	public void setMap(final String path) {
+		try {
+			map = new GameMap(path);
+		} catch (IOException e) {
+			map = null;
+			System.out.println("Nie ma mapy: " + path);
 		}
-		return new Color(red, green, blue);
+	}
+	
+	
+	public String[][] getMap() {
+		return map.getTerrain();
 	}
 
+	@Override
+	public void run() {
+		while (true) {
+			if (!paused) {
+				update();
+			}
+		}	
+	}
+
+	private void update() {
+		try {
+			Thread.currentThread().sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }

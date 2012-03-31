@@ -20,12 +20,11 @@ import pl.edu.pw.elka.mmarkiew.exceptions.NoViewException;
  * @author Acer
  *
  */
-public class View extends JFrame{
+public class View extends JFrame implements Runnable {
 	public static final int WIDTH_DEFAULT;
 	public static final int HEIGHT_DEFAULT;
 	public static final Point GAME_CORNER;
 	public static final Point OPTION_CORNER;
-	private final static View instance;
 	private GamePane gamePanel;
 	private OptionPane optionPanel;
 	
@@ -34,22 +33,9 @@ public class View extends JFrame{
 		HEIGHT_DEFAULT = 600;
 		GAME_CORNER = new Point(0, 0);
 		OPTION_CORNER = new Point(HEIGHT_DEFAULT + 5, 0);
-		instance = new View();
 	}
 	
-	/**
-	 * to get view frame
-	 * @return view panel
-	 * @throws NoViewException
-	 */
-	public static View getInstance() throws NoViewException {
-		if (instance != null)
-			return instance;
-		else
-			throw new NoViewException();
-	}
-	
-	private View() {
+	public View() {
 		super("Bomberman version 0.0");
 		
 		init();
@@ -78,5 +64,11 @@ public class View extends JFrame{
 		add(gamePanel);
 		add(optionPanel);
 
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
