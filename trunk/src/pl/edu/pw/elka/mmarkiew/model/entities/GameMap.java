@@ -1,12 +1,12 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 
 public class GameMap {
 	// Jak TileMap czyli mapa i jej obiekty te¿ spritey
+	public final static int BLLOCK_SIZE = 40; 
 	private Entity player;
 	private LinkedList<Entity> enemies;
 	public  BlockElement[][] map;
@@ -47,6 +47,7 @@ public class GameMap {
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public GameMap clone() {
 		GameMap tmp = new GameMap(widthBlocks, heightBlocks);
 		tmp.setPlayer(player);

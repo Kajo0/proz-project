@@ -2,8 +2,6 @@ package pl.edu.pw.elka.mmarkiew.view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.controller.ViewEventQueue;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;

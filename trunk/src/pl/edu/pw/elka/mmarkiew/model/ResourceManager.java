@@ -5,38 +5,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
-import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
-import pl.edu.pw.elka.mmarkiew.model.map.BrickBlock;
-import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
-import pl.edu.pw.elka.mmarkiew.model.map.StoneBlock;
 
 public class ResourceManager {
 	// Do przechowywania wrogów ¿eby ich clone potem
 	// do ³adowania map i prze³adowywania ich.
 	private Player playerEntity;
-	
-	private StoneBlock stoneBlock;
-	private BrickBlock brickBlock;
-	private EmptyBlock emptyBlock;
-	
 	private int level;
 	
 	public ResourceManager() {
 		this.level = 0;
-		this.stoneBlock = new StoneBlock(GameBlock.STONE.getImage());
 		
-		loadBlocks();
 		loadEntities();
 	}
 
-	private void loadBlocks() {
-	}
-	
 	private void loadEntities() {
 		playerEntity = new Player();
 	}
@@ -89,6 +74,8 @@ public class ResourceManager {
 		tempMap.setPlayer(playerEntity);
 		tempMap.getPlayer().setXVelocity(0);
 		tempMap.getPlayer().setYVelocity(0);
+		tempMap.getPlayer().setX(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
+		tempMap.getPlayer().setY(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
 		
 		return tempMap;
 	}

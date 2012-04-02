@@ -1,14 +1,11 @@
 package pl.edu.pw.elka.mmarkiew.view;
 
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 import javax.swing.JPanel;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
-import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
-import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
+import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class MapPainter implements Runnable {
 	private GameMap map;
@@ -28,6 +25,8 @@ public class MapPainter implements Runnable {
 		
 		paintMap(g);
 		paintPalyer(g);
+		paintEnemies(g);
+		paintBonuses(g);
 		
 	}
 
@@ -40,7 +39,19 @@ public class MapPainter implements Runnable {
 	}
 
 	private void paintPalyer(Graphics g) {
-		g.drawImage(map.getPlayer().getAnim(), (int) map.getPlayer().getX(), (int) map.getPlayer().getY(), panel);
+		Image image = map.getPlayer().getAnim();
+		Player player = (Player) map.getPlayer();
+		
+		g.drawImage(image, ((int) player.getX()) - image.getWidth(null) / 2,
+							((int) player.getY()) - image.getWidth(null) / 2, panel);
+	}
+	
+	private void paintEnemies(Graphics g) {
+		//TODO rysowanie wrogow
+	}
+	
+	private void paintBonuses(Graphics g) {
+		//TODO rysowanie bonusow
 	}
 
 }
