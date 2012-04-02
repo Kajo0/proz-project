@@ -14,6 +14,14 @@ public abstract class Entity {
 		x += xVelocity * elapsedTime;
         y += yVelocity * elapsedTime;
 	}
+	
+	public void collisionX() {
+		xVelocity = 0;
+	}
+	
+	public void collisionY() {
+		yVelocity = 0;
+	}
 
 	public Image getAnim() {
 		return anim;

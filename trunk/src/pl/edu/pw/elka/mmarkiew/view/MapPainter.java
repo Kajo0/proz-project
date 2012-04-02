@@ -43,7 +43,7 @@ public class MapPainter implements Runnable {
 		Player player = (Player) map.getPlayer();
 		
 		g.drawImage(image, ((int) player.getX()) - image.getWidth(null) / 2,
-							((int) player.getY()) - image.getWidth(null) / 2, panel);
+							((int) player.getY()) - image.getHeight(null) / 2, panel);
 	}
 	
 	private void paintEnemies(Graphics g) {

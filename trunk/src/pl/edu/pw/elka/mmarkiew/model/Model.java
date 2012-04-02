@@ -9,6 +9,7 @@ public class Model implements Runnable {
 	private long startTime;
 	private GameMap map = null;
 	private ResourceManager resource;
+	private CollisionDetector collisionDetector;
 	
 	public Model(int width, int height) {
 		this.width = width;
@@ -31,6 +32,8 @@ public class Model implements Runnable {
 		
 		this.width = map.getWidth() * GameMap.BLLOCK_SIZE;
 		this.height = map.getHeight() * GameMap.BLLOCK_SIZE;
+		
+		this.collisionDetector = new CollisionDetector(map);
 	}
 
 	private void gameLoop() {
@@ -52,6 +55,7 @@ public class Model implements Runnable {
 	}
 	
 	private void update(long elapsedTime) {
+		collisionDetector.checkCollision();
 		map.getPlayer().update(elapsedTime);
 	}
 

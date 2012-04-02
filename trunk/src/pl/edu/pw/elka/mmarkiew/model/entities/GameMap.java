@@ -56,5 +56,9 @@ public class GameMap {
 		
 		return tmp;
 	}
-
+	
+	public int getTilePosition(float xy) {
+		return (int) (xy / this.BLLOCK_SIZE);
+	}
+	
 }
