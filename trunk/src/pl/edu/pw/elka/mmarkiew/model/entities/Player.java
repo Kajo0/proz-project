@@ -11,7 +11,7 @@ public class Player extends Entity {
 		this.setY(0);
 		this.setXVelocity(0);
 		this.setYVelocity(0);
-		this.setMaxVelocity(0.05f);
+		this.setMaxVelocity(0.15f);
 		
 		BufferedImage img = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.getGraphics();
