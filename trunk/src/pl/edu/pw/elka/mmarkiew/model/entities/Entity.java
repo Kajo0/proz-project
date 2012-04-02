@@ -11,16 +11,16 @@ public abstract class Entity {
 	private float maxVelocity;
 	
 	public void update(long elapsedTime) {
-		x += xVelocity * elapsedTime;
-        y += yVelocity * elapsedTime;
+		this.x += xVelocity * elapsedTime;
+		this.y += yVelocity * elapsedTime;
 	}
 	
 	public void collisionX() {
-		xVelocity = 0;
+		this.xVelocity = 0f;
 	}
 	
 	public void collisionY() {
-		yVelocity = 0;
+		this.yVelocity = 0f;
 	}
 
 	public Image getAnim() {
