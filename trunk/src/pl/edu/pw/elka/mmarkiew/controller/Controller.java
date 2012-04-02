@@ -1,6 +1,9 @@
 package pl.edu.pw.elka.mmarkiew.controller;
 
 import pl.edu.pw.elka.mmarkiew.model.Model;
+import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
+import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
+import pl.edu.pw.elka.mmarkiew.model.map.GameBlocks;
 import pl.edu.pw.elka.mmarkiew.view.View;
 
 /**
@@ -18,13 +21,14 @@ public class Controller implements Runnable {
 
 	@Override
 	public synchronized void run() {
-		while (true) {
-			try {
-				wait(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-		}
+//		while (true) {
+//			try {
+//				wait(2000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			
+//			//view.drawGame(model.getMap(), model.getPlayer());
+//		}
 	}
 }

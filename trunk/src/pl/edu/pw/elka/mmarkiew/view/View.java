@@ -5,16 +5,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import pl.edu.pw.elka.mmarkiew.controller.crossobjects.EntityToDraw;
+import pl.edu.pw.elka.mmarkiew.controller.crossobjects.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.exceptions.NoViewException;
+import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
+import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 
 /**
  * @author Acer
@@ -68,7 +75,16 @@ public class View extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
 	}
+	
+	
+	public void drawGame(final MapToDraw map, final EntityToDraw player) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			@Override
+//			public void run() {
+//				gamePanel.drawGame(map, player);
+//			}
+//		});
+	}
+
 }

@@ -22,13 +22,13 @@ public class Main {
 	 */
 	public Main() {
 		View view = new View();
-		Model model = new Model();
-		Controller controller = new Controller(model, view);
+//		Model model = new Model();
+//		Controller controller = new Controller(model, view);
 		
 		ExecutorService exec = Executors.newCachedThreadPool();
-		exec.execute(model);
-		exec.execute(view);
-		exec.execute(controller);
+//		exec.execute(model);
+//		exec.execute(view);
+//		exec.execute(controller);
 		
 		exec.shutdown();
 	}
