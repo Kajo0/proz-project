@@ -49,7 +49,7 @@ public class Controller implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				Thread.currentThread().sleep(20);
+				Thread.currentThread().sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
