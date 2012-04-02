@@ -47,7 +47,7 @@ public class Model implements Runnable {
             update(elapsedTime);
             
             try {
-				wait(100);
+				wait(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -55,8 +55,8 @@ public class Model implements Runnable {
 	}
 	
 	private void update(long elapsedTime) {
-		collisionDetector.checkCollision();
 		map.getPlayer().update(elapsedTime);
+		collisionDetector.checkCollision();
 	}
 
 	public GameMap getMap() {
