@@ -1,16 +1,7 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
-import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-import pl.edu.pw.elka.mmarkiew.controller.ViewEventQueue;
-import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
-import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
-import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class Model implements Runnable {
 	private int width;
@@ -31,16 +22,19 @@ public class Model implements Runnable {
 	}
 
 	private void init() {
-		resource = new ResourceManager();
+		this.resource = new ResourceManager();
 		try {
 			map = resource.loadMap("maps/1.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		this.width = map.getWidth() * GameMap.BLLOCK_SIZE;
+		this.height = map.getHeight() * GameMap.BLLOCK_SIZE;
 	}
 
 	private void gameLoop() {
-		long startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
         long currTime = startTime;
         
 		while (true) {

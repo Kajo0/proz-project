@@ -1,11 +1,7 @@
 package pl.edu.pw.elka.mmarkiew.controller;
 
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
-import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
 import pl.edu.pw.elka.mmarkiew.model.Model;
 import pl.edu.pw.elka.mmarkiew.view.View;
 
@@ -49,6 +45,7 @@ public class Controller implements Runnable {
 	}
 	
 	@Override
+	@SuppressWarnings("static-access")
 	public void run() {
 		while (true) {
 			try {

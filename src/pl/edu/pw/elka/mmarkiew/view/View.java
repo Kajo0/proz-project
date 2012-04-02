@@ -2,17 +2,13 @@ package pl.edu.pw.elka.mmarkiew.view;
 
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.nio.MappedByteBuffer;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
-import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
-import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 
+@SuppressWarnings("serial")
 public class View extends JFrame implements Runnable {
 	private int width;
 	private int height;

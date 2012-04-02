@@ -11,12 +11,12 @@ public class Player extends Entity {
 		this.setY(0);
 		this.setXVelocity(0);
 		this.setYVelocity(0);
-		this.setMaxVelocity(0.1f);
+		this.setMaxVelocity(0.05f);
 		
-		BufferedImage img = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage img = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.getGraphics();
 		g.setColor(Color.GREEN);
-		g.fillOval(0, 0, 40, 40);
+		g.fillOval(0, 0, 30, 30);
 		
 		this.setAnim(img);
 	}
