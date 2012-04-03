@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
+import java.awt.Image;
 import java.io.IOException;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 
@@ -7,13 +8,14 @@ public class Model implements Runnable {
 	private int width;
 	private int height;
 	private long startTime;
+	private boolean paused;
 	private GameMap map = null;
 	private ResourceManager resource;
 	private CollisionDetector collisionDetector;
 	
-	public Model(int width, int height) {
-		this.width = width;
-		this.height = height;
+	public Model() {
+		this.startTime = -1;
+		this.paused = false;
 	}
 
 	@Override
@@ -26,8 +28,11 @@ public class Model implements Runnable {
 		this.resource = new ResourceManager();
 		try {
 			map = resource.loadMap("maps/1.txt");
+			startTime = 0;
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			map = null;
+			startTime = -1;
 		}
 		
 		this.width = map.getWidth() * GameMap.BLLOCK_SIZE;
@@ -44,7 +49,8 @@ public class Model implements Runnable {
 			long elapsedTime = System.currentTimeMillis() - currTime;
             currTime += elapsedTime;
 			
-            update(elapsedTime);
+            if (!paused)
+            	update(elapsedTime);
             
             try {
 				wait(10);
@@ -63,6 +69,18 @@ public class Model implements Runnable {
 		if (map != null)
 			return map.clone();
 		return null;
+	}
+	
+	public boolean isStarted() {
+		return (startTime <= 0) ? false : true;
+	}
+	
+	public boolean isPaused() {
+		return paused;
+	}
+	
+	public void switchPause() {
+		this.paused = ! this.paused;
 	}
 
 }

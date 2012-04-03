@@ -27,7 +27,7 @@ public class Controller implements Runnable {
 	
 	
 	public Controller() {
-		this.model = new Model(GAME_X_SIZE, GAME_Y_SIZE);
+		this.model = new Model();
 		this.view = new View(VIEW_WIDTH, VIEW_HEIGHT);
 		
 		this.modelThread = new Thread(model);
@@ -53,9 +53,12 @@ public class Controller implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
-			if (model.getMap() != null)
-				view.sendModel(model.getMap());
+
+			if (!model.isPaused())
+				if (model.getMap() != null)
+					view.sendModel(model.getMap());
+				else view.sendOverlay("BOMBERMAN :D");
+			else view.sendOverlay("PAUSE");
 		}
 	}
 
