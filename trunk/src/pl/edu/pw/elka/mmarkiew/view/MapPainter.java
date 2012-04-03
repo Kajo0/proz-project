@@ -1,32 +1,31 @@
 package pl.edu.pw.elka.mmarkiew.view;
 
+import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
-
-import javax.swing.JPanel;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class MapPainter implements Runnable {
 	private GameMap map;
-	private JPanel panel;
+	private Canvas panel;
 	
-	public MapPainter(JPanel gamePanel, GameMap map) {
+	public MapPainter(Canvas gamePanel, GameMap map) {
 		this.panel = gamePanel;
 		this.map = map;
 	}
 	
 	@Override
 	public void run() {
-//		Graphics g = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_ARGB).getGraphics();
-//		g.clearRect(0, 0, panel.getWidth(), panel.getHeight());
-		
-		Graphics g = panel.getGraphics();
+		Graphics g = panel.getBufferStrategy().getDrawGraphics();
 		
 		paintMap(g);
 		paintPalyer(g);
 		paintEnemies(g);
 		paintBonuses(g);
+		
+		g.dispose();
+		panel.getBufferStrategy().show();
 		
 	}
 
