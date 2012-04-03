@@ -53,6 +53,10 @@ public class QueueController implements Runnable {
 					player.setXVelocity(player.getMaxVelocity());
 				else player.setXVelocity(0);
 			}
+			if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_P) {
+				if (((ViewKeyPress) event).isPress())
+					model.switchPause();
+			}
 		}
 	}
 
