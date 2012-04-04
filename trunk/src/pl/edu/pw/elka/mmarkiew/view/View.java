@@ -2,15 +2,11 @@ package pl.edu.pw.elka.mmarkiew.view;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
-import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
+import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 
 @SuppressWarnings("serial")
 public class View extends JFrame implements Runnable {
@@ -55,28 +51,8 @@ public class View extends JFrame implements Runnable {
 		this.addKeyListener(new MovementListener());
 	}
 
-	public void sendModel(GameMap map) {
+	public void sendMapModel(MapToDraw map) {
 		SwingUtilities.invokeLater(new MapPainter(gamePanel, map));
-	}
-
-	public void sendOverlay(final String txt) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
-																					BufferedImage.TYPE_INT_RGB);
-				img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
-				img.getGraphics().drawString(txt, Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
-				
-				
-				Graphics g = gamePanel.getBufferStrategy().getDrawGraphics();
-				
-				g.drawImage(img, 0, 0, gamePanel);
-				
-				g.dispose();
-				gamePanel.getBufferStrategy().show();
-			}
-		});
 	}
 
 }

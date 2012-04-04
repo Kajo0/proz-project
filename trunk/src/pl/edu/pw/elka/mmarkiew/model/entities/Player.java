@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
+	//TODO dodac pointsy i bonusy ustawione
 
 	public Player() {
 		this.setX(0);

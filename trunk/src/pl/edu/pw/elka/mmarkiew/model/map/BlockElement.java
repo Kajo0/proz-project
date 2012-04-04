@@ -10,6 +10,6 @@ public abstract class BlockElement {
 	}
 	
 	public Image getImage() {
-		return image;
+		return this.image;
 	}
 }

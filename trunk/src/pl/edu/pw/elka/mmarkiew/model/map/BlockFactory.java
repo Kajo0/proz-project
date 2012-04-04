@@ -2,10 +2,6 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 
 public class BlockFactory {
 	
-//	public static BlockElement createElement(final GameBlock block) {
-//		return createElement(block, 0, 0);
-//	}
-	
 	public static BlockElement createElement(final GameBlock block) {
 		switch (block) {
 			case STONE: return new StoneBlock(block.getImage());

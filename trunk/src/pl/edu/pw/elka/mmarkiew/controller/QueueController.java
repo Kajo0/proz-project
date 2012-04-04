@@ -31,7 +31,7 @@ public class QueueController implements Runnable {
 	}
 
 	private void checkInput(ViewEvent event) {
-		Player player = (Player) model.getMap().getPlayer();
+		Player player = model.getPlayer();
 		if (event instanceof ViewKeyPress) {
 			if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_UP) {
 				if (((ViewKeyPress) event).isPress())
