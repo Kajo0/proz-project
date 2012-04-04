@@ -34,11 +34,11 @@ public enum GameBlock {
 	}
 	
 	public String getCharacter() {
-		return character;
+		return this.character;
 	}
 	
 	public Image getImage() {
-		return image;
+		return this.image;
 	}
 
 	public String toString() {

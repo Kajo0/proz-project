@@ -17,31 +17,18 @@ public class Controller implements Runnable {
 		VIEW_HEIGHT = GAME_Y_SIZE;
 	}
 	
-	
 	private Model model;
 	private View view;
-	
-	private Thread modelThread;
-	private Thread viewThread;
-	private Thread queueControl;
-	
 	
 	public Controller() {
 		this.model = new Model();
 		this.view = new View(VIEW_WIDTH, VIEW_HEIGHT);
 		
-		this.modelThread = new Thread(model);
-		this.viewThread = new Thread(view);
-		this.queueControl = new Thread(new QueueController(model));
-		
-		
 		ExecutorService executor = Executors.newCachedThreadPool();
-		executor.execute(modelThread);
-		executor.execute(viewThread);
-		executor.execute(queueControl);
+		executor.execute(new Thread(model));
+		executor.execute(new Thread(view));
+		executor.execute(new Thread(new QueueController(model)));
 		executor.shutdown();
-		
-		
 	}
 	
 	@Override
@@ -54,11 +41,7 @@ public class Controller implements Runnable {
 				e.printStackTrace();
 			}
 
-			if (!model.isPaused())
-				if (model.getMap() != null)
-					view.sendModel(model.getMap());
-				else view.sendOverlay("BOMBERMAN :D");
-			else view.sendOverlay("PAUSE");
+			view.sendMapModel(model.getMapToDraw());
 		}
 	}
 

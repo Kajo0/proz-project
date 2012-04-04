@@ -3,14 +3,14 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 import java.awt.Image;
 
 public abstract class Entity {
-	private Image anim;
+	private Image anim;	// TODO zamienic na Animation
 	private float x;
 	private float y;
 	private float xVelocity;
 	private float yVelocity;
 	private float maxVelocity;
 	
-	public void update(long elapsedTime) {
+	public void update(final long elapsedTime) {
 		this.x += xVelocity * elapsedTime;
 		this.y += yVelocity * elapsedTime;
 	}
@@ -24,7 +24,7 @@ public abstract class Entity {
 	}
 
 	public Image getAnim() {
-		return anim;
+		return this.anim;
 	}
 
 	public void setAnim(Image anim) {

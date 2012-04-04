@@ -1,33 +1,22 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
 public class ResourceManager {
-	// Do przechowywania wrogów ¿eby ich clone potem
-	// do ³adowania map i prze³adowywania ich.
 	private Player playerEntity;
 	private int level;
 	
 	public ResourceManager() {
 		this.level = 0;
-		
-		loadEntities();
-	}
-
-	private void loadEntities() {
-		playerEntity = new Player();
+		this.playerEntity = new Player();
 	}
 	
 	public GameMap loadMap(String path) throws IOException {
@@ -59,7 +48,7 @@ public class ResourceManager {
 	private GameMap AnalizeMap(final ArrayList<String> listOfLines, final int width, final int height) {
 		Iterator<String> it = listOfLines.iterator();
 		String line;
-		GameMap tempMap = new GameMap(width, height);
+		GameMap tempMap = new GameMap(this.playerEntity, width, height);
 		int j = 0;
 
 		while (it.hasNext()) {
@@ -75,7 +64,6 @@ public class ResourceManager {
 			j++;
 		}
 		
-		tempMap.setPlayer(playerEntity);
 		tempMap.getPlayer().setXVelocity(0);
 		tempMap.getPlayer().setYVelocity(0);
 		tempMap.getPlayer().setX(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
