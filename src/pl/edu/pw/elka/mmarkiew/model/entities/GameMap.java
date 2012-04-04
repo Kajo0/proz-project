@@ -32,7 +32,8 @@ public class GameMap {
 	}
 
 	public void addEnemy(Entity enemy) {
-		this.enemies.add(enemy);
+		if (enemy != null)
+			this.enemies.add(enemy);
 	}
 	
 	public void removeEnemy(Entity enemy) {

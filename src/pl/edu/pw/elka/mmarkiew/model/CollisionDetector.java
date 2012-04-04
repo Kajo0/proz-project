@@ -17,29 +17,32 @@ public class CollisionDetector {
 		float yPlayerPosition = entity.getY();
 		
 		// gora dol prawo lewo
-		if (! (blocks[xTilePlayerPosition][yTilePlayerPosition-1] instanceof EmptyBlock) ) {
-			if (yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLLOCK_SIZE) {
-				entity.collisionY();
-				entity.setY((yTilePlayerPosition) * GameMap.BLLOCK_SIZE + dividedAnimHeight);
+		try {
+			if (! (blocks[xTilePlayerPosition][yTilePlayerPosition-1] instanceof EmptyBlock) ) {
+				if (yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLLOCK_SIZE) {
+					entity.collisionY();
+					entity.setY((yTilePlayerPosition) * GameMap.BLLOCK_SIZE + dividedAnimHeight);
+				}
 			}
-		}
-		if (! (blocks[xTilePlayerPosition][yTilePlayerPosition+1] instanceof EmptyBlock) ) {
-			if (yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition+1) * GameMap.BLLOCK_SIZE) {
-				entity.collisionY();
-				entity.setY((yTilePlayerPosition+1) * GameMap.BLLOCK_SIZE - dividedAnimHeight);
+			if (! (blocks[xTilePlayerPosition][yTilePlayerPosition+1] instanceof EmptyBlock) ) {
+				if (yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition+1) * GameMap.BLLOCK_SIZE) {
+					entity.collisionY();
+					entity.setY((yTilePlayerPosition+1) * GameMap.BLLOCK_SIZE - dividedAnimHeight);
+				}
 			}
-		}
-		if (! (blocks[xTilePlayerPosition-1][yTilePlayerPosition] instanceof EmptyBlock) ) {
-			if (xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLLOCK_SIZE) {
-				entity.collisionX();
-				entity.setX((xTilePlayerPosition) * GameMap.BLLOCK_SIZE + dividedAnimWidth);
+			if (! (blocks[xTilePlayerPosition-1][yTilePlayerPosition] instanceof EmptyBlock) ) {
+				if (xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLLOCK_SIZE) {
+					entity.collisionX();
+					entity.setX((xTilePlayerPosition) * GameMap.BLLOCK_SIZE + dividedAnimWidth);
+				}
 			}
-		}
-		if (! (blocks[xTilePlayerPosition+1][yTilePlayerPosition] instanceof EmptyBlock) ) {
-			if (xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition+1) * GameMap.BLLOCK_SIZE) {
-				entity.collisionX();
-				entity.setX((xTilePlayerPosition+1) * GameMap.BLLOCK_SIZE - dividedAnimWidth);
+			if (! (blocks[xTilePlayerPosition+1][yTilePlayerPosition] instanceof EmptyBlock) ) {
+				if (xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition+1) * GameMap.BLLOCK_SIZE) {
+					entity.collisionX();
+					entity.setX((xTilePlayerPosition+1) * GameMap.BLLOCK_SIZE - dividedAnimWidth);
+				}
 			}
+		} catch (ArrayIndexOutOfBoundsException e) {
 		}
 		
 	}
