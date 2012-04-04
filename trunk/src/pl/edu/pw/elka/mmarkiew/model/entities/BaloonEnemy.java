@@ -21,6 +21,12 @@ public class BaloonEnemy extends Entity {
 		this.setAnim(img);
 	}
 	
+	public BaloonEnemy(int x, int y) {
+		this();
+		this.setX(x);
+		this.setY(y);
+	}
+
 	public void collisionX() {
 		this.setXVelocity(-this.getXVelocity());
 	}

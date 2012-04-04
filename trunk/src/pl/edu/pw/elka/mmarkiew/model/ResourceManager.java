@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.BaloonEnemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
+import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
@@ -57,6 +61,10 @@ public class ResourceManager {
 			for (int i = 0; i < width; i++) {
 				if (i < line.length()) {
 					tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + line.charAt(i)) ), i, j);
+					if ( GameEntities.getEnumEntity("" + line.charAt(i)) != GameEntities.UNDEFINED)
+						tempMap.addEnemy(EntityFactory.createEntity( GameEntities.getEnumEntity("" + line.charAt(i)), 
+												i * GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2,
+												j * GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2));
 				} else {
 					tempMap.setBlock(BlockFactory.createElement(GameBlock.SPACE), i, j);
 				}
