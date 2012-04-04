@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
+import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class MapPainter implements Runnable {
@@ -72,7 +73,15 @@ public class MapPainter implements Runnable {
 	}
 	
 	private void paintEnemies(Graphics g) {
-		//TODO rysowanie wrogow
+		Image image = null;
+		
+		for (Entity e : map.getEntities()) {
+			if ( !(e instanceof Player) ) {
+				image = e.getAnim();
+				g.drawImage(image, ((int) e.getX()) - image.getWidth(null) / 2,
+						((int) e.getY()) - image.getHeight(null) / 2, panel);
+			}
+		}
 	}
 	
 	private void paintBonuses(Graphics g) {

@@ -1,6 +1,9 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.io.IOException;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.BaloonEnemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
@@ -46,6 +49,9 @@ public class Model implements Runnable {
 	private void gameLoop() {
 		long currTime = this.startTime = System.currentTimeMillis();
 		long elapsedTime;
+		map.addEnemy(new BaloonEnemy());
+		map.getEnemies().get(0).setX(8 * 40 - 20);
+		map.getEnemies().get(0).setY(12 * 40 - 20);
 		
 		while (true) {
 			elapsedTime = System.currentTimeMillis() - currTime;
@@ -63,8 +69,10 @@ public class Model implements Runnable {
 	}
 	
 	private void update(final long elapsedTime) {
-		this.map.getPlayer().update(elapsedTime);
-		CollisionDetector.checkEntityBlockCollision(map.getPlayer(), map.getBlockTable());
+		for (Entity e : map.getEntities()) {
+			e.update(elapsedTime);
+			CollisionDetector.checkEntityBlockCollision(e, map.getBlockTable());
+		}
 	}
 
 	public MapToDraw getMapToDraw() {
