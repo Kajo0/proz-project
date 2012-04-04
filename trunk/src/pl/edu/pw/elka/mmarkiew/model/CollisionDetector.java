@@ -31,7 +31,7 @@ public class CollisionDetector {
 		}
 		if (! (blocks[xTilePlayerPosition-1][yTilePlayerPosition] instanceof EmptyBlock) ) {
 			if (xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLLOCK_SIZE) {
-				entity.collisionY();
+				entity.collisionX();
 				entity.setX((xTilePlayerPosition) * GameMap.BLLOCK_SIZE + dividedAnimWidth);
 			}
 		}
