@@ -9,6 +9,19 @@ public abstract class Entity {
 	private float xVelocity;
 	private float yVelocity;
 	private float maxVelocity;
+	private float width;
+	private float height;
+	
+	public Entity() {
+		this.anim = null;
+		this.x = 0;
+		this.y = 0;
+		this.xVelocity = 0;
+		this.yVelocity = 0;
+		this.maxVelocity = 0;
+		this.width = 0;
+		this.height = 0;
+	}
 	
 	public void update(final long elapsedTime) {
 		this.x += xVelocity * elapsedTime;
@@ -69,6 +82,22 @@ public abstract class Entity {
 	
 	public void setMaxVelocity(float maxVelocity) {
 		this.maxVelocity = maxVelocity;
+	}
+	
+	public float getWidth() {
+		return width;
+	}
+	
+	public void setWidth(float width) {
+		this.width = width;
+	}
+	
+	public float getHeight() {
+		return height;
+	}
+	
+	public void setHeight(float height) {
+		this.height = height;
 	}
 
 }
