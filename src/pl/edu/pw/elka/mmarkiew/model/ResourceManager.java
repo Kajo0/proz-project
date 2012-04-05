@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import pl.edu.pw.elka.mmarkiew.model.entities.BaloonEnemy;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
@@ -72,12 +70,16 @@ public class ResourceManager {
 			j++;
 		}
 		
-		tempMap.getPlayer().setXVelocity(0);
-		tempMap.getPlayer().setYVelocity(0);
-		tempMap.getPlayer().setX(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
-		tempMap.getPlayer().setY(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
+		playerEntity.setXVelocity(0);
+		playerEntity.setYVelocity(0);
+		playerEntity.setX(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
+		playerEntity.setY(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
 		
 		return tempMap;
+	}
+	
+	public Player getPlayer() {
+		return playerEntity;
 	}
 	
 }

@@ -90,7 +90,9 @@ public class Model implements Runnable {
 	}
 
 	public Player getPlayer() {
-		return map.getPlayer();
+		if (resource != null)
+			return resource.getPlayer();
+		else return null;
 	}
 
 }

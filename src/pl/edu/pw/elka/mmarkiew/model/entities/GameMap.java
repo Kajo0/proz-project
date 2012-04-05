@@ -20,10 +20,6 @@ public class GameMap {
 		this.enemies = new LinkedList<Entity>();
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
 	public void setPlayer(Player player) {
 		this.player = player;
 	}

@@ -18,7 +18,6 @@ public class CollisionDetector {
 		float dividedAnimHeight = entity.getHeight() / 2;
 		
 		// gora dol prawo lewo
-		try {
 			if (! (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition-1) instanceof EmptyBlock) ) {
 				if (yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLLOCK_SIZE) {
 					entity.collisionY();
@@ -43,8 +42,6 @@ public class CollisionDetector {
 					entity.setX((xTilePlayerPosition+1) * GameMap.BLLOCK_SIZE - dividedAnimWidth);
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-		}
 		
 	}
 }
