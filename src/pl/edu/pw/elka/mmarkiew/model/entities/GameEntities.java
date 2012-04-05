@@ -1,6 +1,7 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
 public enum GameEntities {
+	PLAYER("P"),
 	BALOON("A"),
 	UNDEFINED("");
 	

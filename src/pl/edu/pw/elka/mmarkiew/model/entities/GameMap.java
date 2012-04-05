@@ -1,16 +1,18 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
+import java.awt.Point;
 import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 
 public class GameMap {
-	public final static int BLLOCK_SIZE = 40; 
+	public final static int BLOCK_SIZE = 40; 
 	private Player player;
 	private LinkedList<Entity> enemies;
 	public  BlockHolder map;
 	private int widthBlocks;
 	private int heightBlocks;
+	private Point playerStartPosition;
 	
 	public GameMap(Player player, int widthBlocks, int heightBlocks) {
 		this.player = player;
@@ -18,6 +20,7 @@ public class GameMap {
 		this.heightBlocks = heightBlocks;
 		this.map = new BlockHolder(widthBlocks, heightBlocks);
 		this.enemies = new LinkedList<Entity>();
+		this.playerStartPosition = new Point(0, 0);
 	}
 
 	public void setPlayer(Player player) {
@@ -47,11 +50,11 @@ public class GameMap {
 	}
 	
 	public int getWidth() {
-		return widthBlocks * GameMap.BLLOCK_SIZE;
+		return widthBlocks * GameMap.BLOCK_SIZE;
 	}
 	
 	public int getHeight() {
-		return heightBlocks * GameMap.BLLOCK_SIZE;
+		return heightBlocks * GameMap.BLOCK_SIZE;
 	}
 	
 	public int getWidthBlocks() {
@@ -63,7 +66,7 @@ public class GameMap {
 	}
 	
 	public static int getTilePosition(float xy) {
-		return (int) (xy / GameMap.BLLOCK_SIZE);
+		return (int) (xy / GameMap.BLOCK_SIZE);
 	}
 
 	public BlockHolder getBlockHolder() {
@@ -74,5 +77,13 @@ public class GameMap {
 		LinkedList<Entity> l = new LinkedList<Entity>(enemies);
 		l.addFirst(player);
 		return l;
+	}
+
+	public void setPlayerStartPosition(float x, float y) {
+		this.playerStartPosition.setLocation(x, y);
+	}
+	
+	public Point getPlayerStartPosition() {
+		return this.playerStartPosition;
 	}
 }
