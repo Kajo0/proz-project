@@ -7,16 +7,18 @@ import java.awt.image.BufferedImage;
 public class BaloonEnemy extends Entity {
 	
 	public BaloonEnemy() {
-		this.setX(0);
-		this.setY(0);
+		super();
 		this.setXVelocity(0.05f);
 		this.setYVelocity(0.05f);
 		this.setMaxVelocity(0.05f);
+		this.setWidth(30);
+		this.setHeight(30);
 		
-		BufferedImage img = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
+																		BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.getGraphics();
 		g.setColor(Color.CYAN);
-		g.fillOval(0, 0, 30, 30);
+		g.fillOval(0, 0, (int) this.getWidth(), (int) this.getHeight());
 		
 		this.setAnim(img);
 	}

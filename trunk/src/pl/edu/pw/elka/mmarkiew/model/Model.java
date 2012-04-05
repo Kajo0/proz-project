@@ -66,13 +66,13 @@ public class Model implements Runnable {
 	private void update(final long elapsedTime) {
 		for (Entity e : map.getEntities()) {
 			e.update(elapsedTime);
-			CollisionDetector.checkEntityBlockCollision(e, map.getBlockTable());
+			CollisionDetector.checkEntityBlockCollision(e, map.getBlockHolder());
 		}
 	}
 
 	public MapToDraw getMapToDraw() {
 		if (map != null)
-			return new MapToDraw(map.getBlockTable(), map.getEntities(), map.getWidthBlocks(),
+			return new MapToDraw(map.getBlockHolder(), map.getEntities(), map.getWidthBlocks(),
 													map.getHeightBlocks(), isPaused(), isStarted());
 		return new MapToDraw(true);
 	}

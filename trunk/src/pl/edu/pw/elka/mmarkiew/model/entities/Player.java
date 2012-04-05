@@ -8,16 +8,16 @@ public class Player extends Entity {
 	//TODO dodac pointsy i bonusy ustawione
 
 	public Player() {
-		this.setX(0);
-		this.setY(0);
-		this.setXVelocity(0);
-		this.setYVelocity(0);
+		super();
 		this.setMaxVelocity(0.15f);
+		this.setWidth(40);
+		this.setHeight(40);
 		
-		BufferedImage img = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
+																	BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.getGraphics();
 		g.setColor(Color.GREEN);
-		g.fillOval(0, 0, 30, 30);
+		g.fillOval(0, 0, (int) this.getWidth(), (int) this.getHeight());
 		
 		this.setAnim(img);
 	}

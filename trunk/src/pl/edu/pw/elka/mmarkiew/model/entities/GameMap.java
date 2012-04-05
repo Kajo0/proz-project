@@ -2,12 +2,13 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 
 import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
+import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 
 public class GameMap {
 	public final static int BLLOCK_SIZE = 40; 
 	private Player player;
 	private LinkedList<Entity> enemies;
-	public  BlockElement[][] map;
+	public  BlockHolder map;
 	private int widthBlocks;
 	private int heightBlocks;
 	
@@ -15,7 +16,7 @@ public class GameMap {
 		this.player = player;
 		this.widthBlocks = widthBlocks;
 		this.heightBlocks = heightBlocks;
-		this.map = new BlockElement[widthBlocks][heightBlocks];
+		this.map = new BlockHolder(widthBlocks, heightBlocks);
 		this.enemies = new LinkedList<Entity>();
 	}
 
@@ -46,7 +47,7 @@ public class GameMap {
 	}
 
 	public void setBlock(BlockElement block, int x, int y) {
-		map[x][y] = block;
+		map.setBlock(block, x, y);
 	}
 	
 	public int getWidth() {
@@ -69,7 +70,7 @@ public class GameMap {
 		return (int) (xy / GameMap.BLLOCK_SIZE);
 	}
 
-	public BlockElement[][] getBlockTable() {
+	public BlockHolder getBlockHolder() {
 		return map;
 	}
 	

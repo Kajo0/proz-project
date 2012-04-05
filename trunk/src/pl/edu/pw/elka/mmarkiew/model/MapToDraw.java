@@ -3,19 +3,20 @@ package pl.edu.pw.elka.mmarkiew.model;
 import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
+import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 
 public class MapToDraw {
-	private BlockElement[][] blocks;
+	private BlockHolder blocks;
 	private LinkedList<Entity> entities;
 	private int widthBlocks;
 	private int heightBlocks;
 	private boolean paused;
 	private boolean started;
 
-	public MapToDraw(final BlockElement[][] blocks, final LinkedList<Entity> linkedList,
+	public MapToDraw(final BlockHolder blockHolder, final LinkedList<Entity> linkedList,
 											final int widthBlocks, final int heightBlocks,
 											final boolean paused, final boolean running) {
-		this.blocks = blocks;
+		this.blocks = blockHolder;
 		this.entities = linkedList;
 		this.widthBlocks = widthBlocks;
 		this.heightBlocks = heightBlocks;
@@ -33,9 +34,7 @@ public class MapToDraw {
 	}
 
 	public BlockElement getBlock(int x, int y) {
-		if (x < 0 || x > widthBlocks || y < 0 || y > heightBlocks)
-			return null;
-		else return blocks[x][y];
+		return blocks.getBlock(x, y);
 	}
 
 	public LinkedList<Entity> getEntities() {
