@@ -12,13 +12,13 @@ public class BlockHolder {
 	}
 	
 	public void setBlock(BlockElement block, int x, int y) {
-		if (x < 0 || x > width || y < 0 || y > height)
+		if (x < 0 || x > width-1 || y < 0 || y > height-1)
 			return;
 		else blocks[x][y] = block;
 	}
 	
 	public BlockElement getBlock(int x, int y) {
-		if (x < 0 || x > width || y < 0 || y > height)
+		if (x < 0 || x > width-1 || y < 0 || y > height-1)
 			return null;
 		else return blocks[x][y];
 	}

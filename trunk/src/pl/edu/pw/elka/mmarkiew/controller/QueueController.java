@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.controller;
 
+import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
@@ -34,31 +35,42 @@ public class QueueController implements Runnable {
 		Player player = model.getPlayer();
 		
 		// TODO zmienic na gameaction
-		if (event instanceof ViewKeyPress) {
-			if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_UP) {
-				if (((ViewKeyPress) event).isPress())
-					player.setYVelocity(-player.getMaxVelocity());
+		try {
+			if (event instanceof ViewKeyPress) {
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_UP) {
+					if (((ViewKeyPress) event).isPress())
+						player.setYVelocity(-player.getMaxVelocity());
+						else player.setYVelocity(0);
+				}
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_DOWN) {
+					if (((ViewKeyPress) event).isPress())
+						player.setYVelocity(player.getMaxVelocity());
 					else player.setYVelocity(0);
+				}
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_LEFT) {
+					if (((ViewKeyPress) event).isPress())
+						player.setXVelocity(-player.getMaxVelocity());
+					else player.setXVelocity(0);
+				}
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_RIGHT) {
+					if (((ViewKeyPress) event).isPress())
+						player.setXVelocity(player.getMaxVelocity());
+					else player.setXVelocity(0);
+				}
 			}
-			if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_DOWN) {
-				if (((ViewKeyPress) event).isPress())
-					player.setYVelocity(player.getMaxVelocity());
-				else player.setYVelocity(0);
-			}
-			if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_LEFT) {
-				if (((ViewKeyPress) event).isPress())
-					player.setXVelocity(-player.getMaxVelocity());
-				else player.setXVelocity(0);
-			}
-			if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (((ViewKeyPress) event).isPress())
-					player.setXVelocity(player.getMaxVelocity());
-				else player.setXVelocity(0);
-			}
-			if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_P) {
-				if (((ViewKeyPress) event).isPress())
-					model.switchPause();
-			}
+		} catch (NullPointerException e) {
+			//TODO wywalic sysouta
+			System.out.println("nie bylo playera przy key evencie");
+		}
+			
+		if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_P) {
+			if (((ViewKeyPress) event).isPress())
+				model.switchPause();
+		}
+		
+		//TODO Wywalic escape sysexit
+		if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_ESCAPE) {
+			System.exit(0);
 		}
 	}
 
