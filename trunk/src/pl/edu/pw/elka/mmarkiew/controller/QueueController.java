@@ -1,8 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.controller;
 
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
-
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
 import pl.edu.pw.elka.mmarkiew.model.Model;

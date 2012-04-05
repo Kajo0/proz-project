@@ -19,7 +19,7 @@ public class Model implements Runnable {
 		this.startTime = -1;
 		this.paused = false;
 		this.map = null;
-		this.resource = null;
+		this.resource = new ResourceManager();
 	}
 
 	@Override
@@ -30,18 +30,17 @@ public class Model implements Runnable {
 
 	//loads first map
 	private void init() {
-		this.resource = new ResourceManager();
-		
 		try {
 			this.map = resource.loadMap("maps/1.txt");
 			this.startTime = 0;
+			this.width = map.getWidth();
+			this.height = map.getHeight();
 		} catch (IOException e) {
 			this.map = null;
 			this.startTime = -1;
+			this.width = 0;
+			this.height = 0;
 		}
-		
-		this.width = map.getWidth();
-		this.height = map.getHeight();
 	}
 
 	private void gameLoop() {
@@ -56,7 +55,7 @@ public class Model implements Runnable {
             	update(elapsedTime);
             
             try {
-				wait(10);
+				wait(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -68,6 +67,16 @@ public class Model implements Runnable {
 			e.update(elapsedTime);
 			CollisionDetector.checkEntityBlockCollision(e, map.getBlockHolder());
 		}
+		
+		//TODO zmienic zycie-- playera i ustawianie n a poczatku
+		if (CollisionDetector.checkPlayerEntityCollision(resource.getPlayer(), map.getEnemies())) {
+			resource.getPlayer().setX((float) map.getPlayerStartPosition().getX());
+			resource.getPlayer().setY((float) map.getPlayerStartPosition().getY());
+		}
+		
+		CollisionDetector.checkEnemiesCollision(map.getEnemies());
+		//TODO dodac bonusy kolizje zbieranie
+//		CollisionDetector.checkPlayerBonusCollision();
 	}
 
 	public MapToDraw getMapToDraw() {

@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -59,10 +60,13 @@ public class ResourceManager {
 			for (int i = 0; i < width; i++) {
 				if (i < line.length()) {
 					tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + line.charAt(i)) ), i, j);
-					if ( GameEntities.getEnumEntity("" + line.charAt(i)) != GameEntities.UNDEFINED)
+					if ( GameEntities.getEnumEntity("" + line.charAt(i)) == GameEntities.PLAYER)
+						tempMap.setPlayerStartPosition(i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
+														j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+					else if ( GameEntities.getEnumEntity("" + line.charAt(i)) != GameEntities.UNDEFINED)
 						tempMap.addEnemy(EntityFactory.createEntity( GameEntities.getEnumEntity("" + line.charAt(i)), 
-												i * GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2,
-												j * GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2));
+												i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
+												j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2));
 				} else {
 					tempMap.setBlock(BlockFactory.createElement(GameBlock.SPACE), i, j);
 				}
@@ -72,8 +76,11 @@ public class ResourceManager {
 		
 		playerEntity.setXVelocity(0);
 		playerEntity.setYVelocity(0);
-		playerEntity.setX(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
-		playerEntity.setY(GameMap.BLLOCK_SIZE + GameMap.BLLOCK_SIZE / 2);
+		if (tempMap.getPlayerStartPosition().equals(new Point(0, 0)))
+			tempMap.setPlayerStartPosition(GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
+													GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+		playerEntity.setX((float) tempMap.getPlayerStartPosition().getX());
+		playerEntity.setY((float) tempMap.getPlayerStartPosition().getY());
 		
 		return tempMap;
 	}

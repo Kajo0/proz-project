@@ -10,14 +10,15 @@ public class Player extends Entity {
 	public Player() {
 		super();
 		this.setMaxVelocity(0.15f);
-		this.setWidth(40);
-		this.setHeight(40);
+		this.setWidth(30);
+		this.setHeight(30);
 		
 		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
 																	BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.getGraphics();
 		g.setColor(Color.GREEN);
-		g.fillOval(0, 0, (int) this.getWidth(), (int) this.getHeight());
+//		g.fillOval(0, 0, (int) this.getWidth(), (int) this.getHeight());
+		g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
 		
 		this.setAnim(img);
 	}
