@@ -82,6 +82,14 @@ public class BombCalculator {
 
 	public void plantBomb() {
 		if (map.getPlayer().canPlantBomb()) {
+			for (Bomb b : map.getBombs())
+				if (map.getPlayer().getX() > GameMap.getTilePosition(b.getX()) * GameMap.BLOCK_SIZE &&
+					map.getPlayer().getX() < (GameMap.getTilePosition(b.getX()) + 1) * GameMap.BLOCK_SIZE &&
+					map.getPlayer().getY() > GameMap.getTilePosition(b.getY()) * GameMap.BLOCK_SIZE &&
+					map.getPlayer().getY() < (GameMap.getTilePosition(b.getY()) + 1) * GameMap.BLOCK_SIZE) {
+					return;
+				}
+
 			map.getPlayer().plantBomb();
 			map.addBomb(map.getPlayer().getX(), map.getPlayer().getY(), System.currentTimeMillis());
 		}
