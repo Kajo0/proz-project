@@ -2,18 +2,18 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 
 import java.awt.Image;
 
-public class BaloonEnemy extends Entity implements Enemy {
+public class HeliumEnemy extends Entity implements Enemy {
 	
-	public BaloonEnemy(Image anim, Image dyingAnim) {
+	public HeliumEnemy(Image anim, Image dyingAnim) {
 		super(anim, dyingAnim);
-		this.setXVelocity(0.05f);
-		this.setYVelocity(0.05f);
-		this.setMaxVelocity(0.05f);
-		this.setWidth(20);
-		this.setHeight(20);
+		this.setXVelocity(0.1f);
+		this.setYVelocity(0.1f);
+		this.setMaxVelocity(0.1f);
+		this.setWidth(30);
+		this.setHeight(30);
 	}
 	
-	public BaloonEnemy(Image anim, Image dyingAnim, int x, int y) {
+	public HeliumEnemy(Image anim, Image dyingAnim, int x, int y) {
 		this(anim, dyingAnim);
 		this.setX(x);
 		this.setY(y);

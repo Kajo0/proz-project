@@ -7,11 +7,12 @@ import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public class BlockEntity extends Entity {
 	public BlockEntity(int x, int y) {
-		super();
+		super(null, null);
 		this.setX(x * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setY(y * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setWidth(GameMap.BLOCK_SIZE);
 		this.setHeight(GameMap.BLOCK_SIZE);
+		this.setDyingTime(500);
 		
 		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
 																	BufferedImage.TYPE_INT_ARGB);

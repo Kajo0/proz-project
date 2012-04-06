@@ -4,6 +4,7 @@ import java.awt.Image;
 
 public abstract class Entity {
 	private Image anim;	// TODO zamienic na Animation
+	private Image dyingAnim;
 	private float x;
 	private float y;
 	private float xVelocity;
@@ -15,8 +16,9 @@ public abstract class Entity {
 	private long dieTime;
 	private int dyingTime;
 	
-	public Entity() {
-		this.anim = null;
+	public Entity(Image anim, Image dyingAnim) {
+		this.anim = anim;
+		this.dyingAnim = dyingAnim;
 		this.x = 0;
 		this.y = 0;
 		this.xVelocity = 0;
@@ -45,7 +47,9 @@ public abstract class Entity {
 	}
 
 	public Image getAnim() {
-		return this.anim;
+		if (isAlive())
+			return this.anim;
+		else return this.dyingAnim;
 	}
 
 	public void setAnim(Image anim) {

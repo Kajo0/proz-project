@@ -18,7 +18,7 @@ public class ResourceManager {
 	
 	public ResourceManager() {
 		this.level = 1;
-		this.playerEntity = new Player();
+		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}
 	
 	public GameMap loadMap(String path) throws IOException {
