@@ -95,6 +95,13 @@ public class GameMap {
 	}
 
 	public void addBomb(float x, float y, long plantTime) {
+		for (Bomb b : bombs)
+			if (x > GameMap.getTilePosition(b.getX()) * GameMap.BLOCK_SIZE &&
+				x < (GameMap.getTilePosition(b.getX()) + 1) * GameMap.BLOCK_SIZE &&
+				y > GameMap.getTilePosition(b.getY()) * GameMap.BLOCK_SIZE &&
+				y < (GameMap.getTilePosition(b.getY()) + 1) * GameMap.BLOCK_SIZE) {
+				return;
+			}
 		this.bombs.add(new Bomb(x, y, plantTime));
 	}
 	
