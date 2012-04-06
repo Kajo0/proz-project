@@ -67,7 +67,7 @@ public class ResourceManager {
 												i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
 												j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2));
 				} else {
-					tempMap.setBlock(BlockFactory.createElement(GameBlock.SPACE), i, j);
+					tempMap.setBlock(BlockFactory.createElement(GameBlock.EMPTY), i, j);
 				}
 			}
 			j++;

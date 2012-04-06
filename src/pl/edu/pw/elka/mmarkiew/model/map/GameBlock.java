@@ -1,34 +1,24 @@
 package pl.edu.pw.elka.mmarkiew.model.map;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+
+import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public enum GameBlock {
-	STONE("#", "kamyczek"),
-	BRICK("@", "murek"),
-	SPACE(" ", "pusto");
+	STONE("#", "images/stoneBlock.png"),
+	BRICK("@", "images/brickBlock.png"),
+	EMPTY(" ", "images/emptyBlock.png");
 	
 	private final String character;
 	private final Image image;
 	
 	private GameBlock(final String character, final String image) {
-		//TODO zmienic na obrazki
 		this.character = character;
 		
-		BufferedImage img = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		
-		if (character.equals("#"))
-			g.setColor(Color.BLACK);
-		else if (character.equals("@"))
-			g.setColor(Color.RED);
-		else
-			g.setColor(Color.WHITE);
-		
-		g.fillRect(0, 0, 40, 40);
-		
+		BufferedImage img = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE, BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(new ImageIcon(image).getImage(), 0, 0, img.getWidth(), img.getHeight(), null);
 		
 		this.image = img;
 	}
@@ -55,7 +45,7 @@ public enum GameBlock {
 			if (g.getCharacter().equals(character))
 				return g;
 		}
-		return SPACE;
+		return EMPTY;
 	}
 	
 }

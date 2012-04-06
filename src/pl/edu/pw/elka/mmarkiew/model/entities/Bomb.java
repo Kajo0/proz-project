@@ -1,8 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public class Bomb extends Entity {
@@ -10,23 +8,14 @@ public class Bomb extends Entity {
 	/** miliseconds */
 	private long timer;
 	
-	public Bomb(float x, float y, long plantTime) {
-		super(null, null);
+	public Bomb(Image anim, float x, float y, long plantTime) {
+		super(anim, anim);
 		this.setX(GameMap.getTilePosition(x) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setY(GameMap.getTilePosition(y) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setWidth(15);
 		this.setHeight(15);
 		this.plantTime = plantTime;
 		this.timer = 3000;
-		
-		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
-																				BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
-		
-		this.setAnim(img);
-		this.setDyingAnim(img);
 	}
 
 	public long getPlantTime() {

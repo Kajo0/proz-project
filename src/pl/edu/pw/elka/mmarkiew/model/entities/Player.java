@@ -15,9 +15,9 @@ public class Player extends Entity {
 		this.setWidth(30);
 		this.setHeight(30);
 		this.setLifes(3);
-		this.possibleBombs = 5;
+		this.possibleBombs = 1;
 		this.plantedBombs = 0;
-		this.bombArea = 2;
+		this.bombArea = 1;
 	}
 	
 	public void plantBomb() {
