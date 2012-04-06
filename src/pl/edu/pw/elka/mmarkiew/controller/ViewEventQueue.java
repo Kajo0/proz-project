@@ -2,7 +2,6 @@ package pl.edu.pw.elka.mmarkiew.controller;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
 
 public class ViewEventQueue {

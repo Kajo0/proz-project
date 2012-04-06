@@ -3,7 +3,6 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public class BlockEntity extends Entity {
@@ -21,5 +20,13 @@ public class BlockEntity extends Entity {
 		g.fillRect(15, 15, 10, 10);
 		
 		this.setAnim(img);
+		
+		setDead();
+	}
+	
+
+	public void setDead() {
+		this.setAlive(true);
+		this.setDieTime(System.currentTimeMillis());
 	}
 }

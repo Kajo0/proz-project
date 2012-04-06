@@ -1,7 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
-
 import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
@@ -11,11 +10,13 @@ import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 
 public class CollisionDetector {
-	private Player player;
 	private GameMap map;
 
-	public CollisionDetector(Player player, GameMap map) {
-		this.player = player;
+	public CollisionDetector(GameMap map) {
+		this.map = map;
+	}
+	
+	public void setMap(GameMap map) {
 		this.map = map;
 	}
 	
@@ -24,7 +25,7 @@ public class CollisionDetector {
 			checkEntityBlockCollision(e, map.getBlockHolder());
 
 		
-		checkPlayerEntityCollision(player, map.getEntities());
+		checkPlayerEntityCollision(map.getEntities());
 		
 		checkEnemiesCollision(map.getEntities());
 		
@@ -72,13 +73,15 @@ public class CollisionDetector {
 		}
 	}
 
-	public void checkPlayerEntityCollision(Player player, LinkedList<Entity> linkedList) {
+	public void checkPlayerEntityCollision(LinkedList<Entity> linkedList) {
+		Player player = map.getPlayer();
 		for (Entity e : linkedList) {
 			if (e.isAlive() && isEntitiesCollision(player, e)) {
-				if (e instanceof Enemy) { //TODO i nie bonus bedzie trza dac
+				if (e instanceof Enemy || e instanceof BlockEntity) { //TODO i nie bonus bedzie trza dac
 					player.setDead();
 					player.setX((float) map.getPlayerStartPosition().getX());
 					player.setY((float) map.getPlayerStartPosition().getY());
+					map.removeExplosions();
 					return;
 				}
 				if (e instanceof Bomb) {
@@ -98,6 +101,10 @@ public class CollisionDetector {
 				if (!entities[i].isAlive() || !entities[j].isAlive() || entities[i] instanceof Player)
 					continue;
 				else if (isEntitiesCollision(entities[i], entities[j])) {
+					if (entities[i] instanceof Enemy && entities[j] instanceof BlockEntity)
+						entities[i].setDead();
+					if (entities[j] instanceof Enemy && entities[j] instanceof BlockEntity)
+						entities[j].setDead();
 					entities[i].collisionX();
 					entities[i].collisionY();
 					entities[j].collisionX();
@@ -112,6 +119,8 @@ public class CollisionDetector {
 	}
 	
 	public static boolean isEntitiesCollision(Entity first, Entity second) {
+		if (first == second)
+			return false;
 		return (first.getX() + first.getWidth() / 2 - second.getX() + second.getWidth() / 2 > 0 &&
 				first.getX() - first.getWidth() / 2 - second.getX() - second.getWidth() / 2 < 0 &&
 				first.getY() + first.getHeight() / 2 - second.getY() + second.getHeight() / 2 > 0 &&
