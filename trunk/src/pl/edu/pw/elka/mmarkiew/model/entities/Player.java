@@ -1,8 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 public class Player extends Entity {
 	//TODO dodac pointsy i bonusy ustawione
@@ -11,8 +9,8 @@ public class Player extends Entity {
 	private int plantedBombs;
 	private int bombArea;
 
-	public Player() {
-		super();
+	public Player(Image anim, Image dyingAnim) {
+		super(anim, dyingAnim);
 		this.setMaxVelocity(0.15f);
 		this.setWidth(30);
 		this.setHeight(30);
@@ -20,14 +18,6 @@ public class Player extends Entity {
 		this.possibleBombs = 5;
 		this.plantedBombs = 0;
 		this.bombArea = 2;
-		
-		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
-																	BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
-		
-		this.setAnim(img);
 	}
 	
 	public void plantBomb() {
