@@ -29,9 +29,8 @@ public class BombCalculator {
 		
 		for (Bomb b : map.getBombs()) {
 			if (currTime - b.getPlantTime() >= b.getTimer()) {
-				//TODO animation & sound exploding bomb
+				//TODO add sound exploding bomb
 				toRemove.add(b);
-				map.getPlayer().bombExploded();
 			}
 		}
 		
