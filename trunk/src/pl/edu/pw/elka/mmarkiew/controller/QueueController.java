@@ -55,6 +55,11 @@ public class QueueController implements Runnable {
 						player.setXVelocity(player.getMaxVelocity());
 					else player.setXVelocity(0);
 				}
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_SPACE) {
+					if (((ViewKeyPress) event).isPress()) {
+						model.plantBomb();
+					}
+				}
 			}
 		} catch (NullPointerException e) {
 			//TODO wywalic sysouta

@@ -1,13 +1,17 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
+import java.util.Random;
 
+import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
+import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
+import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
 public class CollisionDetector {
 	private Player player;
@@ -21,13 +25,15 @@ public class CollisionDetector {
 	public void detectCollision() {
 		for (Entity e : map.getEntities())
 			checkEntityBlockCollision(e, map.getBlockHolder());
+
 		
-		checkPlayerEntityCollision(player, map.getEnemies());
+		checkPlayerEntityCollision(player, map.getEntities());
 		
-		checkEnemiesCollision(map.getEnemies());
+		checkEnemiesCollision(map.getEntities());
 		
 		//TODO dodac bonusy kolizje zbieranie
-//		checkPlayerBonusCollision();
+		checkPlayerBonusCollision();
+		
 	}
 
 	public void checkEntityBlockCollision(final Entity entity, final BlockHolder blocks) {
@@ -69,11 +75,15 @@ public class CollisionDetector {
 	public void checkPlayerEntityCollision(Player player, LinkedList<Entity> linkedList) {
 		for (Entity e : linkedList) {
 			if (isEntitiesCollision(player, e)) {
-				if (e instanceof Enemy) //TODO i nie bonus bedzie trza dac
+				if (e instanceof Enemy) { //TODO i nie bonus bedzie trza dac
 					player.setX((float) map.getPlayerStartPosition().getX());
 					player.setY((float) map.getPlayerStartPosition().getY());
 					player.setLifes(player.getLifes() - 1);
 					return;
+				}
+				if (e instanceof Bomb) {
+					//TODO tak zeby blokowala bomba playera
+				}
 			}
 		}
 	}
@@ -85,7 +95,9 @@ public class CollisionDetector {
 
 		for (int i = 0; i < entities.length - 1; i++)
 			for (int j = i + 1; j < entities.length; j++)
-				if (isEntitiesCollision(entities[i], entities[j])) {
+				if (!entities[i].isAlive() || entities[i] instanceof Player)
+					continue;
+				else if (isEntitiesCollision(entities[i], entities[j])) {
 					entities[i].collisionX();
 					entities[i].collisionY();
 					entities[j].collisionX();

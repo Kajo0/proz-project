@@ -1,6 +1,8 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
@@ -13,11 +15,11 @@ public class MapToDraw {
 	private boolean paused;
 	private boolean started;
 
-	public MapToDraw(final BlockHolder blockHolder, final LinkedList<Entity> linkedList,
+	public MapToDraw(final BlockHolder blockHolder, final LinkedList<Entity> entities,
 											final int widthBlocks, final int heightBlocks,
 											final boolean paused, final boolean running) {
 		this.blocks = blockHolder;
-		this.entities = linkedList;
+		this.entities = entities;
 		this.widthBlocks = widthBlocks;
 		this.heightBlocks = heightBlocks;
 		this.paused = paused;

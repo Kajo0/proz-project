@@ -11,6 +11,7 @@ public abstract class Entity {
 	private float maxVelocity;
 	private float width;
 	private float height;
+	private boolean alive;
 	
 	public Entity() {
 		this.anim = null;
@@ -21,6 +22,7 @@ public abstract class Entity {
 		this.maxVelocity = 0;
 		this.width = 0;
 		this.height = 0;
+		this.alive = true;
 	}
 	
 	public void update(final long elapsedTime) {
@@ -99,5 +101,12 @@ public abstract class Entity {
 	public void setHeight(float height) {
 		this.height = height;
 	}
+	
+	public boolean isAlive() {
+		return this.alive;
+	}
 
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
 }

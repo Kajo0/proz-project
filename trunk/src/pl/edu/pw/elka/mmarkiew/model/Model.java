@@ -1,6 +1,9 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
@@ -75,6 +78,8 @@ public class Model implements Runnable {
 		//TODO zmienic na GAME OVER
 		if (resource.getPlayer().getLifes() < 1)
 			startTime = -1;
+		
+		calculateBombs();
 	}
 
 	public MapToDraw getMapToDraw() {
@@ -100,6 +105,31 @@ public class Model implements Runnable {
 		if (resource != null)
 			return resource.getPlayer();
 		else return null;
+	}
+
+	public void plantBomb() {
+		if (resource.getPlayer().canPlantBomb()) {
+			resource.getPlayer().plantBomb();
+			map.addBomb(resource.getPlayer().getX(), resource.getPlayer().getY(), System.currentTimeMillis());
+		}
+	}
+	
+	private void calculateBombs() {
+		long currTime = System.currentTimeMillis();
+		ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
+		
+		for (Bomb b : map.getBombs()) {
+			if (currTime - b.getPlantTime() >= b.getTimer()) {
+				//TODO animation & sound exploding bomb
+				toRemove.add(b);
+				resource.getPlayer().bombExploded();
+			}
+		}
+		
+		for (Bomb b : toRemove) {
+			map.removeBomb(b);
+			resource.getPlayer().bombExploded();
+		}
 	}
 
 }
