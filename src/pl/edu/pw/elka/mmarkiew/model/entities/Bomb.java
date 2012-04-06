@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import pl.edu.pw.elka.mmarkiew.model.GameMap;
+
 public class Bomb extends Entity {
 	private long plantTime;
 	/** miliseconds */

@@ -12,6 +12,8 @@ public abstract class Entity {
 	private float width;
 	private float height;
 	private boolean alive;
+	private long dieTime;
+	private int dyingTime;
 	
 	public Entity() {
 		this.anim = null;
@@ -23,11 +25,15 @@ public abstract class Entity {
 		this.width = 0;
 		this.height = 0;
 		this.alive = true;
+		this.dieTime = -1;
+		this.dyingTime = 2000;
 	}
 	
 	public void update(final long elapsedTime) {
-		this.x += xVelocity * elapsedTime;
-		this.y += yVelocity * elapsedTime;
+		if (alive) {
+			this.x += xVelocity * elapsedTime;
+			this.y += yVelocity * elapsedTime;
+		}
 	}
 	
 	public void collisionX() {
@@ -108,5 +114,26 @@ public abstract class Entity {
 
 	public void setAlive(boolean alive) {
 		this.alive = alive;
+	}
+
+	public void setDead() {
+		this.alive = false;
+		this.dieTime = System.currentTimeMillis();
+	}
+
+	public long getDieTime() {
+		return dieTime;
+	}
+
+	public void setDieTime(long dieTime) {
+		this.dieTime = dieTime;
+	}
+
+	public int getDyingTime() {
+		return this.dyingTime;
+	}
+	
+	public void setDyingTime(int dyingTime) {
+		this.dyingTime = dyingTime;
 	}
 }
