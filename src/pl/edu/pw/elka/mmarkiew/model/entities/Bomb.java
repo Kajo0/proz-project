@@ -26,6 +26,7 @@ public class Bomb extends Entity {
 		g.fillRect(0, 0, (int) this.getWidth(), (int) this.getHeight());
 		
 		this.setAnim(img);
+		this.setDyingAnim(img);
 	}
 
 	public long getPlantTime() {

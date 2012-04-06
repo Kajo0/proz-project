@@ -56,6 +56,10 @@ public abstract class Entity {
 		this.anim = anim;
 	}
 
+	public void setDyingAnim(Image anim) {
+		this.dyingAnim = anim;
+	}
+
 	public float getX() {
 		return x;
 	}
