@@ -13,6 +13,7 @@ public class GameMap {
 	private int widthBlocks;
 	private int heightBlocks;
 	private Point playerStartPosition;
+	private LinkedList<Bomb> bombs;
 	
 	public GameMap(Player player, int widthBlocks, int heightBlocks) {
 		this.player = player;
@@ -21,6 +22,7 @@ public class GameMap {
 		this.map = new BlockHolder(widthBlocks, heightBlocks);
 		this.enemies = new LinkedList<Entity>();
 		this.playerStartPosition = new Point(0, 0);
+		this.bombs = new LinkedList<Bomb>();
 	}
 
 	public void setPlayer(Player player) {
@@ -76,6 +78,7 @@ public class GameMap {
 	public LinkedList<Entity> getEntities() {
 		LinkedList<Entity> l = new LinkedList<Entity>(enemies);
 		l.addFirst(player);
+		l.addAll(bombs);
 		return l;
 	}
 
@@ -85,5 +88,21 @@ public class GameMap {
 	
 	public Point getPlayerStartPosition() {
 		return this.playerStartPosition;
+	}
+
+	public LinkedList<Bomb> getBombs() {
+		return bombs;
+	}
+
+	public void addBomb(float x, float y, long plantTime) {
+		this.bombs.add(new Bomb(x, y, plantTime));
+	}
+	
+	public void removeBomb(Bomb bomb) {
+		for (Bomb b : bombs)
+			if (b.equals(bomb)) {
+				bombs.remove(b);
+				return;
+			}
 	}
 }
