@@ -1,11 +1,8 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
+import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
-import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class Model implements Runnable {
@@ -14,13 +11,15 @@ public class Model implements Runnable {
 	private GameMap map;
 	private ResourceManager resource;
 	private CollisionDetector collisionDetector;
-	
+	private BombCalculator bombCalculator;
+
 	public Model() {
 		this.startTime = -1;
 		this.paused = false;
 		this.map = null;
 		this.resource = new ResourceManager();
 		this.collisionDetector = null;
+		this.bombCalculator = null;
 	}
 
 	@Override
@@ -35,6 +34,7 @@ public class Model implements Runnable {
 			this.map = resource.loadMap("maps/1.txt");
 			this.startTime = 0;
 			this.collisionDetector = new CollisionDetector(resource.getPlayer(), map);
+			this.bombCalculator = new BombCalculator(map);
 		} catch (IOException e) {
 			this.map = null;
 			this.startTime = -1;
@@ -61,8 +61,14 @@ public class Model implements Runnable {
 	}
 	
 	private void update(final long elapsedTime) {
-		for (Entity e : map.getEntities())
+		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
+		for (Entity e : map.getEntities()) {
 			e.update(elapsedTime);
+			if (!e.isAlive() && e.getDieTime() + e.getDyingTime() < System.currentTimeMillis())
+				entityToRemove.add(e);
+		}
+		for (Entity e : entityToRemove)
+			map.removeEnemy(e);
 		
 		if (collisionDetector != null)
 			collisionDetector.detectCollision();
@@ -71,7 +77,7 @@ public class Model implements Runnable {
 		if (resource.getPlayer().getLifes() < 1)
 			startTime = -1;
 		
-		calculateBombs();
+		bombCalculator.calculateBombs();
 	}
 
 	public MapToDraw getMapToDraw() {
@@ -100,28 +106,7 @@ public class Model implements Runnable {
 	}
 
 	public void plantBomb() {
-		if (resource.getPlayer().canPlantBomb()) {
-			resource.getPlayer().plantBomb();
-			map.addBomb(resource.getPlayer().getX(), resource.getPlayer().getY(), System.currentTimeMillis());
-		}
+		bombCalculator.plantBomb();
 	}
 	
-	private void calculateBombs() {
-		long currTime = System.currentTimeMillis();
-		ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
-		
-		for (Bomb b : map.getBombs()) {
-			if (currTime - b.getPlantTime() >= b.getTimer()) {
-				//TODO animation & sound exploding bomb
-				toRemove.add(b);
-				resource.getPlayer().bombExploded();
-			}
-		}
-		
-		for (Bomb b : toRemove) {
-			map.removeBomb(b);
-			resource.getPlayer().bombExploded();
-		}
-	}
-
 }

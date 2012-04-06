@@ -1,7 +1,11 @@
-package pl.edu.pw.elka.mmarkiew.model.entities;
+package pl.edu.pw.elka.mmarkiew.model;
 
 import java.awt.Point;
 import java.util.LinkedList;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
+import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 
@@ -27,6 +31,10 @@ public class GameMap {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	
+	public Player getPlayer() {
+		return this.player;
 	}
 	
 	public LinkedList<Entity> getEnemies() {

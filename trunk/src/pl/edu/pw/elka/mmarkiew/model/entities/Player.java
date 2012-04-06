@@ -9,6 +9,7 @@ public class Player extends Entity {
 	private int lifes;
 	private int possibleBombs;
 	private int plantedBombs;
+	private int bombArea;
 
 	public Player() {
 		super();
@@ -18,6 +19,7 @@ public class Player extends Entity {
 		this.setLifes(3);
 		this.possibleBombs = 5;
 		this.plantedBombs = 0;
+		this.bombArea = 7;
 		
 		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
 																	BufferedImage.TYPE_INT_ARGB);
@@ -47,5 +49,17 @@ public class Player extends Entity {
 
 	public void setLifes(int lifes) {
 		this.lifes = lifes;
+	}
+
+	public int getBombArea() {
+		return bombArea;
+	}
+
+	public void setBombArea(int bombArea) {
+		this.bombArea = bombArea;
+	}
+	
+	public void setDead() {
+		this.lifes--;
 	}
 }

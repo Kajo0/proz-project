@@ -1,10 +1,11 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
-import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
@@ -41,6 +42,9 @@ public class CollisionDetector {
 		float dividedAnimWidth = entity.getHeight() / 2;
 		float dividedAnimHeight = entity.getHeight() / 2;
 		
+		if (entity instanceof BlockEntity)
+			return;
+		
 		// gora dol prawo lewo
 		if (! (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition-1) instanceof EmptyBlock) ) {
 			if (yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
@@ -70,11 +74,11 @@ public class CollisionDetector {
 
 	public void checkPlayerEntityCollision(Player player, LinkedList<Entity> linkedList) {
 		for (Entity e : linkedList) {
-			if (isEntitiesCollision(player, e)) {
+			if (e.isAlive() && isEntitiesCollision(player, e)) {
 				if (e instanceof Enemy) { //TODO i nie bonus bedzie trza dac
+					player.setDead();
 					player.setX((float) map.getPlayerStartPosition().getX());
 					player.setY((float) map.getPlayerStartPosition().getY());
-					player.setLifes(player.getLifes() - 1);
 					return;
 				}
 				if (e instanceof Bomb) {
@@ -91,7 +95,7 @@ public class CollisionDetector {
 
 		for (int i = 0; i < entities.length - 1; i++)
 			for (int j = i + 1; j < entities.length; j++)
-				if (!entities[i].isAlive() || entities[i] instanceof Player)
+				if (!entities[i].isAlive() || !entities[j].isAlive() || entities[i] instanceof Player)
 					continue;
 				else if (isEntitiesCollision(entities[i], entities[j])) {
 					entities[i].collisionX();
@@ -107,7 +111,7 @@ public class CollisionDetector {
 		
 	}
 	
-	private boolean isEntitiesCollision(Entity first, Entity second) {
+	public static boolean isEntitiesCollision(Entity first, Entity second) {
 		return (first.getX() + first.getWidth() / 2 - second.getX() + second.getWidth() / 2 > 0 &&
 				first.getX() - first.getWidth() / 2 - second.getX() - second.getWidth() / 2 < 0 &&
 				first.getY() + first.getHeight() / 2 - second.getY() + second.getHeight() / 2 > 0 &&
