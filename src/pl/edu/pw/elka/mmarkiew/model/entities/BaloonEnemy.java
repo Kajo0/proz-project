@@ -5,15 +5,15 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class BaloonEnemy extends Entity {
+public class BaloonEnemy extends Entity implements Enemy {
 	
 	public BaloonEnemy() {
 		super();
 		this.setXVelocity(0.05f);
 		this.setYVelocity(0.05f);
 		this.setMaxVelocity(0.05f);
-		this.setWidth(40);
-		this.setHeight(40);
+		this.setWidth(20);
+		this.setHeight(20);
 		
 		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
 																		BufferedImage.TYPE_INT_ARGB);
