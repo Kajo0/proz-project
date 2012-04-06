@@ -9,8 +9,6 @@ import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class Model implements Runnable {
-	private int width;
-	private int height;
 	private long startTime;
 	private boolean paused;
 	private GameMap map;
@@ -18,8 +16,6 @@ public class Model implements Runnable {
 	private CollisionDetector collisionDetector;
 	
 	public Model() {
-		this.width = 0;
-		this.height = 0;
 		this.startTime = -1;
 		this.paused = false;
 		this.map = null;
@@ -38,14 +34,10 @@ public class Model implements Runnable {
 		try {
 			this.map = resource.loadMap("maps/1.txt");
 			this.startTime = 0;
-			this.width = map.getWidth();
-			this.height = map.getHeight();
 			this.collisionDetector = new CollisionDetector(resource.getPlayer(), map);
 		} catch (IOException e) {
 			this.map = null;
 			this.startTime = -1;
-			this.width = 0;
-			this.height = 0;
 		}
 	}
 
