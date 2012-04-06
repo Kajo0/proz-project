@@ -36,12 +36,17 @@ public class BombCalculator {
 		
 		for (Bomb b : toRemove) {
 			map.removeBomb(b);
-			explodeBomb(b);
-			map.getPlayer().bombExploded();
+			if (explodeBomb(b))
+				map.getPlayer().bombExploded();
+			else {
+				map.getPlayer().setX((float) map.getPlayerStartPosition().getX());
+				map.getPlayer().setY((float) map.getPlayerStartPosition().getY());
+				map.removeExplosions();
+			}
 		}
 	}
 
-	private void explodeBomb(Bomb b) {
+	private boolean explodeBomb(Bomb b) {
 		BlockHolder blocks = map.getBlockHolder();
 		int xR = GameMap.getTilePosition(b.getX());
 		int yR = GameMap.getTilePosition(b.getY());
@@ -71,18 +76,14 @@ public class BombCalculator {
 						if (CollisionDetector.isEntitiesCollision(e, blen)) {
 							e.setDead();
 							if (e instanceof Player) {
-								e.setX((float) map.getPlayerStartPosition().getX());
-								e.setY((float) map.getPlayerStartPosition().getY());
-								map.removeExplosions();
-								return;
+								return false;
 							}
 						}
 					}
 				}
-
 			}
 		}
-
+		return true;
 	}
 
 	public void plantBomb() {

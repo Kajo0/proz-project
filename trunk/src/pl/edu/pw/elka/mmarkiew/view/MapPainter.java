@@ -76,13 +76,16 @@ public class MapPainter implements Runnable {
 	
 	private void paintEnemies(Graphics g) {
 		Image image = null;
-		
+		try{
 		for (Entity e : map.getEntities()) {
 			if ( !(e instanceof Player) ) {
 				image = e.getAnim();
 				g.drawImage(image, ((int) e.getX()) - image.getWidth(null) / 2,
 						((int) e.getY()) - image.getHeight(null) / 2, panel);
 			}
+		} } catch (Exception e) {
+			System.out.println(image + " " + e);
+			System.exit(0);
 		}
 	}
 	

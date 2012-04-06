@@ -47,30 +47,68 @@ public class CollisionDetector {
 			return;
 		
 		// gora dol prawo lewo
-		if (! (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition-1) instanceof EmptyBlock) ) {
-			if (yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
-				entity.collisionY();
-				entity.setY((yTilePlayerPosition) * GameMap.BLOCK_SIZE + dividedAnimHeight);
+		
+		int i1 = 0, i2 = 0, i3 = 0;
+		float f1 = 0, f2 = 0;
+		boolean comparison = false;
+		for (int i = 0; i < 4; i++) {
+			switch (i) {
+				case 0: i1 = xTilePlayerPosition;	i2 = yTilePlayerPosition-1;	i3 = yTilePlayerPosition;
+						f1 = yPlayerPosition;		f2 = - dividedAnimHeight;
+						break;
+				case 1: i1 = xTilePlayerPosition;	i2 = yTilePlayerPosition+1;	i3 = yTilePlayerPosition+1;
+						f1 = yPlayerPosition;		f2 = dividedAnimHeight;
+						break;
+				case 2: i1 = xTilePlayerPosition-1;	i2 = yTilePlayerPosition;	i3 = xTilePlayerPosition;
+						f1 = xPlayerPosition;		f2 = - dividedAnimWidth;
+						break;
+				case 3: i1 = xTilePlayerPosition+1;	i2 = yTilePlayerPosition;	i3 = xTilePlayerPosition+1;
+						f1 = xPlayerPosition;		f2 = dividedAnimWidth;
+						break;
 			}
-		}
-		if (! (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition+1) instanceof EmptyBlock) ) {
-			if (yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition+1) * GameMap.BLOCK_SIZE) {
-				entity.collisionY();
-				entity.setY((yTilePlayerPosition+1) * GameMap.BLOCK_SIZE - dividedAnimHeight);
+			
+			if (! (blocks.getBlock(i1, i2) instanceof EmptyBlock) ) {
+				if (i % 2 == 0)
+					comparison = (f1 + f2 < i3 * GameMap.BLOCK_SIZE);
+				else
+					comparison = (f1 + f2 > i3 * GameMap.BLOCK_SIZE);
+				
+				if (comparison) {
+					if ( i < 2 ) {
+						entity.collisionY();
+						entity.setY(i3 * GameMap.BLOCK_SIZE - f2);
+					} else {
+						entity.collisionX();
+						entity.setX(i3 * GameMap.BLOCK_SIZE - f2);
+					}
+				}
 			}
+				
 		}
-		if (! (blocks.getBlock(xTilePlayerPosition-1, yTilePlayerPosition) instanceof EmptyBlock) ) {
-			if (xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
-				entity.collisionX();
-				entity.setX((xTilePlayerPosition) * GameMap.BLOCK_SIZE + dividedAnimWidth);
-			}
-		}
-		if (! (blocks.getBlock(xTilePlayerPosition+1, yTilePlayerPosition) instanceof EmptyBlock) ) {
-			if (xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition+1) * GameMap.BLOCK_SIZE) {
-				entity.collisionX();
-				entity.setX((xTilePlayerPosition+1) * GameMap.BLOCK_SIZE - dividedAnimWidth);
-			}
-		}
+//		if (! (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition-1) instanceof EmptyBlock) ) {
+//			if (yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+//				entity.collisionY();
+//				entity.setY((yTilePlayerPosition) * GameMap.BLOCK_SIZE + dividedAnimHeight);
+//			}
+//		}
+//		if (! (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition+1) instanceof EmptyBlock) ) {
+//			if (yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition+1) * GameMap.BLOCK_SIZE) {
+//				entity.collisionY();
+//				entity.setY((yTilePlayerPosition+1) * GameMap.BLOCK_SIZE - dividedAnimHeight);
+//			}
+//		}
+//		if (! (blocks.getBlock(xTilePlayerPosition-1, yTilePlayerPosition) instanceof EmptyBlock) ) {
+//			if (xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+//				entity.collisionX();
+//				entity.setX((xTilePlayerPosition) * GameMap.BLOCK_SIZE + dividedAnimWidth);
+//			}
+//		}
+//		if (! (blocks.getBlock(xTilePlayerPosition+1, yTilePlayerPosition) instanceof EmptyBlock) ) {
+//			if (xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition+1) * GameMap.BLOCK_SIZE) {
+//				entity.collisionX();
+//				entity.setX((xTilePlayerPosition+1) * GameMap.BLOCK_SIZE - dividedAnimWidth);
+//			}
+//		}
 	}
 
 	public void checkPlayerEntityCollision(LinkedList<Entity> linkedList) {
