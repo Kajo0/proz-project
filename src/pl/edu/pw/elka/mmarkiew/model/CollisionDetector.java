@@ -1,17 +1,13 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
-import java.util.Random;
-
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
-import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
-import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
 public class CollisionDetector {
 	private Player player;

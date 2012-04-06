@@ -1,8 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
-
-import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
