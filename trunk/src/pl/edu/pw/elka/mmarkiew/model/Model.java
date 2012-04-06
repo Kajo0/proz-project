@@ -12,6 +12,7 @@ public class Model implements Runnable {
 	private boolean paused;
 	private GameMap map;
 	private ResourceManager resource;
+	private CollisionDetector collisionDetector;
 	
 	public Model() {
 		this.width = 0;
@@ -20,6 +21,7 @@ public class Model implements Runnable {
 		this.paused = false;
 		this.map = null;
 		this.resource = new ResourceManager();
+		this.collisionDetector = null;
 	}
 
 	@Override
@@ -35,6 +37,7 @@ public class Model implements Runnable {
 			this.startTime = 0;
 			this.width = map.getWidth();
 			this.height = map.getHeight();
+			this.collisionDetector = new CollisionDetector(resource.getPlayer(), map);
 		} catch (IOException e) {
 			this.map = null;
 			this.startTime = -1;
@@ -55,7 +58,7 @@ public class Model implements Runnable {
             	update(elapsedTime);
             
             try {
-				wait(1);
+				wait(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -63,20 +66,15 @@ public class Model implements Runnable {
 	}
 	
 	private void update(final long elapsedTime) {
-		for (Entity e : map.getEntities()) {
+		for (Entity e : map.getEntities())
 			e.update(elapsedTime);
-			CollisionDetector.checkEntityBlockCollision(e, map.getBlockHolder());
-		}
 		
-		//TODO zmienic zycie-- playera i ustawianie n a poczatku
-		if (CollisionDetector.checkPlayerEntityCollision(resource.getPlayer(), map.getEnemies())) {
-			resource.getPlayer().setX((float) map.getPlayerStartPosition().getX());
-			resource.getPlayer().setY((float) map.getPlayerStartPosition().getY());
-		}
+		if (collisionDetector != null)
+			collisionDetector.detectCollision();
 		
-		CollisionDetector.checkEnemiesCollision(map.getEnemies());
-		//TODO dodac bonusy kolizje zbieranie
-//		CollisionDetector.checkPlayerBonusCollision();
+		//TODO zmienic na GAME OVER
+		if (resource.getPlayer().getLifes() < 1)
+			startTime = -1;
 	}
 
 	public MapToDraw getMapToDraw() {
