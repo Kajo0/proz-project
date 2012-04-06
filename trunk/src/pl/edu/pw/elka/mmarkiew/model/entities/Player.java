@@ -19,7 +19,7 @@ public class Player extends Entity {
 		this.setLifes(3);
 		this.possibleBombs = 5;
 		this.plantedBombs = 0;
-		this.bombArea = 7;
+		this.bombArea = 2;
 		
 		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
 																	BufferedImage.TYPE_INT_ARGB);
@@ -61,5 +61,6 @@ public class Player extends Entity {
 	
 	public void setDead() {
 		this.lifes--;
+		this.plantedBombs = 0;
 	}
 }

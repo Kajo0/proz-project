@@ -22,6 +22,8 @@ public class MapPainter implements Runnable {
 	public void run() {
 		Graphics g = panel.getBufferStrategy().getDrawGraphics();
 		
+		g.clearRect(0, 0, panel.getWidth(), panel.getHeight());
+		
 		if (map.isPaused())
 			paintPauseMap(g);
 		else if (!map.isStarted())

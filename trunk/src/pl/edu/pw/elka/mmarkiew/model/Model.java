@@ -2,6 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
@@ -33,7 +34,7 @@ public class Model implements Runnable {
 		try {
 			this.map = resource.loadMap("maps/1.txt");
 			this.startTime = 0;
-			this.collisionDetector = new CollisionDetector(resource.getPlayer(), map);
+			this.collisionDetector = new CollisionDetector(map);
 			this.bombCalculator = new BombCalculator(map);
 		} catch (IOException e) {
 			this.map = null;
@@ -49,7 +50,7 @@ public class Model implements Runnable {
 			elapsedTime = System.currentTimeMillis() - currTime;
             currTime += elapsedTime;
 			
-            if (!paused)
+            if (!paused && startTime > 0)
             	update(elapsedTime);
             
             try {
@@ -64,7 +65,7 @@ public class Model implements Runnable {
 		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
 		for (Entity e : map.getEntities()) {
 			e.update(elapsedTime);
-			if (!e.isAlive() && e.getDieTime() + e.getDyingTime() < System.currentTimeMillis())
+			if ((!e.isAlive() || e instanceof BlockEntity) && e.getDieTime() + e.getDyingTime() < System.currentTimeMillis())
 				entityToRemove.add(e);
 		}
 		for (Entity e : entityToRemove)
@@ -78,6 +79,24 @@ public class Model implements Runnable {
 			startTime = -1;
 		
 		bombCalculator.calculateBombs();
+		
+		//TODO WYWALIC TO BO TO TYLKO DO TESTU PRZEJSCIA MAPY
+		if (map.getEnemies().isEmpty()) {
+			nextMap();
+		}
+	}
+
+	private void nextMap() {
+		try {
+			map = resource.loadNextMap();
+			collisionDetector.setMap(map);
+			bombCalculator.setMap(map);
+		} catch (IOException e) {
+			map = null;
+			collisionDetector.setMap(map);
+			bombCalculator.setMap(map);
+			startTime = -2;
+		}
 	}
 
 	public MapToDraw getMapToDraw() {

@@ -46,7 +46,9 @@ public class BombCalculator {
 		int xR = GameMap.getTilePosition(b.getX());
 		int yR = GameMap.getTilePosition(b.getY());
 		int x, y;
-		
+
+
+		map.addEnemy(new BlockEntity(xR, yR));		
 		for (int i = 0; i < 4; i++) {
 			x = xR;
 			y = yR;
@@ -67,17 +69,20 @@ public class BombCalculator {
 					map.addEnemy(blen);
 					for (Entity e : map.getEntities()) {
 						if (CollisionDetector.isEntitiesCollision(e, blen)) {
+							e.setDead();
 							if (e instanceof Player) {
 								e.setX((float) map.getPlayerStartPosition().getX());
 								e.setY((float) map.getPlayerStartPosition().getY());
+								map.removeExplosions();
+								return;
 							}
-							e.setDead();
 						}
 					}
 				}
 
 			}
 		}
+
 	}
 
 	public void plantBomb() {

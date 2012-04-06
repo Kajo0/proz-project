@@ -17,7 +17,7 @@ public class ResourceManager {
 	private int level;
 	
 	public ResourceManager() {
-		this.level = 0;
+		this.level = 1;
 		this.playerEntity = new Player();
 	}
 	
@@ -86,6 +86,11 @@ public class ResourceManager {
 	
 	public Player getPlayer() {
 		return playerEntity;
+	}
+
+	public GameMap loadNextMap() throws IOException {
+		level++;
+		return loadMap("maps/" + level + ".txt");
 	}
 	
 }
