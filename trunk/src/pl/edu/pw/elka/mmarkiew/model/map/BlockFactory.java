@@ -6,7 +6,7 @@ public class BlockFactory {
 		switch (block) {
 			case STONE: return new StoneBlock(block.getImage());
 			case BRICK: return new BrickBlock(block.getImage());
-			case SPACE: return new EmptyBlock(block.getImage());
+			case EMPTY: return new EmptyBlock(block.getImage());
 			default:	return new EmptyBlock(block.getImage());
 		}
 	}

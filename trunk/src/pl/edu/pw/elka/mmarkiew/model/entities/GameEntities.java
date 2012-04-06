@@ -1,15 +1,19 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
+import pl.edu.pw.elka.mmarkiew.model.GameMap;
+
 public enum GameEntities {
-	PLAYER("P", "", ""),
-	BALOON("A", "", ""),
-	HELIUM("B", "", ""),
-	UNDEFINED("", "", "");
+	PLAYER("P", "images/player.png", ""),
+	BALOON("A", "images/ballonEnemy.png", ""),
+	HELIUM("B", "images/heliumEnemy.png", ""),
+	BOMB("BOMB", "images/bomb.png", ""),
+	EXPLOSION("EXPLOSION", "images/explosion.png", ""),
+	UNDEFINED("", "images/undefined.png", "");
 	
 	private final String character;
 	private final Image anim;
@@ -18,40 +22,19 @@ public enum GameEntities {
 	private GameEntities(final String character, final String anim, final String dyingAnim) {
 		this.character = character;
 		
-		BufferedImage img = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		
-		if (character.equals("P"))
-			g.setColor(Color.GREEN);
-		else if (character.equals("A"))
-			g.setColor(Color.PINK);
-		else if (character.equals("B"))
-			g.setColor(Color.MAGENTA);
-		else
-			g.setColor(Color.WHITE);
-		
-		g.fillRect(0, 0, img.getWidth(), img.getHeight());
-		g.dispose();
+		BufferedImage img = null;
+		try {
+			ImageIcon icon = new ImageIcon(anim);
+			img = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+			img.getGraphics().drawImage(icon.getImage(), 0, 0, null);
+		} catch (Exception e) {
+			img = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE, BufferedImage.TYPE_INT_ARGB);
+			img.getGraphics().fillRect(10, 10, 20, 20);
+		}
 		
 		this.anim = img;
 		
-		
-		BufferedImage img2 = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
-		Graphics g2 = img2.getGraphics();
-		
-		if (character.equals("P"))
-			g2.setColor(Color.LIGHT_GRAY);
-		else if (character.equals("A"))
-			g2.setColor(Color.LIGHT_GRAY);
-		else if (character.equals("B"))
-			g2.setColor(Color.LIGHT_GRAY);
-		else
-			g2.setColor(Color.LIGHT_GRAY);
-		
-		g2.fillRect(0, 0, img2.getWidth(), img2.getHeight());
-		g.dispose();
-		
-		this.dyingAnim = img2;
+		this.dyingAnim = img;
 	}
 	
 	public String getCharacter() {

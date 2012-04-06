@@ -1,9 +1,10 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.ArrayList;
-import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
+import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
+import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
@@ -53,7 +54,7 @@ public class BombCalculator {
 		int x, y;
 
 
-		map.addEnemy(new BlockEntity(xR, yR));		
+		map.addEnemy(EntityFactory.createEntity(GameEntities.EXPLOSION, xR, yR));		
 		for (int i = 0; i < 4; i++) {
 			x = xR;
 			y = yR;
@@ -67,10 +68,10 @@ public class BombCalculator {
 				if (blocks.getBlock(x, y) instanceof StoneBlock)
 					break;
 				else if (blocks.getBlock(x, y) instanceof BrickBlock) {
-					blocks.setBlock(BlockFactory.createElement(GameBlock.SPACE), x, y);
+					blocks.setBlock(BlockFactory.createElement(GameBlock.EMPTY), x, y);
 					break;
 				} else if (blocks.getBlock(x, y) instanceof EmptyBlock) {
-					Entity blen = new BlockEntity(x, y);
+					Entity blen = EntityFactory.createEntity(GameEntities.EXPLOSION, x, y);
 					map.addEnemy(blen);
 					for (Entity e : map.getEntities()) {
 						if (CollisionDetector.isEntitiesCollision(e, blen)) {

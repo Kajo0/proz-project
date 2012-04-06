@@ -1,27 +1,16 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public class BlockEntity extends Entity {
-	public BlockEntity(int x, int y) {
-		super(null, null);
+	public BlockEntity(Image anim, int x, int y) {
+		super(anim, anim);
 		this.setX(x * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setY(y * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setWidth(GameMap.BLOCK_SIZE);
 		this.setHeight(GameMap.BLOCK_SIZE);
 		this.setDyingTime(500);
-		
-		BufferedImage img = new BufferedImage((int) this.getWidth(), (int) this.getHeight(),
-																	BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		g.setColor(Color.YELLOW);
-		g.fillRect(15, 15, 10, 10);
-		
-		this.setAnim(img);
-		
 		setDead();
 	}
 	

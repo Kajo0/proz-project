@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
+import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
+import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
@@ -103,7 +105,7 @@ public class GameMap {
 	}
 
 	public void addBomb(float x, float y, long plantTime) {
-		this.bombs.add(new Bomb(x, y, plantTime));
+		this.bombs.add((Bomb) EntityFactory.createEntity(GameEntities.BOMB, x, y, plantTime));
 	}
 	
 	public void removeBomb(Bomb bomb) {
