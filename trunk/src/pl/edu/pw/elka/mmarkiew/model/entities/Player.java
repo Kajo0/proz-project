@@ -14,6 +14,7 @@ public class Player extends Entity {
 		this.possibleBombs = 10;
 		this.plantedBombs = 0;
 		this.bombArea = 3;
+		this.setDyingTime(2000);
 	}
 	
 	public void plantBomb() {
@@ -46,6 +47,7 @@ public class Player extends Entity {
 	}
 	
 	public void setDead() {
+		super.setDead();
 		this.lifes--;
 		this.plantedBombs = 0;
 	}

@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public enum GameEntities {
-	PLAYER				("P",	"player",			"player"),
+	PLAYER				("P",	"player",			"playerDying"),
 	BALOON				("A",	"ballonEnemy",		"ballonEnemyDying"),
 	HELIUM				("B",	"heliumEnemy",		"ballonEnemyDying"),
 	BOMB				("BOM",	"bomb",				"bomb"),

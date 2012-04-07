@@ -21,11 +21,11 @@ public class ResourceManager {
 	private int level;
 	
 	public ResourceManager() {
-		this.level = 1;
+		this.level = 0;
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}
 	
-	public GameMap loadMap(String path) throws IOException {
+	private GameMap loadMap(String path) throws IOException {
 		ArrayList<String> listOfLines = new ArrayList<String>();
 		
 		BufferedReader buffer = new BufferedReader(new FileReader(path));
