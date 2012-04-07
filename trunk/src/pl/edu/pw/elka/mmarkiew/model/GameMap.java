@@ -2,6 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.awt.Point;
 import java.util.LinkedList;
+import pl.edu.pw.elka.mmarkiew.model.entities.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
@@ -20,6 +21,7 @@ public class GameMap {
 	private int heightBlocks;
 	private Point playerStartPosition;
 	private LinkedList<Bomb> bombs;
+	private LinkedList<Entity> bonuses;
 	
 	public GameMap(Player player, int widthBlocks, int heightBlocks) {
 		this.player = player;
@@ -29,6 +31,7 @@ public class GameMap {
 		this.enemies = new LinkedList<Entity>();
 		this.playerStartPosition = new Point(0, 0);
 		this.bombs = new LinkedList<Bomb>();
+		this.bonuses = new LinkedList<Entity>();
 	}
 
 	public void setPlayer(Player player) {
@@ -131,5 +134,32 @@ public class GameMap {
 		for (Entity e : toRemove)
 			removeBomb((Bomb) e);
 		
+	}
+
+	public LinkedList<Entity> getBonuses() {
+		return this.bonuses;
+	}
+	
+	public void addBonus(Entity bonus) {
+		if (bonus != null) {
+			if (!this.bonuses.isEmpty()) {
+				if (bonus instanceof Exit) {
+					if (this.bonuses.get(0) instanceof Exit) {
+						this.bonuses.set(0, bonus);
+					} else this.bonuses.addFirst(bonus);
+					return;
+				}
+			}
+			this.bonuses.add(bonus);
+		}
+	}
+	
+	public void removeBonus(Entity bonus) {
+		for (Entity b : bonuses) {
+			if (b == bonus) {
+				bonuses.remove(b);
+				break;
+			}
+		}
 	}
 }
