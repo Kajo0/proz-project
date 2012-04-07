@@ -117,9 +117,6 @@ public class CollisionDetector {
 			if (e.isAlive() && isEntitiesCollision(player, e)) {
 				if (e instanceof Enemy || e instanceof ExplosionEntity) { //TODO zmienic na animacje po smierci
 					player.setDead();
-					player.setX((float) map.getPlayerStartPosition().getX());
-					player.setY((float) map.getPlayerStartPosition().getY());
-					map.removeExplosions();
 					return;
 				}
 				if (e instanceof Bomb) {

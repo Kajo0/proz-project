@@ -34,7 +34,7 @@ public class Model implements Runnable {
 	//loads first map
 	private void init() {
 		try {
-			this.map = resource.loadMap("maps/1.txt");
+			this.map = resource.loadNextMap();
 			this.startTime = 0;
 			this.collisionDetector = new CollisionDetector(map);
 			this.bombCalculator = new BombCalculator(map);
@@ -52,8 +52,10 @@ public class Model implements Runnable {
 			elapsedTime = System.currentTimeMillis() - currTime;
             currTime += elapsedTime;
 			
-            if (!paused && startTime > 0)
+            if (!paused && startTime > 0 && getPlayer().isAlive())
             	update(elapsedTime);
+            if (!getPlayer().isAlive())
+            	playerDyingAnim();
             
             try {
 				wait(10);
@@ -63,6 +65,22 @@ public class Model implements Runnable {
 		}
 	}
 	
+	private void playerDyingAnim() {
+		if ( getPlayer().getY() > map.getHeight() ||
+				getPlayer().getDieTime() + getPlayer().getDyingTime() < System.currentTimeMillis()) {
+			getPlayer().setAlive(true);
+			getPlayer().setX((float) map.getPlayerStartPosition().getX());
+			getPlayer().setY((float) map.getPlayerStartPosition().getY());
+			map.removeExplosions();
+
+			if (getPlayer().getLifes() < 1)
+				startTime = -2;
+		} else {
+			getPlayer().setY(getPlayer().getY() + 5);
+			getPlayer().update(25);
+		}
+	}
+
 	private void update(final long elapsedTime) {
 		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
 		for (Entity e : map.getEntities()) {
@@ -75,10 +93,6 @@ public class Model implements Runnable {
 		
 		if (collisionDetector != null)
 			collisionDetector.detectCollision();
-		
-		//TODO zmienic na GAME OVER
-		if (resource.getPlayer().getLifes() < 1)
-			startTime = -1;
 
 		bombCalculator.calculateBombs();
 		
