@@ -13,7 +13,7 @@ public class Player extends Entity {
 		super(anim, dyingAnim);
 		this.setMaxVelocity(0.15f);
 		this.setLifes(3);
-		this.possibleBombs = 5;
+		this.possibleBombs = 10;
 		this.plantedBombs = 0;
 		this.bombArea = 3;
 	}

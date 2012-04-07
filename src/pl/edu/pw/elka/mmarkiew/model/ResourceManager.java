@@ -6,6 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Bonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
@@ -58,14 +62,7 @@ public class ResourceManager {
 			
 			for (int i = 0; i < width; i++) {
 				if (i < line.length()) {
-					tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + line.charAt(i)) ), i, j);
-					if ( GameEntities.getEnumEntity("" + line.charAt(i)) == GameEntities.PLAYER)
-						tempMap.setPlayerStartPosition(i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
-														j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
-					else if ( GameEntities.getEnumEntity("" + line.charAt(i)) != GameEntities.UNDEFINED)
-						tempMap.addEnemy(EntityFactory.createEntity( GameEntities.getEnumEntity("" + line.charAt(i)), 
-												i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
-												j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2));
+					chooseBlockEntityToCreate(tempMap, line.charAt(i), i, j);
 				} else {
 					tempMap.setBlock(BlockFactory.createElement(GameBlock.EMPTY), i, j);
 				}
@@ -84,6 +81,26 @@ public class ResourceManager {
 		return tempMap;
 	}
 	
+	private void chooseBlockEntityToCreate(GameMap tempMap, char charAt, int i, int j) {
+
+		tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + charAt) ), i, j);
+		
+		if ( GameEntities.getEnumEntity("" + charAt) == GameEntities.PLAYER)
+			tempMap.setPlayerStartPosition(i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
+											j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+		
+		else
+			if ( GameEntities.getEnumEntity("" + charAt) != GameEntities.UNDEFINED) {
+				Entity e = EntityFactory.createEntity( GameEntities.getEnumEntity("" + charAt), 
+									i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
+									j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+				if (e instanceof Enemy)
+					tempMap.addEnemy(e);
+				else if (e instanceof Bonus)
+					tempMap.addBonus(e);
+			}
+	}
+
 	public Player getPlayer() {
 		return playerEntity;
 	}

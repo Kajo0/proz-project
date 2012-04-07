@@ -2,6 +2,8 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.io.IOException;
 import java.util.LinkedList;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.Explosion;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
@@ -77,12 +79,18 @@ public class Model implements Runnable {
 		//TODO zmienic na GAME OVER
 		if (resource.getPlayer().getLifes() < 1)
 			startTime = -1;
-		
+
 		bombCalculator.calculateBombs();
 		
 		//TODO WYWALIC TO BO TO TYLKO DO TESTU PRZEJSCIA MAPY
 		if (map.getEnemies().isEmpty()) {
-			nextMap();
+			if (map.getBonuses().isEmpty())
+				nextMap();
+			else if (map.getBonuses().get(0) instanceof Exit) {
+				map.getBonuses().get(0).setAlive(true);
+				if (CollisionDetector.isEntitiesCollision(getPlayer(), map.getBonuses().get(0)))
+					nextMap();
+			}
 		}
 	}
 
@@ -99,9 +107,10 @@ public class Model implements Runnable {
 		}
 	}
 
-	public MapToDraw getMapToDraw() {
+	public synchronized MapToDraw getMapToDraw() {
+		//TODO tu musze skopiowac - deep copy wszystkiego
 		if (map != null)
-			return new MapToDraw(map.getBlockHolder(), map.getEntities(), map.getWidthBlocks(),
+			return new MapToDraw(map.getBlockHolder(), map.getEntities(), map.getBonuses(), map.getWidthBlocks(),
 													map.getHeightBlocks(), isPaused(), isStarted());
 		return new MapToDraw(true);
 	}
