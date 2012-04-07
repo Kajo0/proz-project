@@ -1,17 +1,15 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Image;
-
 public class BaloonEnemy extends Entity implements Enemy {
 	
-	public BaloonEnemy(Image anim, Image dyingAnim) {
+	public BaloonEnemy(Animation anim, Animation dyingAnim) {
 		super(anim, dyingAnim);
 		this.setXVelocity(0.05f);
 		this.setYVelocity(0.05f);
 		this.setMaxVelocity(0.05f);
 	}
 	
-	public BaloonEnemy(Image anim, Image dyingAnim, int x, int y) {
+	public BaloonEnemy(Animation anim, Animation dyingAnim, int x, int y) {
 		this(anim, dyingAnim);
 		this.setX(x);
 		this.setY(y);

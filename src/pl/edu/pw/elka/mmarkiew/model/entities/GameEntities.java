@@ -1,7 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -18,20 +17,17 @@ public enum GameEntities {
 	UNDEFINED("", "images/undefined.png", "");
 	
 	private final String character;
-	private final Image anim;
-	private final Image dyingAnim;
+	private final Animation anim;
+	private final Animation dyingAnim;
 	
 	private GameEntities(final String character, final String anim, final String dyingAnim) {
 		this.character = character;
 		
-		Image img = null;
-		Image img2 = null;
+		Animation a = new Animation();
+
 		if (new File(anim).canExecute()) {
-			ImageIcon icon = new ImageIcon(anim);
-			img = icon.getImage();
-			if (dyingAnim.isEmpty())
-				img2 = img;
-			else img2 = new ImageIcon(dyingAnim).getImage();
+			a.addFrame(new ImageIcon(anim).getImage(), 500);
+			
 		} else {
 			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
 																				BufferedImage.TYPE_INT_ARGB);
@@ -39,23 +35,22 @@ public enum GameEntities {
 			g.fillRect(10, 10, 20, 20);
 			g.dispose();
 			
-			img = bufImg;
-			img2 = img;
+			a.addFrame(bufImg, 50);
 		}
 		
-		this.anim = img;
-		this.dyingAnim = img2;
+		this.anim = a;
+		this.dyingAnim = a;
 	}
-	
+
 	public String getCharacter() {
 		return this.character;
 	}
 
-	public Image getAnim() {
+	public Animation getAnim() {
 		return this.anim;
 	}
 
-	public Image getDyingAnim() {
+	public Animation getDyingAnim() {
 		return this.dyingAnim;
 	}
 	

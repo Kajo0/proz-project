@@ -3,8 +3,8 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 import java.awt.Image;
 
 public abstract class Entity {
-	private Image anim;	// TODO zamienic na Animation
-	private Image dyingAnim;
+	private Animation anim;	// TODO zamienic na Animation
+	private Animation dyingAnim;
 	private float x;
 	private float y;
 	private float xVelocity;
@@ -16,7 +16,7 @@ public abstract class Entity {
 	private long dieTime;
 	private int dyingTime;
 	
-	public Entity(Image anim, Image dyingAnim) {
+	public Entity(Animation anim, Animation dyingAnim) {
 		this.anim = anim;
 		this.dyingAnim = dyingAnim;
 		this.x = 0;
@@ -24,8 +24,8 @@ public abstract class Entity {
 		this.xVelocity = 0;
 		this.yVelocity = 0;
 		this.maxVelocity = 0;
-		this.width = anim.getWidth(null);
-		this.height = anim.getHeight(null);
+		this.width = anim.getImage().getWidth(null);
+		this.height = anim.getImage().getHeight(null);
 		this.alive = true;
 		this.dieTime = -1;
 		this.dyingTime = 2000;
@@ -35,7 +35,8 @@ public abstract class Entity {
 		if (alive) {
 			this.x += xVelocity * elapsedTime;
 			this.y += yVelocity * elapsedTime;
-		}
+			anim.update(elapsedTime);
+		} else dyingAnim.update(elapsedTime);
 	}
 	
 	public void collisionX() {
@@ -48,15 +49,15 @@ public abstract class Entity {
 
 	public Image getAnim() {
 		if (isAlive())
-			return this.anim;
-		else return this.dyingAnim;
+			return this.anim.getImage();
+		else return this.dyingAnim.getImage();
 	}
 
-	public void setAnim(Image anim) {
+	public void setAnim(Animation anim) {
 		this.anim = anim;
 	}
 
-	public void setDyingAnim(Image anim) {
+	public void setDyingAnim(Animation anim) {
 		this.dyingAnim = anim;
 	}
 

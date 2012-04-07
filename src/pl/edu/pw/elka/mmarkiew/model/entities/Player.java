@@ -1,7 +1,5 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Image;
-
 public class Player extends Entity {
 	//TODO dodac pointsy i bonusy ustawione
 	private int lifes;
@@ -9,7 +7,7 @@ public class Player extends Entity {
 	private int plantedBombs;
 	private int bombArea;
 
-	public Player(Image anim, Image dyingAnim) {
+	public Player(Animation anim, Animation dyingAnim) {
 		super(anim, dyingAnim);
 		this.setMaxVelocity(0.15f);
 		this.setLifes(3);
