@@ -2,6 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.ArrayList;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.DestroyingBrick;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
@@ -57,6 +58,8 @@ public class BombCalculator {
 		for (int i = 0; i < 4; i++) {
 			x = xR;
 			y = yR;
+			
+			destroyedBrickAnimation:
 			for (int j = 1; j <= map.getPlayer().getBombArea(); j++) {
 				switch (i) {
 					case 0: x = xR;		y = yR - j; break;
@@ -72,16 +75,15 @@ public class BombCalculator {
 					map.addEnemy(blen);
 					break;
 				} else if (blocks.getBlock(x, y) instanceof EmptyBlock) {
+
 					Entity blen = EntityFactory.createEntity(GameEntities.EXPLOSION, x, y);
+					for (Entity e : map.getEntities()) {
+						if (e instanceof DestroyingBrick) {
+							if (CollisionDetector.isEntitiesCollision(blen, e))
+								break destroyedBrickAnimation;
+						}
+					}
 					map.addEnemy(blen);
-//					for (Entity e : map.getEntities()) {
-//						if (CollisionDetector.isEntitiesCollision(e, blen)) {
-//							e.setDead();
-//							if (e instanceof Player) {
-//								return false;
-//							}
-//						}
-//					}
 				}
 			}
 		}

@@ -8,14 +8,18 @@ import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
+import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
+import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 
 public class MapPainter implements Runnable {
 	private MapToDraw map;
 	private Canvas panel;
+	private int blockSize;
 	
 	public MapPainter(Canvas gamePanel, MapToDraw map) {
 		this.panel = gamePanel;
 		this.map = map;
+		this.blockSize = 40;//TODO dac ze jak wiecej blokow to sklaujemy itp..
 	}
 	
 	@Override
@@ -30,9 +34,9 @@ public class MapPainter implements Runnable {
 			paintPlainMap(g);
 		else {
 			paintMap(g);
+			paintBonuses(g);
 			paintPalyer(g);
 			paintEnemies(g);
-			paintBonuses(g);
 		}
 		
 		g.dispose();
@@ -90,6 +94,15 @@ public class MapPainter implements Runnable {
 			image = b.getAnim();
 			g.drawImage(image, ((int) b.getX()) - image.getWidth(null) / 2,
 								((int) b.getY()) - image.getHeight(null) / 2, panel);
+			
+			BlockElement block = map.getBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize));
+			image = block.getImage();
+			if (! (block instanceof EmptyBlock) ) {
+				g.drawImage(block.getImage(),
+							(int) b.getX() - image.getWidth(null) / 2,
+							(int) b.getY() - image.getWidth(null) / 2,
+							panel);
+			}
 		}
 	}
 

@@ -96,8 +96,10 @@ public class ResourceManager {
 									j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 				if (e instanceof Enemy)
 					tempMap.addEnemy(e);
-				else if (e instanceof Bonus)
+				else if (e instanceof Bonus) {
 					tempMap.addBonus(e);
+					tempMap.setBlock(BlockFactory.createElement(GameBlock.BRICK), i, j);
+				}
 			}
 	}
 
