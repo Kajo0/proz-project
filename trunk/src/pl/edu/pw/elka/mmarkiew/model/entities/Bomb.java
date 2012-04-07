@@ -12,8 +12,6 @@ public class Bomb extends Entity {
 		super(anim, anim);
 		this.setX(GameMap.getTilePosition(x) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setY(GameMap.getTilePosition(y) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
-		this.setWidth(15);
-		this.setHeight(15);
 		this.plantTime = plantTime;
 		this.timer = 3000;
 	}

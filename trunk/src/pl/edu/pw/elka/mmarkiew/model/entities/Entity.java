@@ -24,8 +24,8 @@ public abstract class Entity {
 		this.xVelocity = 0;
 		this.yVelocity = 0;
 		this.maxVelocity = 0;
-		this.width = 0;
-		this.height = 0;
+		this.width = anim.getWidth(null);
+		this.height = anim.getHeight(null);
 		this.alive = true;
 		this.dieTime = -1;
 		this.dyingTime = 2000;

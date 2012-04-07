@@ -5,7 +5,6 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
-import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.BrickBlock;
@@ -69,18 +68,20 @@ public class BombCalculator {
 					break;
 				else if (blocks.getBlock(x, y) instanceof BrickBlock) {
 					blocks.setBlock(BlockFactory.createElement(GameBlock.EMPTY), x, y);
+					Entity blen = EntityFactory.createEntity(GameEntities.DESTROYING_BRICK, x, y);
+					map.addEnemy(blen);
 					break;
 				} else if (blocks.getBlock(x, y) instanceof EmptyBlock) {
 					Entity blen = EntityFactory.createEntity(GameEntities.EXPLOSION, x, y);
 					map.addEnemy(blen);
-					for (Entity e : map.getEntities()) {
-						if (CollisionDetector.isEntitiesCollision(e, blen)) {
-							e.setDead();
-							if (e instanceof Player) {
-								return false;
-							}
-						}
-					}
+//					for (Entity e : map.getEntities()) {
+//						if (CollisionDetector.isEntitiesCollision(e, blen)) {
+//							e.setDead();
+//							if (e instanceof Player) {
+//								return false;
+//							}
+//						}
+//					}
 				}
 			}
 		}
