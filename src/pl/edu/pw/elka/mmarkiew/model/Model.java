@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
+import pl.edu.pw.elka.mmarkiew.model.entities.Explosion;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
@@ -65,7 +65,7 @@ public class Model implements Runnable {
 		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
 		for (Entity e : map.getEntities()) {
 			e.update(elapsedTime);
-			if ((!e.isAlive() || e instanceof BlockEntity) && e.getDieTime() + e.getDyingTime() < System.currentTimeMillis())
+			if ((!e.isAlive() || e instanceof Explosion) && e.getDieTime() + e.getDyingTime() < System.currentTimeMillis())
 				entityToRemove.add(e);
 		}
 		for (Entity e : entityToRemove)

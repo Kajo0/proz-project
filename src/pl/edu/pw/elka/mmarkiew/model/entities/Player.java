@@ -12,12 +12,10 @@ public class Player extends Entity {
 	public Player(Image anim, Image dyingAnim) {
 		super(anim, dyingAnim);
 		this.setMaxVelocity(0.15f);
-		this.setWidth(30);
-		this.setHeight(30);
 		this.setLifes(3);
-		this.possibleBombs = 1;
+		this.possibleBombs = 5;
 		this.plantedBombs = 0;
-		this.bombArea = 1;
+		this.bombArea = 3;
 	}
 	
 	public void plantBomb() {

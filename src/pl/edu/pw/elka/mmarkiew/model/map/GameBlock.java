@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.map;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -17,8 +18,19 @@ public enum GameBlock {
 	private GameBlock(final String character, final String image) {
 		this.character = character;
 		
-		BufferedImage img = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE, BufferedImage.TYPE_INT_ARGB);
-		img.getGraphics().drawImage(new ImageIcon(image).getImage(), 0, 0, img.getWidth(), img.getHeight(), null);
+		Image img = null;
+		try {
+			ImageIcon icon = new ImageIcon(image);
+			img = icon.getImage();
+		} catch (Exception e) {
+			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
+																				BufferedImage.TYPE_INT_ARGB);
+			Graphics g = bufImg.getGraphics();
+			g.fillRect(0, 0, GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE);
+			g.dispose();
+			
+			img = bufImg;
+		}
 		
 		this.image = img;
 	}

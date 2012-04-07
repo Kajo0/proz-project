@@ -9,8 +9,6 @@ public class HeliumEnemy extends Entity implements Enemy {
 		this.setXVelocity(0.1f);
 		this.setYVelocity(0.1f);
 		this.setMaxVelocity(0.1f);
-		this.setWidth(30);
-		this.setHeight(30);
 	}
 	
 	public HeliumEnemy(Image anim, Image dyingAnim, int x, int y) {

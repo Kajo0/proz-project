@@ -1,7 +1,7 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
-import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
+import pl.edu.pw.elka.mmarkiew.model.entities.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
@@ -43,7 +43,7 @@ public class CollisionDetector {
 		float dividedAnimWidth = entity.getHeight() / 2;
 		float dividedAnimHeight = entity.getHeight() / 2;
 		
-		if (entity instanceof BlockEntity)
+		if (entity instanceof ExplosionEntity)
 			return;
 		
 		// gora dol prawo lewo
@@ -115,7 +115,7 @@ public class CollisionDetector {
 		Player player = map.getPlayer();
 		for (Entity e : linkedList) {
 			if (e.isAlive() && isEntitiesCollision(player, e)) {
-				if (e instanceof Enemy || e instanceof BlockEntity) { //TODO i nie bonus bedzie trza dac
+				if (e instanceof Enemy || e instanceof ExplosionEntity) { //TODO zmienic na animacje po smierci
 					player.setDead();
 					player.setX((float) map.getPlayerStartPosition().getX());
 					player.setY((float) map.getPlayerStartPosition().getY());
@@ -124,7 +124,7 @@ public class CollisionDetector {
 				}
 				if (e instanceof Bomb) {
 					//TODO tak zeby blokowala bomba playera
-				}
+				}//TODO dodac co jak bonus zlapal
 			}
 		}
 	}
@@ -139,9 +139,9 @@ public class CollisionDetector {
 				if (!entities[i].isAlive() || !entities[j].isAlive() || entities[i] instanceof Player)
 					continue;
 				else if (isEntitiesCollision(entities[i], entities[j])) {
-					if (entities[i] instanceof Enemy && entities[j] instanceof BlockEntity)
+					if (entities[i] instanceof Enemy && entities[j] instanceof ExplosionEntity)
 						entities[i].setDead();
-					if (entities[j] instanceof Enemy && entities[j] instanceof BlockEntity)
+					if (entities[j] instanceof Enemy && entities[j] instanceof ExplosionEntity)
 						entities[j].setDead();
 					entities[i].collisionX();
 					entities[i].collisionY();

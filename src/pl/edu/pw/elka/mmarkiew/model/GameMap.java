@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.awt.Point;
 import java.util.LinkedList;
-import pl.edu.pw.elka.mmarkiew.model.entities.BlockEntity;
+import pl.edu.pw.elka.mmarkiew.model.entities.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
@@ -119,7 +119,7 @@ public class GameMap {
 	public void removeExplosions() {
 		LinkedList<Entity> toRemove = new LinkedList<Entity>();
 		for (Entity e : enemies)
-			if (e instanceof BlockEntity)
+			if (e instanceof ExplosionEntity)
 				toRemove.add(e);
 		for (Entity e : toRemove)
 			removeEnemy(e);

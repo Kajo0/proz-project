@@ -9,8 +9,6 @@ public class BaloonEnemy extends Entity implements Enemy {
 		this.setXVelocity(0.05f);
 		this.setYVelocity(0.05f);
 		this.setMaxVelocity(0.05f);
-		this.setWidth(20);
-		this.setHeight(20);
 	}
 	
 	public BaloonEnemy(Image anim, Image dyingAnim, int x, int y) {
