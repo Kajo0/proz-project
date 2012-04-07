@@ -1,6 +1,7 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
+import pl.edu.pw.elka.mmarkiew.model.entities.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
@@ -26,6 +27,8 @@ public class CollisionDetector {
 
 		
 		checkPlayerEntityCollision(map.getEntities());
+		checkPlayerBonusCollision(map.getBonuses());
+		
 		
 		checkEnemiesCollision(map.getEntities());
 		
@@ -121,11 +124,20 @@ public class CollisionDetector {
 				}
 				if (e instanceof Bomb) {
 					//TODO tak zeby blokowala bomba playera
-				}//TODO dodac co jak bonus zlapal
+				}
 			}
 		}
 	}
 
+	private void checkPlayerBonusCollision(LinkedList<Bonus> bonuses) {
+		Player player = map.getPlayer();
+		for (Bonus b : bonuses) {
+			if (b.isAlive() && isEntitiesCollision(player, b)) {
+				b.bonusideEntity(player);
+				b.setDead();
+			}
+		}
+	}
 
 	public void checkEnemiesCollision(LinkedList<Entity> enemies) {
 		//TODO usprawnic kolizje

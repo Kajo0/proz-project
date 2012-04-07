@@ -2,6 +2,8 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.awt.Point;
 import java.util.LinkedList;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
@@ -21,7 +23,7 @@ public class GameMap {
 	private int heightBlocks;
 	private Point playerStartPosition;
 	private LinkedList<Bomb> bombs;
-	private LinkedList<Entity> bonuses;
+	private LinkedList<Bonus> bonuses;
 	
 	public GameMap(Player player, int widthBlocks, int heightBlocks) {
 		this.player = player;
@@ -31,7 +33,7 @@ public class GameMap {
 		this.enemies = new LinkedList<Entity>();
 		this.playerStartPosition = new Point(0, 0);
 		this.bombs = new LinkedList<Bomb>();
-		this.bonuses = new LinkedList<Entity>();
+		this.bonuses = new LinkedList<Bonus>();
 	}
 
 	public void setPlayer(Player player) {
@@ -132,11 +134,11 @@ public class GameMap {
 		
 	}
 
-	public LinkedList<Entity> getBonuses() {
+	public LinkedList<Bonus> getBonuses() {
 		return this.bonuses;
 	}
 	
-	public void addBonus(Entity bonus) {
+	public void addBonus(Bonus bonus) {
 		if (bonus != null) {
 			if (!this.bonuses.isEmpty()) {
 				if (bonus instanceof Exit) {

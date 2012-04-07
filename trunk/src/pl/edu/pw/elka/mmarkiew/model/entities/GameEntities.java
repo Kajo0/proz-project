@@ -12,6 +12,7 @@ public enum GameEntities {
 	HELIUM				("B",	"heliumEnemy",		"ballonEnemyDying"),
 	BOMB				("BOM",	"bomb",				"bomb"),
 	EXIT				("X",	"exitOpen",			"exitClose"),
+	SPEED				("S",	"speedBonus",		"speedBonus"),
 	EXPLOSION			("EXP",	"explosion",		"explosion"),
 	DESTROYING_BRICK	("DES",	"destroyingBrick",	"destroyingBrick"),
 	UNDEFINED			("",	"undefined",		"undefined");

@@ -17,6 +17,7 @@ public abstract class EntityFactory {
 			case HELIUM:	return new HeliumEnemy(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
 			case BOMB:		return new Bomb(entity.getAnim().clone(), x, y, plantTime);
 			case EXIT:		return new Exit(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
+			case SPEED:		return new SpeedBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
 			case EXPLOSION:	return new ExplosionEntity(entity.getAnim().clone(), (int) x, (int) y);
 			case DESTROYING_BRICK:	return new DestroyingBrick(entity.getAnim().clone(), (int) x, (int) y);
 			case UNDEFINED: return null;
