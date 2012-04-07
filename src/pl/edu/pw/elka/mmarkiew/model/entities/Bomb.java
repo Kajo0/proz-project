@@ -9,8 +9,8 @@ public class Bomb extends Entity {
 	
 	public Bomb(Animation anim, float x, float y, long plantTime) {
 		super(anim, anim);
-		this.setX(GameMap.getTilePosition(x) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
-		this.setY(GameMap.getTilePosition(y) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+		this.setX(GameMap.getTileCenterFromPosition(x));
+		this.setY(GameMap.getTileCenterFromPosition(y));
 		this.plantTime = plantTime;
 		this.timer = 3000;
 	}

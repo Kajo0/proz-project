@@ -13,8 +13,8 @@ public abstract class EntityFactory {
 	
 		switch (entity) {
 			case PLAYER:	return new Player(entity.getAnim().clone(), entity.getDyingAnim());
-			case BALOON:	return new BaloonEnemy(entity.getAnim().clone(), entity.getDyingAnim(), (int) x, (int) y);
-			case HELIUM:	return new HeliumEnemy(entity.getAnim().clone(), entity.getDyingAnim(), (int) x, (int) y);
+			case BALOON:	return new BaloonEnemy(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
+			case HELIUM:	return new HeliumEnemy(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
 			case BOMB:		return new Bomb(entity.getAnim().clone(), x, y, plantTime);
 			case EXIT:		return new Exit(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
 			case EXPLOSION:	return new ExplosionEntity(entity.getAnim().clone(), (int) x, (int) y);
