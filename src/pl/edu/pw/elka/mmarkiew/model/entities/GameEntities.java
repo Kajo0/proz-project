@@ -7,14 +7,14 @@ import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public enum GameEntities {
-	PLAYER("P", "images/player.png", ""),
-	BALOON("A", "images/ballonEnemy.png", ""),
-	HELIUM("B", "images/heliumEnemy.png", ""),
-	BOMB("BOMB", "images/bomb.png", ""),
-	EXIT("X", "images/exitOpen.png", "images/exitClose.png"),
-	EXPLOSION("EX PLOSION", "images/explosion.png", ""),
-	DESTROYING_BRICK("DESTROYING_BRICK", "images/destroyingBrick.png", ""),
-	UNDEFINED("", "images/undefined.png", "");
+	PLAYER				("P",	"player",			"player"),
+	BALOON				("A",	"ballonEnemy",		"ballonEnemyDying"),
+	HELIUM				("B",	"heliumEnemy",		"ballonEnemyDying"),
+	BOMB				("BOM",	"bomb",				"bomb"),
+	EXIT				("X",	"exitOpen",			"exitClose"),
+	EXPLOSION			("EXP",	"explosion",		"explosion"),
+	DESTROYING_BRICK	("DES",	"destroyingBrick",	"destroyingBrick"),
+	UNDEFINED			("",	"undefined",		"undefined");
 	
 	private final String character;
 	private final Animation anim;
@@ -23,23 +23,8 @@ public enum GameEntities {
 	private GameEntities(final String character, final String anim, final String dyingAnim) {
 		this.character = character;
 		
-		Animation a = new Animation();
-
-		if (new File(anim).canExecute()) {
-			a.addFrame(new ImageIcon(anim).getImage(), 500);
-			
-		} else {
-			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
-																				BufferedImage.TYPE_INT_ARGB);
-			Graphics g = bufImg.getGraphics();
-			g.fillRect(10, 10, 20, 20);
-			g.dispose();
-			
-			a.addFrame(bufImg, 50);
-		}
-		
-		this.anim = a;
-		this.dyingAnim = a;
+		this.anim = createAnimation(anim);
+		this.dyingAnim = createAnimation(dyingAnim);
 	}
 
 	public String getCharacter() {
@@ -64,6 +49,30 @@ public enum GameEntities {
 				return g;
 		}
 		return UNDEFINED;
+	}
+	
+	private Animation createAnimation(String anim) {
+		Animation a = new Animation();
+
+		File file = new File("images" + File.separator + anim + "0.png");
+		if (file.canExecute()) {
+			a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
+
+			file = new File("images" + File.separator + anim + "1.png");
+			for (int i = 1; file.canExecute(); i++, file = new File("images" + File.separator + anim + i + ".png"))
+				a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
+			
+		} else {
+			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
+																				BufferedImage.TYPE_INT_ARGB);
+			Graphics g = bufImg.getGraphics();
+			g.fillRect(10, 10, 20, 20);
+			g.dispose();
+			
+			a.addFrame(bufImg, 50);
+		}
+		
+		return a;
 	}
 	
 }

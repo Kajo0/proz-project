@@ -15,12 +15,22 @@ public class Animation {
 		start();
 	}
 	
-	public synchronized void start() {
+	private Animation(ArrayList<AnimFrame> frames, long duration) {
+		this.frames = frames;
+		this.duration = duration;
+		start();
+	}
+	
+	public Animation clone() {
+		return new Animation(frames, duration);
+	}
+	
+	public void start() {
 		this.currentImage = 0;
 		this.animTime = 0;
 	}
 	
-	public synchronized void addFrame(Image image, long duration) {
+	public void addFrame(Image image, long duration) {
 		this.duration += duration;
 		this.frames.add(new AnimFrame(image, this.duration));
 	}
@@ -40,7 +50,7 @@ public class Animation {
 		}
 	}
 	
-	public synchronized Image getImage() {
+	public Image getImage() {
 		if (frames.size() == 0) {
 			return null;
 		}
