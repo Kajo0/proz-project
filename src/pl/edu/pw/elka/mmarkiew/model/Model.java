@@ -3,6 +3,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import pl.edu.pw.elka.mmarkiew.model.entities.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.Explosion;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
@@ -54,6 +55,7 @@ public class Model implements Runnable {
 			
             if (!paused && startTime > 0 && getPlayer().isAlive())
             	update(elapsedTime);
+            
             if (!getPlayer().isAlive())
             	playerDyingAnim();
             
@@ -65,6 +67,8 @@ public class Model implements Runnable {
 		}
 	}
 	
+	
+
 	private void playerDyingAnim() {
 		if ( getPlayer().getY() > map.getHeight() ||
 				getPlayer().getDieTime() + getPlayer().getDyingTime() < System.currentTimeMillis()) {
@@ -90,13 +94,28 @@ public class Model implements Runnable {
 		}
 		for (Entity e : entityToRemove)
 			map.removeEnemy(e);
+				
+		removeBonuses();
 		
 		if (collisionDetector != null)
 			collisionDetector.detectCollision();
 
 		bombCalculator.calculateBombs();
-		
-		//TODO WYWALIC TO BO TO TYLKO DO TESTU PRZEJSCIA MAPY
+        
+        checkMapCleared();
+	}
+	
+	private void removeBonuses() {
+		LinkedList<Bonus> bonusToRemove = new LinkedList<Bonus>();
+		for (Bonus b : map.getBonuses()) {
+			if ( !b.isAlive() && !(b instanceof Exit) )
+				bonusToRemove.add(b);
+		}
+		for (Bonus b : bonusToRemove)
+			map.removeBonus(b);
+	}
+
+	private void checkMapCleared() {
 		if (map.getEnemies().isEmpty()) {
 			if (map.getBonuses().isEmpty())
 				nextMap();
@@ -108,8 +127,10 @@ public class Model implements Runnable {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	private void nextMap() {
-		try {
+		try {//TODO zmienic przejscie pomiedzy mapami
+			Thread.currentThread().sleep(100);
 			map = resource.loadNextMap();
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
@@ -118,6 +139,8 @@ public class Model implements Runnable {
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
 			startTime = -2;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
