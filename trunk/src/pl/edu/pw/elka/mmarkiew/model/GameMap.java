@@ -79,10 +79,6 @@ public class GameMap {
 	public int getHeightBlocks() {
 		return heightBlocks;
 	}
-	
-	public static int getTilePosition(float xy) {
-		return (int) (xy / GameMap.BLOCK_SIZE);
-	}
 
 	public BlockHolder getBlockHolder() {
 		return map;
@@ -161,5 +157,17 @@ public class GameMap {
 				break;
 			}
 		}
+	}
+
+	public static int getTilePosition(float xy) {
+		return (int) (xy / GameMap.BLOCK_SIZE);
+	}
+	
+	public static float getTileCenterFromPosition(float xy) {
+		return ((int) (xy / GameMap.BLOCK_SIZE)) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2;
+	}
+	
+	public static float getTileCenterFromTile(int ij) {
+		return ij * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2;
 	}
 }

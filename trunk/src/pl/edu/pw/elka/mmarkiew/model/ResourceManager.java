@@ -73,8 +73,7 @@ public class ResourceManager {
 		playerEntity.setXVelocity(0);
 		playerEntity.setYVelocity(0);
 		if (tempMap.getPlayerStartPosition().equals(new Point(0, 0)))
-			tempMap.setPlayerStartPosition(GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
-													GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+			tempMap.setPlayerStartPosition(GameMap.getTileCenterFromTile(1), GameMap.getTileCenterFromTile(1));
 		playerEntity.setX((float) tempMap.getPlayerStartPosition().getX());
 		playerEntity.setY((float) tempMap.getPlayerStartPosition().getY());
 		
@@ -86,14 +85,11 @@ public class ResourceManager {
 		tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + charAt) ), i, j);
 		
 		if ( GameEntities.getEnumEntity("" + charAt) == GameEntities.PLAYER)
-			tempMap.setPlayerStartPosition(i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
-											j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
-		
+			tempMap.setPlayerStartPosition(GameMap.getTileCenterFromTile(i), GameMap.getTileCenterFromTile(j));
 		else
 			if ( GameEntities.getEnumEntity("" + charAt) != GameEntities.UNDEFINED) {
 				Entity e = EntityFactory.createEntity( GameEntities.getEnumEntity("" + charAt), 
-									i * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2,
-									j * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+									(int) GameMap.getTileCenterFromTile(i), (int) GameMap.getTileCenterFromTile(j));
 				if (e instanceof Enemy)
 					tempMap.addEnemy(e);
 				else if (e instanceof Bonus) {

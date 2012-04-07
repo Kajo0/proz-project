@@ -1,16 +1,13 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import pl.edu.pw.elka.mmarkiew.model.GameMap;
-
-public class Exit extends Entity implements Bonus {
+public class Exit extends Bonus {
 	public Exit(Animation anim, Animation dyingAnim, float x, float y) {
 		super(anim, dyingAnim);
-		this.setX(GameMap.getTilePosition(x) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
-		this.setY(GameMap.getTilePosition(y) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
+		this.setX(x);
+		this.setY(y);
 		this.setAlive(false);
 	}
 	
 	public void setDead() {
-		
 	}
 }
