@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
+import pl.edu.pw.elka.mmarkiew.model.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
@@ -19,7 +20,7 @@ public class MapPainter implements Runnable {
 	public MapPainter(Canvas gamePanel, MapToDraw map) {
 		this.panel = gamePanel;
 		this.map = map;
-		this.blockSize = 40;//TODO dac ze jak wiecej blokow to sklaujemy itp..
+		this.blockSize = GameMap.BLOCK_SIZE;
 	}
 	
 	@Override
@@ -46,7 +47,7 @@ public class MapPainter implements Runnable {
 
 	private void paintPauseMap(Graphics g) {
 		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
-				BufferedImage.TYPE_INT_RGB);
+																			BufferedImage.TYPE_INT_RGB);
 		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
 		img.getGraphics().drawString("PAUSE", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
 		g.drawImage(img, 0, 0, panel);
@@ -55,7 +56,7 @@ public class MapPainter implements Runnable {
 	
 	private void paintPlainMap(Graphics g) {
 		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
-				BufferedImage.TYPE_INT_RGB);
+																			BufferedImage.TYPE_INT_RGB);
 		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
 		img.getGraphics().drawString("BOMBERMAN LOGO", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
 		g.drawImage(img, 0, 0, panel);
@@ -65,7 +66,7 @@ public class MapPainter implements Runnable {
 	private void paintMap(Graphics g) {
 		for (int j = 0; j < map.getHeightBlocks(); j++) {
 			for (int i = 0; i < map.getWidthBlocks(); i++) {
-				g.drawImage(map.getBlock(i, j).getImage(), i*40, j*40, null);
+				g.drawImage(map.getBlock(i, j).getImage(), i * blockSize, j * blockSize, panel);
 			}
 		}
 	}
@@ -74,8 +75,8 @@ public class MapPainter implements Runnable {
 		Player player = (Player) map.getEntities().get(0);
 		Image image = player.getAnim();
 		
-		g.drawImage(image, ((int) player.getX()) - image.getWidth(null) / 2,
-							((int) player.getY()) - image.getHeight(null) / 2, panel);
+		g.drawImage(image, ((int) player.getX()) - image.getWidth(panel) / 2,
+							((int) player.getY()) - image.getHeight(panel) / 2, panel);
 	}
 	
 	private void paintEnemies(Graphics g) {
@@ -83,8 +84,8 @@ public class MapPainter implements Runnable {
 		for (Entity e : map.getEntities())
 			if ( !(e instanceof Player) ) {
 				image = e.getAnim();
-				g.drawImage(image, ((int) e.getX()) - image.getWidth(null) / 2,
-									((int) e.getY()) - image.getHeight(null) / 2, panel);
+				g.drawImage(image, ((int) e.getX()) - image.getWidth(panel) / 2,
+									((int) e.getY()) - image.getHeight(panel) / 2, panel);
 			}
 	}
 	
@@ -98,10 +99,8 @@ public class MapPainter implements Runnable {
 			BlockElement block = map.getBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize));
 			image = block.getImage();
 			if (! (block instanceof EmptyBlock) ) {
-				g.drawImage(block.getImage(),
-							(int) b.getX() - image.getWidth(null) / 2,
-							(int) b.getY() - image.getWidth(null) / 2,
-							panel);
+				g.drawImage(block.getImage(), (int) b.getX() - image.getWidth(panel) / 2,
+												(int) b.getY() - image.getWidth(panel) / 2, panel);
 			}
 		}
 	}

@@ -24,7 +24,7 @@ public class BombCalculator {
 		this.map = map;
 	}
 
-	public void calculateBombs() {
+	public synchronized void calculateBombs() {
 		long currTime = System.currentTimeMillis();
 		ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
 		
