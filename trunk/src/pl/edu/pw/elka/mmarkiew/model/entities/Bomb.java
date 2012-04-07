@@ -1,6 +1,5 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Image;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public class Bomb extends Entity {
@@ -8,7 +7,7 @@ public class Bomb extends Entity {
 	/** miliseconds */
 	private long timer;
 	
-	public Bomb(Image anim, float x, float y, long plantTime) {
+	public Bomb(Animation anim, float x, float y, long plantTime) {
 		super(anim, anim);
 		this.setX(GameMap.getTilePosition(x) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
 		this.setY(GameMap.getTilePosition(y) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2);
