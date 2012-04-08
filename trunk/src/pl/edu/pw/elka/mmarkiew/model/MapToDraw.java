@@ -15,10 +15,12 @@ public class MapToDraw {
 	private int heightBlocks;
 	private boolean paused;
 	private boolean started;
+	private boolean win;
+	private boolean over;
 
 	public MapToDraw(final BlockHolder blockHolder, final LinkedList<Entity> entities, final LinkedList<Bonus> linkedList,
 											final int widthBlocks, final int heightBlocks,
-											final boolean paused, final boolean running) {
+											final boolean paused, final boolean running, boolean win, boolean over) {
 		this.blocks = blockHolder;
 		this.entities = entities;
 		this.bonuses = linkedList;
@@ -26,16 +28,12 @@ public class MapToDraw {
 		this.heightBlocks = heightBlocks;
 		this.paused = paused;
 		this.started = running;
+		this.win = win;
+		this.over = over;
 	}
 	
-	public MapToDraw(boolean started) {
-		this.blocks = null;
-		this.entities = null;
-		this.bonuses = null;
-		this.widthBlocks = 0;
-		this.heightBlocks = 0;
-		this.paused = false;
-		this.started = false;
+	public MapToDraw(boolean started, boolean win, boolean over) {
+		this(null, null, null, 0, 0, false, started, win, over);
 	}
 
 	public BlockElement getBlock(int x, int y) {
@@ -64,5 +62,13 @@ public class MapToDraw {
 
 	public boolean isStarted() {
 		return started;
+	}
+	
+	public boolean isWin() {
+		return win;
+	}
+	
+	public boolean isOver() {
+		return over;
 	}
 }

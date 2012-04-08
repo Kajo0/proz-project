@@ -12,7 +12,7 @@ public class Bomb extends Entity {
 		this.setX(GameMap.getTileCenterFromPosition(x));
 		this.setY(GameMap.getTileCenterFromPosition(y));
 		this.plantTime = plantTime;
-		this.timer = 3000;
+		this.timer = 2000;
 	}
 
 	public long getPlantTime() {

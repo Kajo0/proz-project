@@ -16,6 +16,8 @@ public class Model implements Runnable {
 	private ResourceManager resource;
 	private CollisionDetector collisionDetector;
 	private BombCalculator bombCalculator;
+	private boolean win;
+	private boolean over;
 
 	public Model() {
 		this.startTime = -1;
@@ -24,6 +26,8 @@ public class Model implements Runnable {
 		this.resource = new ResourceManager();
 		this.collisionDetector = null;
 		this.bombCalculator = null;
+		this.win = false;
+		this.over = false;
 	}
 
 	@Override
@@ -77,8 +81,11 @@ public class Model implements Runnable {
 			getPlayer().setY((float) map.getPlayerStartPosition().getY());
 			map.removeExplosions();
 
-			if (getPlayer().getLifes() < 1)
+			if (getPlayer().getLifes() < 1) {
 				startTime = -2;
+				over = true;
+				win = false;
+			}
 		} else {
 			getPlayer().setY(getPlayer().getY() + 5);
 			getPlayer().update(25);
@@ -140,6 +147,8 @@ public class Model implements Runnable {
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
 			startTime = -2;
+			win = true;
+			over = false;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -149,16 +158,8 @@ public class Model implements Runnable {
 		//TODO tu musze skopiowac - deep copy wszystkiego
 		if (map != null)
 			return new MapToDraw(map.getBlockHolder(), map.getEntities(), map.getBonuses(), map.getWidthBlocks(),
-													map.getHeightBlocks(), isPaused(), isStarted());
-		return new MapToDraw(true);
-	}
-	
-	public boolean isStarted() {
-		return (this.startTime < 0) ? false : true;
-	}
-	
-	public boolean isPaused() {
-		return this.paused;
+													map.getHeightBlocks(), paused, (startTime > 0), win, over);
+		return new MapToDraw(false, win, over);
 	}
 	
 	public void switchPause() {
