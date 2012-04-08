@@ -73,7 +73,7 @@ public class ResourceManager {
 		playerEntity.setXVelocity(0);
 		playerEntity.setYVelocity(0);
 		if (tempMap.getPlayerStartPosition().equals(new Point(0, 0)))
-			tempMap.setPlayerStartPosition(GameMap.getTileCenterFromTile(1), GameMap.getTileCenterFromTile(1));
+			tempMap.setPlayerStartPosition(GameMap.getPositionCenterFromTile(1), GameMap.getPositionCenterFromTile(1));
 		playerEntity.setX((float) tempMap.getPlayerStartPosition().getX());
 		playerEntity.setY((float) tempMap.getPlayerStartPosition().getY());
 		
@@ -85,11 +85,11 @@ public class ResourceManager {
 		tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + charAt) ), i, j);
 		
 		if ( GameEntities.getEnumEntity("" + charAt) == GameEntities.PLAYER)
-			tempMap.setPlayerStartPosition(GameMap.getTileCenterFromTile(i), GameMap.getTileCenterFromTile(j));
+			tempMap.setPlayerStartPosition(GameMap.getPositionCenterFromTile(i), GameMap.getPositionCenterFromTile(j));
 		else
 			if ( GameEntities.getEnumEntity("" + charAt) != GameEntities.UNDEFINED) {
 				Entity e = EntityFactory.createEntity( GameEntities.getEnumEntity("" + charAt), 
-									(int) GameMap.getTileCenterFromTile(i), (int) GameMap.getTileCenterFromTile(j));
+									(int) GameMap.getPositionCenterFromTile(i), (int) GameMap.getPositionCenterFromTile(j));
 				if (e instanceof Enemy)
 					tempMap.addEnemy(e);
 				else if (e instanceof Bonus) {
