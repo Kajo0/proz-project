@@ -7,7 +7,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
-import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Explosion;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Explosion;
 
 public class Model implements Runnable {
 	private long startTime;

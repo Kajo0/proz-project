@@ -3,10 +3,10 @@ package pl.edu.pw.elka.mmarkiew.model;
 import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
-import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
-import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Enemy;
-import pl.edu.pw.elka.mmarkiew.model.entities.bonus.ExplosionEntity;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Enemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 

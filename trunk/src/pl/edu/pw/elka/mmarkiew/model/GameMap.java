@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
-import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
-import pl.edu.pw.elka.mmarkiew.model.entities.bonus.ExplosionEntity;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 

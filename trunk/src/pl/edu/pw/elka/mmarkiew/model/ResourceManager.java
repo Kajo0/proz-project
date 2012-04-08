@@ -12,7 +12,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
-import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Enemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 

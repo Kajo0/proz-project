@@ -1,4 +1,4 @@
-package pl.edu.pw.elka.mmarkiew.model.entities.bonus;
+package pl.edu.pw.elka.mmarkiew.model.entities.enemies;
 
 import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 
