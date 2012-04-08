@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.Window;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.ModelStatistics;
@@ -32,6 +32,10 @@ public class View extends JFrame implements Runnable {
 	}
 	
 	private void init() {
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+		} catch (Exception e) {}
+		
 		setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - width) / 2,
 					(Toolkit.getDefaultToolkit().getScreenSize().height - height) / 2,
 					width, height);
@@ -78,7 +82,12 @@ public class View extends JFrame implements Runnable {
 	}
 
 	protected void updateStatistics(ModelStatistics statistics) {
-		rightPanel.getLabel().setText("" + statistics.getTimer());
+		rightPanel.getGameInfo().setTimerLabel(statistics.getTimer() / 1000);
+		rightPanel.getGameInfo().setLevelLabel(statistics.getLevel());
+		rightPanel.getGameInfo().setLifeLabel(statistics.getLifes());
+		rightPanel.getGameInfo().setBombLabel(statistics.getBombs());
+		rightPanel.getGameInfo().setBombAreaLabel(statistics.getBombArea());
+		rightPanel.getGameInfo().setBombTimer(statistics.getBombTimer());
 	}
 
 }

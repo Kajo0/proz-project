@@ -11,6 +11,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class Model implements Runnable {
 	private long startTime;
+	private long gamePlayTime;
 	private boolean paused;
 	private GameMap map;
 	private ResourceManager resource;
@@ -21,6 +22,7 @@ public class Model implements Runnable {
 
 	public Model() {
 		this.startTime = -1;
+		this.gamePlayTime = 0;
 		this.paused = false;
 		this.map = null;
 		this.resource = new ResourceManager();
@@ -57,8 +59,10 @@ public class Model implements Runnable {
 			elapsedTime = System.currentTimeMillis() - currTime;
             currTime += elapsedTime;
 			
-            if (!paused && startTime > 0 && getPlayer().isAlive())
+            if (!paused && startTime > 0 && getPlayer().isAlive()) {
             	update(elapsedTime);
+            	gamePlayTime += elapsedTime;
+            }
             
             if (!getPlayer().isAlive())
             	playerDyingAnim();
@@ -164,7 +168,7 @@ public class Model implements Runnable {
 	
 	public synchronized ModelStatistics getStatistics() {
 		if (getPlayer() != null)
-			return new ModelStatistics(getPlayer());
+			return new ModelStatistics(getPlayer(), gamePlayTime, resource.getLevel());
 		else return new ModelStatistics();
 	}
 	
