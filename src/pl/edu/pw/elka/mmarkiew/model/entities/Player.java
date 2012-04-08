@@ -6,14 +6,16 @@ public class Player extends Entity {
 	private int possibleBombs;
 	private int plantedBombs;
 	private int bombArea;
+	private float defaultSpeed;
 
 	public Player(Animation anim, Animation dyingAnim) {
 		super(anim, dyingAnim);
 		this.setMaxVelocity(0.15f);
 		this.setLifes(3);
-		this.possibleBombs = 10;
+		this.possibleBombs = 1;
 		this.plantedBombs = 0;
-		this.bombArea = 3;
+		this.bombArea = 1;
+		this.defaultSpeed = this.getMaxVelocity();
 		this.setDyingTime(2000);
 	}
 	
@@ -46,9 +48,24 @@ public class Player extends Entity {
 		this.bombArea = bombArea;
 	}
 	
+	public int getPossibleBombs() {
+		return this.possibleBombs;
+	}
+	
+	public void setPossibleBombs(int amount) {
+		this.possibleBombs = amount;
+	}
+	
 	public void setDead() {
 		super.setDead();
 		this.lifes--;
 		this.plantedBombs = 0;
+	}
+
+	public void reset() {
+		this.bombArea = 1;
+		this.possibleBombs = 1;
+		this.plantedBombs = 0;
+		this.setMaxVelocity(this.defaultSpeed);
 	}
 }

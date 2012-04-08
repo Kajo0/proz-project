@@ -9,6 +9,6 @@ public class Exit extends Bonus {
 	public void setDead() {
 	}
 	
-	public void bonusideEntity(Entity e) {
+	public void bonusideEntity(Player e) {
 	}
 }
