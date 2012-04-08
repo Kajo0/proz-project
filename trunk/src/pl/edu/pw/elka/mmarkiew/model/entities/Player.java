@@ -7,6 +7,7 @@ public class Player extends Entity {
 	private int plantedBombs;
 	private int bombArea;
 	private float defaultSpeed;
+	private long bombTimer;
 
 	public Player(Animation anim, Animation dyingAnim) {
 		super(anim, dyingAnim);
@@ -15,6 +16,7 @@ public class Player extends Entity {
 		this.possibleBombs = 1;
 		this.plantedBombs = 0;
 		this.bombArea = 1;
+		this.bombTimer = 3000;
 		this.defaultSpeed = this.getMaxVelocity();
 		this.setDyingTime(2000);
 	}
@@ -54,6 +56,14 @@ public class Player extends Entity {
 	
 	public void setPossibleBombs(int amount) {
 		this.possibleBombs = amount;
+	}
+	
+	public long getBombTimer() {
+		return this.bombTimer;
+	}
+	
+	public void setBombTimer(long timer) {
+		this.bombTimer = timer;
 	}
 	
 	public void setDead() {

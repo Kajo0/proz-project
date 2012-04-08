@@ -7,12 +7,12 @@ public class Bomb extends Entity {
 	/** miliseconds */
 	private long timer;
 	
-	public Bomb(Animation anim, float x, float y, long plantTime) {
+	public Bomb(Animation anim, float x, float y, long plantTime, long timer) {
 		super(anim, anim);
 		this.setX(GameMap.getTileCenterFromPosition(x));
 		this.setY(GameMap.getTileCenterFromPosition(y));
 		this.plantTime = plantTime;
-		this.timer = 2000;
+		this.timer = timer;
 	}
 
 	public long getPlantTime() {
