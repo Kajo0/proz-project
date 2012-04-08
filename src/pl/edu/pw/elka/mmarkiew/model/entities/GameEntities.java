@@ -8,13 +8,13 @@ import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public enum GameEntities {
 	PLAYER				("P",	"player",					"playerDying"),
-	BALOON				("A",	"ballonEnemy",				"ballonEnemyDying"),
-	HELIUM				("B",	"heliumEnemy",				"ballonEnemyDying"),
+	BALOON				("B",	"ballonEnemy",				"ballonEnemyDying"),
+	HELIUM				("H",	"heliumEnemy",				"ballonEnemyDying"),
 	BOMB				("BOM",	"bomb",						""),
-	EXIT				("X",	"exitOpen",					"exitClose"),
+	EXIT				("E",	"exitOpen",					"exitClose"),
 	SPEED				("S",	"speedBonus",				""),
-	AREA_INC			("R",	"increaseBombAreaBonus",	""),
-	BOMB_INC			("O",	"increaseBombAmountBonus",	""),
+	AREA_INC			("A",	"increaseBombAreaBonus",	""),
+	BOMB_INC			("N",	"increaseBombAmountBonus",	""),
 	LIFE_INC			("L",	"increaseLifeNumberBonus",	""),
 	EXPLOSION			("EXP",	"explosion",				""),
 	DESTROYING_BRICK	("DES",	"destroyingBrick",			""),

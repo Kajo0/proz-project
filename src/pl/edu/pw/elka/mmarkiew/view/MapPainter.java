@@ -31,8 +31,12 @@ public class MapPainter implements Runnable {
 		
 		if (map.isPaused())
 			paintPauseMap(g);
+		else if (map.isOver())
+			paintGameOver(g);
+		else if (map.isWin())
+			paintWinLogo(g);
 		else if (!map.isStarted())
-			paintPlainMap(g);
+			paintLogo(g);
 		else {
 			paintMap(g);
 			paintBonuses(g);
@@ -54,11 +58,30 @@ public class MapPainter implements Runnable {
 		g.dispose();
 	}
 	
-	private void paintPlainMap(Graphics g) {
+	private void paintLogo(Graphics g) {
 		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
 																			BufferedImage.TYPE_INT_RGB);
 		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
 		img.getGraphics().drawString("BOMBERMAN LOGO", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
+		g.drawImage(img, 0, 0, panel);
+		g.dispose();
+	}
+	
+
+	private void paintGameOver(Graphics g) {
+		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
+																			BufferedImage.TYPE_INT_RGB);
+		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
+		img.getGraphics().drawString("GAME OVER !", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
+		g.drawImage(img, 0, 0, panel);
+		g.dispose();
+	}
+
+	private void paintWinLogo(Graphics g) {
+		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
+																			BufferedImage.TYPE_INT_RGB);
+		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
+		img.getGraphics().drawString("WIN !!!!!!", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
 		g.drawImage(img, 0, 0, panel);
 		g.dispose();
 	}
