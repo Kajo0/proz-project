@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.BouncingBomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseBombAmountBonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseBombAreaBonus;
@@ -31,6 +32,7 @@ public abstract class EntityFactory {
 			case AREA_INC:	return new IncreaseBombAreaBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
 			case BOMB_INC:	return new IncreaseBombAmountBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
 			case LIFE_INC:	return new IncreaseLifeNumberBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
+			case BOUNCING_BOMB:	return new BouncingBomb(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
 			case EXPLOSION:	return new ExplosionEntity(entity.getAnim().clone(), (int) x, (int) y);
 			case DESTROYING_BRICK:	return new DestroyingBrick(entity.getAnim().clone(), (int) x, (int) y);
 			case UNDEFINED: return null;
