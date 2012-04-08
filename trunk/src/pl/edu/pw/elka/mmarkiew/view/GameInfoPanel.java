@@ -54,6 +54,8 @@ public class GameInfoPanel extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 		
+		g.drawImage(LogosResource.INFO_BACKGROUND.getImage(), 0, 0, null);
+		
 		ArrayList<LogosResource> logos = new ArrayList<LogosResource>(Arrays.asList(LogosResource.LEVEL,
 							LogosResource.LIFES, LogosResource.BOMBS, LogosResource.STEPS, LogosResource.TIMER));
 		int i = 1;
