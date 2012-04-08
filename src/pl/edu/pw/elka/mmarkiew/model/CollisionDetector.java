@@ -139,45 +139,45 @@ public class CollisionDetector {
 			player.setOnBomb(false);
 	}
 
-	private void checkPlayerStopCollision(Player player, Entity e) {
-		//TODO better colision do!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	private void checkPlayerStopCollision(Player player, Entity entity) {
 		float xPlayerPosition = player.getX();
 		float yPlayerPosition = player.getY();
-		int xTilePlayerPosition = GameMap.getTilePosition(xPlayerPosition);
-		int yTilePlayerPosition = GameMap.getTilePosition(yPlayerPosition);
-		float dividedAnimWidth = player.getWidth() / 2;
-		float dividedAnimHeight = player.getHeight() / 2;
+		float xEntityPosition = entity.getX();
+		float yEntityPosition = entity.getY();
+		float dividedPlayerWidth = player.getWidth() / 2;
+		float dividedPlayerHeight = player.getHeight() / 2;
+		float dividedEntityWidth = entity.getWidth() / 2;
+		float dividedEntityHeight = entity.getHeight() / 2;
 		
-		boolean flag = false;
-		boolean flag2 = false;
+		boolean oneDirection = false;
+		boolean horizontalCollision = false;
 		
 		if (player.getXVelocity() != 0 && player.getYVelocity() != 0) {
-			float deltax, deltay;
-			deltax = Math.abs(player.getX() - e.getX());
-			deltay = Math.abs(player.getY() - e.getY());
+			float deltaX = Math.abs(xPlayerPosition - xEntityPosition);
+			float deltaY = Math.abs(yPlayerPosition - yEntityPosition);
 			
-			if (deltax > deltay)
-				flag2 = false;
-			else flag2 = true;
+			if (deltaX > deltaY)
+				horizontalCollision = false;
+			else horizontalCollision = true;
 			
-		} else flag = true;
+		} else oneDirection = true;
 		
-		// dol gora lewo prawo
-		if (player.getYVelocity() > 0 && (flag2 || flag)) {
+		// gora dol lewo prawo
+		if (player.getYVelocity() < 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();
-			player.setY(yPlayerPosition + e.getY() - e.getHeight() / 2 - player.getY() - player.getHeight() / 2);
+			player.setY(yEntityPosition + dividedEntityHeight + dividedPlayerHeight);
 		}
-		if (player.getYVelocity() < 0 && (flag2 || flag)) {
+		if (player.getYVelocity() > 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();
-			player.setY(yPlayerPosition - (player.getY() - player.getHeight() / 2 - e.getY() - e.getHeight() / 2));
+			player.setY(yEntityPosition - dividedEntityHeight - dividedPlayerHeight);
 		}
-		if (player.getXVelocity() > 0 && (!flag2 || flag)) {
+		if (player.getXVelocity() < 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
-			player.setX(xPlayerPosition + e.getX() - e.getWidth() / 2 - player.getX() - player.getWidth() / 2);
+			player.setX(xEntityPosition + dividedPlayerWidth + dividedEntityWidth);
 		}
-		if (player.getXVelocity() < 0 && (!flag2 || flag)) {
+		if (player.getXVelocity() > 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
-			player.setX(xPlayerPosition - (player.getX() - player.getWidth() / 2 - e.getX() - e.getWidth() / 2));
+			player.setX(xEntityPosition - dividedEntityWidth - dividedPlayerWidth);
 		}
 		
 	}
