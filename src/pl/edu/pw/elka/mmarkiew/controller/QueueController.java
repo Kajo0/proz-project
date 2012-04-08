@@ -60,6 +60,21 @@ public class QueueController implements Runnable {
 						model.plantBomb();
 					}
 				}
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_1) {
+					if (((ViewKeyPress) event).isPress()) {
+						model.getPlayer().setBombTimer(1000);
+					}
+				}
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_2) {
+					if (((ViewKeyPress) event).isPress()) {
+						model.getPlayer().setBombTimer(2000);
+					}
+				}
+				if (((ViewKeyPress) event).getKeyCode() == KeyEvent.VK_3) {
+					if (((ViewKeyPress) event).isPress()) {
+						model.getPlayer().setBombTimer(3000);
+					}
+				}
 			}
 		} catch (NullPointerException e) {
 			//TODO wywalic sysouta

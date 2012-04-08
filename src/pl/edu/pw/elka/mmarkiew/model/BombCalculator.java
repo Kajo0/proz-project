@@ -90,7 +90,7 @@ public class BombCalculator {
 		return true;
 	}
 
-	public void plantBomb() {
+	public void plantBomb(long timer) {
 		if (map.getPlayer().canPlantBomb()) {
 			for (Bomb b : map.getBombs())
 				if (map.getPlayer().getX() > GameMap.getTilePosition(b.getX()) * GameMap.BLOCK_SIZE &&
@@ -101,7 +101,7 @@ public class BombCalculator {
 				}
 
 			map.getPlayer().plantBomb();
-			map.addBomb(map.getPlayer().getX(), map.getPlayer().getY(), System.currentTimeMillis());
+			map.addBomb(map.getPlayer().getX(), map.getPlayer().getY(), System.currentTimeMillis(), timer);
 		}
 	}
 }

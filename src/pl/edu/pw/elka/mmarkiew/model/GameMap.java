@@ -105,8 +105,8 @@ public class GameMap {
 		return bombs;
 	}
 
-	public void addBomb(float x, float y, long plantTime) {
-		this.bombs.add((Bomb) EntityFactory.createEntity(GameEntities.BOMB, x, y, plantTime));
+	public void addBomb(float x, float y, long plantTime, long timer) {
+		this.bombs.add((Bomb) EntityFactory.createEntity(GameEntities.BOMB, x, y, plantTime, timer));
 	}
 	
 	public void removeBomb(Bomb bomb) {

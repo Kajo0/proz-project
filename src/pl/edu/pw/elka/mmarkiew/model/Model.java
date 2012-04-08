@@ -173,7 +173,7 @@ public class Model implements Runnable {
 	}
 
 	public void plantBomb() {
-		bombCalculator.plantBomb();
+		bombCalculator.plantBomb(getPlayer().getBombTimer());
 	}
 	
 }
