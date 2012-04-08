@@ -2,17 +2,22 @@ package pl.edu.pw.elka.mmarkiew.view;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.Window;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
+import pl.edu.pw.elka.mmarkiew.model.ModelStatistics;
 
 @SuppressWarnings("serial")
 public class View extends JFrame implements Runnable {
 	private int width;
 	private int height;
 	private Canvas gamePanel;
+	private RightPanel rightPanel;
 
 	public View(int width, int height) {
 		super("Bomberman version 0.0");
@@ -21,6 +26,7 @@ public class View extends JFrame implements Runnable {
 		this.height = height;
 		
 		this.gamePanel = new Canvas();
+		this.rightPanel = new RightPanel();
 		
 		init();
 	}
@@ -28,7 +34,7 @@ public class View extends JFrame implements Runnable {
 	private void init() {
 		setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - width) / 2,
 					(Toolkit.getDefaultToolkit().getScreenSize().height - height) / 2,
-					width, height + 28);
+					width, height);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -38,21 +44,41 @@ public class View extends JFrame implements Runnable {
 		
 		gamePanel.setBounds(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE);
 		gamePanel.setBackground(Color.LIGHT_GRAY);
-		
+
 		add(gamePanel);
-		
 		gamePanel.createBufferStrategy(2);
+		
+		add(rightPanel);
+		gamePanel.requestFocus();
+		
+		
+		revalidate();
 	}
 	
 	@Override
 	public void run() {
 		// TODO View run = init graph
+		Insets insets = Window.getWindows()[0].getInsets();
+		this.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
 		
-		this.addKeyListener(new MovementListener());
+		gamePanel.addKeyListener(new MovementListener());
 	}
 
 	public void sendMapModel(MapToDraw map) {
 		SwingUtilities.invokeLater(new MapPainter(gamePanel, map));
+	}
+
+	public void sendStatistics(final ModelStatistics statistics) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				updateStatistics(statistics);
+			}
+		});
+	}
+
+	protected void updateStatistics(ModelStatistics statistics) {
+		rightPanel.getLabel().setText("" + statistics.getTimer());
 	}
 
 }

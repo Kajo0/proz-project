@@ -42,6 +42,7 @@ public class Controller implements Runnable {
 			}
 
 			view.sendMapModel(model.getMapToDraw());
+			view.sendStatistics(model.getStatistics());
 		}
 	}
 
