@@ -5,6 +5,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.DestroyingBrick;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
@@ -26,6 +27,7 @@ public class CollisionDetector {
 			checkEntityBlockCollision(e, map.getBlockHolder());
 		
 		checkPlayerEntityCollision(map.getEntities());
+		checkPlayerBombCollision(map.getBombs());
 		checkPlayerBonusCollision(map.getBonuses());
 		
 		checkEnemiesCollision(map.getEntities());
@@ -37,7 +39,7 @@ public class CollisionDetector {
 		float yPlayerPosition = entity.getY();
 		int xTilePlayerPosition = GameMap.getTilePosition(xPlayerPosition);
 		int yTilePlayerPosition = GameMap.getTilePosition(yPlayerPosition);
-		float dividedAnimWidth = entity.getHeight() / 2;
+		float dividedAnimWidth = entity.getWidth() / 2;
 		float dividedAnimHeight = entity.getHeight() / 2;
 		
 		if (entity instanceof ExplosionEntity)
@@ -115,12 +117,69 @@ public class CollisionDetector {
 				if (e instanceof Enemy || e instanceof ExplosionEntity) {
 					player.setDead();
 					return;
-				}
-				if (e instanceof Bomb) {
+				} else
+				if (e instanceof DestroyingBrick) {
 					//TODO tak zeby blokowala bomba playera
+					checkPlayerStopCollision(player, e);
 				}
 			}
 		}
+	}
+
+	private void checkPlayerBombCollision(LinkedList<Bomb> bombs) {
+		Player player = map.getPlayer();
+		int b = 0;
+		for (Bomb e : bombs) {
+			if (isEntitiesCollision(player, e)) {
+				if (!player.isOnBomb())
+					checkPlayerStopCollision(player, e);
+			} else b++;
+		}
+		if (b == bombs.size())
+			player.setOnBomb(false);
+	}
+
+	private void checkPlayerStopCollision(Player player, Entity e) {
+		//TODO better colision do!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		float xPlayerPosition = player.getX();
+		float yPlayerPosition = player.getY();
+		int xTilePlayerPosition = GameMap.getTilePosition(xPlayerPosition);
+		int yTilePlayerPosition = GameMap.getTilePosition(yPlayerPosition);
+		float dividedAnimWidth = player.getWidth() / 2;
+		float dividedAnimHeight = player.getHeight() / 2;
+		
+		boolean flag = false;
+		boolean flag2 = false;
+		
+		if (player.getXVelocity() != 0 && player.getYVelocity() != 0) {
+			float deltax, deltay;
+			deltax = Math.abs(player.getX() - e.getX());
+			deltay = Math.abs(player.getY() - e.getY());
+			
+			if (deltax > deltay)
+				flag2 = false;
+			else flag2 = true;
+			
+		} else flag = true;
+		
+		// dol gora lewo prawo
+		if (player.getYVelocity() > 0 && (flag2 || flag)) {
+			player.collisionY();
+			player.setY(yPlayerPosition + e.getY() - e.getHeight() / 2 - player.getY() - player.getHeight() / 2);
+		}
+		if (player.getYVelocity() < 0 && (flag2 || flag)) {
+			player.collisionY();
+			player.setY(yPlayerPosition - (player.getY() - player.getHeight() / 2 - e.getY() - e.getHeight() / 2));
+		}
+		if (player.getXVelocity() > 0 && (!flag2 || flag)) {
+			player.collisionX();
+			player.setX(xPlayerPosition + e.getX() - e.getWidth() / 2 - player.getX() - player.getWidth() / 2);
+		}
+		if (player.getXVelocity() < 0 && (!flag2 || flag)) {
+			player.collisionX();
+			player.setX(xPlayerPosition - (player.getX() - player.getWidth() / 2 - e.getX() - e.getWidth() / 2));
+		}
+		
 	}
 
 	private void checkPlayerBonusCollision(LinkedList<Bonus> bonuses) {

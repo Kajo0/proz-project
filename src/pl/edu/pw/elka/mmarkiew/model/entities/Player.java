@@ -7,6 +7,7 @@ public class Player extends Entity {
 	private int bombArea;
 	private float defaultSpeed;
 	private long bombTimer;
+	private boolean onBomb;
 
 	public Player(Animation anim, Animation dyingAnim) {
 		super(anim, dyingAnim);
@@ -17,6 +18,7 @@ public class Player extends Entity {
 		this.bombArea = 1;
 		this.bombTimer = 3000;
 		this.defaultSpeed = this.getMaxVelocity();
+		this.onBomb = false;
 		this.setDyingTime(2000);
 	}
 	
@@ -63,6 +65,14 @@ public class Player extends Entity {
 	
 	public void setBombTimer(long timer) {
 		this.bombTimer = timer;
+	}
+	
+	public boolean isOnBomb() {
+		return onBomb;
+	}
+	
+	public void setOnBomb(boolean onBomb) {
+		this.onBomb = onBomb;
 	}
 	
 	public void setDead() {
