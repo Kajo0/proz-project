@@ -107,6 +107,10 @@ public class ResourceManager {
 		level++;
 		return loadMap("maps/" + level + ".txt");
 	}
+
+	public int getLevel() {
+		return level;
+	}
 	
 }
 

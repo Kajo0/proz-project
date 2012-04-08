@@ -3,16 +3,53 @@ package pl.edu.pw.elka.mmarkiew.model;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class ModelStatistics {
+	private long timer;
+	private int level;
+	private int lifes;
+	private int bombs;
+	private int bombArea;
+	private long bombTimer;
 	
 	public ModelStatistics() {
-		
+		this.timer = 0;
+		this.level = 0;
+		this.lifes = 0;
+		this.bombs = 0;
+		this.bombArea = 0;
+		this.bombTimer = 0;
 	}
 
-	public ModelStatistics(Player player) {
+	public ModelStatistics(Player player, long timer, int level) {
+		this.timer = timer;
+		this.level = level;
+		this.lifes = player.getLifes();
+		this.bombs = player.getPossibleBombs();
+		this.bombArea = player.getBombArea();
+		this.bombTimer = player.getBombTimer();
 	}
 
 	public long getTimer() {
-		return System.currentTimeMillis();
+		return timer;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public int getLifes() {
+		return lifes;
+	}
+
+	public int getBombs() {
+		return bombs;
+	}
+
+	public int getBombArea() {
+		return bombArea;
+	}
+
+	public long getBombTimer() {
+		return bombTimer;
 	}
 
 }
