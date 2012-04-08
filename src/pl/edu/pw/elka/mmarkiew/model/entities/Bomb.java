@@ -6,13 +6,15 @@ public class Bomb extends Entity {
 	private long plantTime;
 	/** miliseconds */
 	private long timer;
+	private int area;
 	
-	public Bomb(Animation anim, float x, float y, long plantTime, long timer) {
+	public Bomb(Animation anim, float x, float y, long plantTime, long timer, int area) {
 		super(anim, anim);
 		this.setX(GameMap.getTileCenterFromPosition(x));
 		this.setY(GameMap.getTileCenterFromPosition(y));
 		this.plantTime = plantTime;
 		this.timer = timer;
+		this.area = area;
 	}
 
 	public long getPlantTime() {
@@ -23,6 +25,10 @@ public class Bomb extends Entity {
 		return timer;
 	}
 	
+	public int getArea() {
+		return area;
+	}
+	
 	public void collisionX() {
 		this.setXVelocity(-this.getXVelocity());
 	}
@@ -30,5 +36,6 @@ public class Bomb extends Entity {
 	public void collisionY() {
 		this.setYVelocity(-this.getYVelocity());
 	}
+
 
 }

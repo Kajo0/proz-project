@@ -53,6 +53,17 @@ public class GameInfoPanel extends JPanel {
 	
 	public void paint(Graphics g) {
 		super.paint(g);
+		
+		ArrayList<LogosResource> logos = new ArrayList<LogosResource>(Arrays.asList(LogosResource.LEVEL,
+							LogosResource.LIFES, LogosResource.BOMBS, LogosResource.STEPS, LogosResource.TIMER));
+		int i = 1;
+		for (LogosResource l : logos) {
+			g.drawImage(l.getImage(), 40 - l.getImage().getWidth(this) / 2,
+										35 + i * 50 - l.getImage().getHeight(this) / 2, this);
+			i++;
+		}
+		
+		g.dispose();
 	}
 	
 	public void setTimerLabel(long timerLabel) {
