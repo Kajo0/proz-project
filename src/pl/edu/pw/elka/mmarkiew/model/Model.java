@@ -3,11 +3,11 @@ package pl.edu.pw.elka.mmarkiew.model;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import pl.edu.pw.elka.mmarkiew.model.entities.Bonus;
-import pl.edu.pw.elka.mmarkiew.model.entities.Exit;
-import pl.edu.pw.elka.mmarkiew.model.entities.Explosion;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Explosion;
 
 public class Model implements Runnable {
 	private long startTime;

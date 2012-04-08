@@ -1,12 +1,12 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.LinkedList;
-import pl.edu.pw.elka.mmarkiew.model.entities.Bonus;
-import pl.edu.pw.elka.mmarkiew.model.entities.ExplosionEntity;
-import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
-import pl.edu.pw.elka.mmarkiew.model.entities.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Enemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 
@@ -24,17 +24,11 @@ public class CollisionDetector {
 	public void detectCollision() {
 		for (Entity e : map.getEntities())
 			checkEntityBlockCollision(e, map.getBlockHolder());
-
 		
 		checkPlayerEntityCollision(map.getEntities());
 		checkPlayerBonusCollision(map.getBonuses());
 		
-		
 		checkEnemiesCollision(map.getEntities());
-		
-		//TODO dodac bonusy kolizje zbieranie
-		checkPlayerBonusCollision();
-		
 	}
 
 	public void checkEntityBlockCollision(final Entity entity, final BlockHolder blocks) {
@@ -118,7 +112,7 @@ public class CollisionDetector {
 		Player player = map.getPlayer();
 		for (Entity e : linkedList) {
 			if (e.isAlive() && isEntitiesCollision(player, e)) {
-				if (e instanceof Enemy || e instanceof ExplosionEntity) { //TODO zmienic na animacje po smierci
+				if (e instanceof Enemy || e instanceof ExplosionEntity) {
 					player.setDead();
 					return;
 				}
@@ -157,11 +151,6 @@ public class CollisionDetector {
 					entities[j].collisionX();
 					entities[j].collisionY();
 				}
-		
-	}
-	
-	public void checkPlayerBonusCollision() {
-		// TODO dorobic z bonusem kolizje
 		
 	}
 	

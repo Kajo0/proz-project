@@ -1,6 +1,8 @@
-package pl.edu.pw.elka.mmarkiew.model.entities;
+package pl.edu.pw.elka.mmarkiew.model.entities.bonus;
 
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
+import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
+import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 
 public class Bomb extends Entity {
 	private long plantTime;

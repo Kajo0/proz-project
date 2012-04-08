@@ -3,7 +3,7 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 import java.awt.Image;
 
 public abstract class Entity {
-	private Animation anim;	// TODO zamienic na Animation
+	private Animation anim;
 	private Animation dyingAnim;
 	private float x;
 	private float y;

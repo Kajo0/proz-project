@@ -1,4 +1,7 @@
-package pl.edu.pw.elka.mmarkiew.model.entities;
+package pl.edu.pw.elka.mmarkiew.model.entities.bonus;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
+import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 public class SpeedBonus extends Bonus {
 

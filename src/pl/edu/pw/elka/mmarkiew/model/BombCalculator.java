@@ -1,11 +1,11 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
 import java.util.ArrayList;
-import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
-import pl.edu.pw.elka.mmarkiew.model.entities.DestroyingBrick;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.DestroyingBrick;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.BrickBlock;
