@@ -60,7 +60,7 @@ public class BombCalculator {
 			y = yR;
 			
 			destroyedBrickAnimation:
-			for (int j = 1; j <= map.getPlayer().getBombArea(); j++) {
+			for (int j = 1; j <= b.getArea(); j++) {
 				switch (i) {
 					case 0: x = xR;		y = yR - j; break;
 					case 1: x = xR;		y = yR + j; break;
@@ -101,7 +101,8 @@ public class BombCalculator {
 				}
 
 			map.getPlayer().plantBomb();
-			map.addBomb(map.getPlayer().getX(), map.getPlayer().getY(), System.currentTimeMillis(), timer);
+			map.addBomb(map.getPlayer().getX(), map.getPlayer().getY(), System.currentTimeMillis(), timer,
+																				map.getPlayer().getBombArea());
 		}
 	}
 }

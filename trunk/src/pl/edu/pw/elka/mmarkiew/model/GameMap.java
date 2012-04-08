@@ -2,14 +2,12 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.awt.Point;
 import java.util.LinkedList;
-
 import pl.edu.pw.elka.mmarkiew.model.entities.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Bomb;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
-import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
@@ -105,8 +103,8 @@ public class GameMap {
 		return bombs;
 	}
 
-	public void addBomb(float x, float y, long plantTime, long timer) {
-		this.bombs.add((Bomb) EntityFactory.createEntity(GameEntities.BOMB, x, y, plantTime, timer));
+	public void addBomb(float x, float y, long plantTime, long timer, int area) {
+		this.bombs.add(EntityFactory.createBombEntity(x, y, plantTime, timer, area));
 	}
 	
 	public void removeBomb(Bomb bomb) {
