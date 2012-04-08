@@ -7,15 +7,18 @@ import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 public enum GameEntities {
-	PLAYER				("P",	"player",			"playerDying"),
-	BALOON				("A",	"ballonEnemy",		"ballonEnemyDying"),
-	HELIUM				("B",	"heliumEnemy",		"ballonEnemyDying"),
-	BOMB				("BOM",	"bomb",				"bomb"),
-	EXIT				("X",	"exitOpen",			"exitClose"),
-	SPEED				("S",	"speedBonus",		"speedBonus"),
-	EXPLOSION			("EXP",	"explosion",		"explosion"),
-	DESTROYING_BRICK	("DES",	"destroyingBrick",	"destroyingBrick"),
-	UNDEFINED			("",	"undefined",		"undefined");
+	PLAYER				("P",	"player",					"playerDying"),
+	BALOON				("A",	"ballonEnemy",				"ballonEnemyDying"),
+	HELIUM				("B",	"heliumEnemy",				"ballonEnemyDying"),
+	BOMB				("BOM",	"bomb",						""),
+	EXIT				("X",	"exitOpen",					"exitClose"),
+	SPEED				("S",	"speedBonus",				""),
+	AREA_INC			("R",	"increaseBombAreaBonus",	""),
+	BOMB_INC			("O",	"increaseBombAmountBonus",	""),
+	LIFE_INC			("L",	"increaseLifeNumberBonus",	""),
+	EXPLOSION			("EXP",	"explosion",				""),
+	DESTROYING_BRICK	("DES",	"destroyingBrick",			""),
+	UNDEFINED			("",	"undefined",				"");
 	
 	private final String character;
 	private final Animation anim;
@@ -25,7 +28,9 @@ public enum GameEntities {
 		this.character = character;
 		
 		this.anim = createAnimation(anim);
-		this.dyingAnim = createAnimation(dyingAnim);
+		if (dyingAnim.equals(""))
+			this.dyingAnim = this.anim;
+		else this.dyingAnim = createAnimation(dyingAnim);
 	}
 
 	public String getCharacter() {

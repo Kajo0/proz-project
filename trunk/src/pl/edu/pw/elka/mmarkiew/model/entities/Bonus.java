@@ -8,5 +8,5 @@ public abstract class Bonus extends Entity {
 		this.setDyingTime(0);
 	}
 	
-	public abstract void bonusideEntity(Entity e);
+	public abstract void bonusideEntity(Player e);
 }

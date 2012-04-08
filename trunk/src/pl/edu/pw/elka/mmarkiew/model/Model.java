@@ -129,6 +129,7 @@ public class Model implements Runnable {
 
 	@SuppressWarnings("static-access")
 	private void nextMap() {
+		getPlayer().reset();
 		try {//TODO zmienic przejscie pomiedzy mapami
 			Thread.currentThread().sleep(100);
 			map = resource.loadNextMap();
