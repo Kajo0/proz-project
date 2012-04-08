@@ -162,6 +162,12 @@ public class Model implements Runnable {
 		return new MapToDraw(false, win, over);
 	}
 	
+	public synchronized ModelStatistics getStatistics() {
+		if (getPlayer() != null)
+			return new ModelStatistics(getPlayer());
+		else return new ModelStatistics();
+	}
+	
 	public void switchPause() {
 		this.paused = !this.paused;
 	}
