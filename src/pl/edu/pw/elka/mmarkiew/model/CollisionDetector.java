@@ -94,8 +94,11 @@ public class CollisionDetector {
 					return;
 				} else
 				if (e instanceof DestroyingBrick) {
-					//TODO tak zeby blokowala bomba playera
 					checkPlayerStopCollision(player, e);
+				}
+				if (e instanceof Bomb && player.isBouncingBomb()) {
+					e.collisionX();
+					e.collisionY();
 				}
 			}
 		}
@@ -141,18 +144,34 @@ public class CollisionDetector {
 		if (player.getYVelocity() < 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();
 			player.setY(yEntityPosition + dividedEntityHeight + dividedPlayerHeight);
+
+			if (player.isBouncingBomb())
+				if (entity.getYVelocity() == 0)
+					entity.setYVelocity(-player.getMaxVelocity());
 		}
 		if (player.getYVelocity() > 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();
 			player.setY(yEntityPosition - dividedEntityHeight - dividedPlayerHeight);
+			
+			if (player.isBouncingBomb())
+				if (entity.getYVelocity() == 0)
+					entity.setYVelocity(player.getMaxVelocity());
 		}
 		if (player.getXVelocity() < 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
 			player.setX(xEntityPosition + dividedPlayerWidth + dividedEntityWidth);
+			
+			if (player.isBouncingBomb())
+				if (entity.getXVelocity() == 0)
+					entity.setXVelocity(-player.getMaxVelocity());
 		}
 		if (player.getXVelocity() > 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
 			player.setX(xEntityPosition - dividedEntityWidth - dividedPlayerWidth);
+			
+			if (player.isBouncingBomb())
+				if (entity.getXVelocity() == 0)
+					entity.setXVelocity(player.getMaxVelocity());
 		}
 		
 	}
@@ -174,6 +193,9 @@ public class CollisionDetector {
 		for (int i = 0; i < entities.length - 1; i++)
 			for (int j = i + 1; j < entities.length; j++)
 				if (!entities[i].isAlive() || !entities[j].isAlive() || entities[i] instanceof Player)
+					continue;
+				else if (entities[i] instanceof Bomb && entities[j] instanceof ExplosionEntity ||
+							entities[j] instanceof Bomb && entities[i] instanceof ExplosionEntity)
 					continue;
 				else if (isEntitiesCollision(entities[i], entities[j])) {
 					if (entities[i] instanceof Enemy && entities[j] instanceof ExplosionEntity)

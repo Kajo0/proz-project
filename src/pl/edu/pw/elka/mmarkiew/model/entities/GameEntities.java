@@ -16,6 +16,7 @@ public enum GameEntities {
 	AREA_INC			("A",	"increaseBombAreaBonus",	""),
 	BOMB_INC			("N",	"increaseBombAmountBonus",	""),
 	LIFE_INC			("L",	"increaseLifeNumberBonus",	""),
+	BOUNCING_BOMB		("G",	"bouncingBombBonus",		""),
 	EXPLOSION			("EXP",	"explosion",				""),
 	DESTROYING_BRICK	("DES",	"destroyingBrick",			""),
 	UNDEFINED			("",	"undefined",				"");

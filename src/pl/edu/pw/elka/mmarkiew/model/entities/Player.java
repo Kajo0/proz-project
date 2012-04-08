@@ -7,6 +7,7 @@ public class Player extends Entity {
 	private int bombArea;
 	private float defaultSpeed;
 	private long bombTimer;
+	private boolean bouncingBomb;
 	private boolean onBomb;
 
 	public Player(Animation anim, Animation dyingAnim) {
@@ -18,6 +19,7 @@ public class Player extends Entity {
 		this.bombArea = 1;
 		this.bombTimer = 3000;
 		this.defaultSpeed = this.getMaxVelocity();
+		this.bouncingBomb = false;
 		this.onBomb = false;
 		this.setDyingTime(2000);
 	}
@@ -59,6 +61,14 @@ public class Player extends Entity {
 		this.possibleBombs = amount;
 	}
 	
+	public boolean isBouncingBomb() {
+		return this.bouncingBomb;
+	}
+	
+	public void setBouncingBomb(boolean bouncing) {
+		this.bouncingBomb = bouncing;
+	}
+	
 	public long getBombTimer() {
 		return this.bombTimer;
 	}
@@ -85,6 +95,7 @@ public class Player extends Entity {
 		this.bombArea = 1;
 		this.possibleBombs = 1;
 		this.plantedBombs = 0;
+		this.bouncingBomb = false;
 		this.setMaxVelocity(this.defaultSpeed);
 	}
 }
