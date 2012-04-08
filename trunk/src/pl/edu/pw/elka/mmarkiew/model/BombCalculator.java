@@ -103,6 +103,7 @@ public class BombCalculator {
 			map.getPlayer().plantBomb();
 			map.addBomb(map.getPlayer().getX(), map.getPlayer().getY(), System.currentTimeMillis(), timer,
 																				map.getPlayer().getBombArea());
+			map.getPlayer().setOnBomb(true);
 		}
 	}
 }
