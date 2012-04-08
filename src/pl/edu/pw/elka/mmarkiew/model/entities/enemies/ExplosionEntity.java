@@ -7,8 +7,8 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 public class ExplosionEntity extends Entity implements Explosion {
 	public ExplosionEntity(Animation anim, int x, int y) {
 		super(anim, anim);
-		this.setX(GameMap.getTileCenterFromTile(x));
-		this.setY(GameMap.getTileCenterFromTile(y));
+		this.setX(GameMap.getPositionCenterFromTile(x));
+		this.setY(GameMap.getPositionCenterFromTile(y));
 		this.setWidth(GameMap.BLOCK_SIZE);
 		this.setHeight(GameMap.BLOCK_SIZE);
 		this.setDyingTime(500);

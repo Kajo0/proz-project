@@ -167,7 +167,7 @@ public class GameMap {
 		return ((int) (xy / GameMap.BLOCK_SIZE)) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2;
 	}
 	
-	public static float getTileCenterFromTile(int ij) {
+	public static float getPositionCenterFromTile(int ij) {
 		return ij * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2;
 	}
 }
