@@ -1,5 +1,16 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.BaloonEnemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.DestroyingBrick;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.ExplosionEntity;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.HeliumEnemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseBombAmountBonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseBombAreaBonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseLifeNumberBonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.SpeedBonus;
+
 public abstract class EntityFactory {
 	public static Entity createEntity(final GameEntities entity) {
 		return createEntity(entity, 0, 0);

@@ -1,4 +1,6 @@
-package pl.edu.pw.elka.mmarkiew.model.entities;
+package pl.edu.pw.elka.mmarkiew.model.entities.bonus;
+
+import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 
 public class BaloonEnemy extends Enemy {
 	

@@ -1,7 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
 public class Player extends Entity {
-	//TODO dodac pointsy i bonusy ustawione
 	private int lifes;
 	private int possibleBombs;
 	private int plantedBombs;
