@@ -2,6 +2,11 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
+/**
+ * Contains information about player to send it away
+ * @author Acer
+ *
+ */
 public class ModelStatistics {
 	private long timer;
 	private int level;
@@ -10,6 +15,9 @@ public class ModelStatistics {
 	private int bombArea;
 	private long bombTimer;
 	
+	/**
+	 * Creates null model => Everything is 0
+	 */
 	public ModelStatistics() {
 		this.timer = 0;
 		this.level = 0;
@@ -19,6 +27,12 @@ public class ModelStatistics {
 		this.bombTimer = 0;
 	}
 
+	/**
+	 * Gather information about player
+	 * @param player - Player
+	 * @param timer - Gameplay time
+	 * @param level - Actual level
+	 */
 	public ModelStatistics(Player player, long timer, int level) {
 		this.timer = timer;
 		this.level = level;
