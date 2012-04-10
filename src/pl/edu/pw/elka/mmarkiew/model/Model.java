@@ -97,6 +97,8 @@ public class Model implements Runnable {
 	}
 
 	private void update(final long elapsedTime) {
+		getPlayer().update(elapsedTime);
+		
 		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
 		for (Entity e : map.getEntities()) {
 			e.update(elapsedTime);
@@ -111,7 +113,8 @@ public class Model implements Runnable {
 		if (collisionDetector != null)
 			collisionDetector.detectCollision();
 
-		bombCalculator.calculateBombs();
+		if (bombCalculator != null)
+			bombCalculator.calculateBombs();
         
         checkMapCleared();
 	}
@@ -119,7 +122,7 @@ public class Model implements Runnable {
 	private void removeBonuses() {
 		LinkedList<Bonus> bonusToRemove = new LinkedList<Bonus>();
 		for (Bonus b : map.getBonuses()) {
-			if ( !b.isAlive() && !(b instanceof Exit) )
+			if (!b.isAlive())
 				bonusToRemove.add(b);
 		}
 		for (Bonus b : bonusToRemove)
@@ -128,12 +131,15 @@ public class Model implements Runnable {
 
 	private void checkMapCleared() {
 		if (map.getEnemies().isEmpty()) {
-			if (map.getBonuses().isEmpty())
+			if (map.getExits().isEmpty())
 				nextMap();
-			else if (map.getBonuses().get(0) instanceof Exit) {
-				map.getBonuses().get(0).setAlive(true);
-				if (CollisionDetector.isEntitiesCollision(getPlayer(), map.getBonuses().get(0)))
-					nextMap();
+			else {
+				if (!map.getExits().get(0).isAlive())
+					for (Exit e : map.getExits())
+						e.setAlive(true);
+				for (Exit e : map.getExits())
+					if (CollisionDetector.isEntitiesCollision(getPlayer(), e))
+						nextMap();
 			}
 		}
 	}
@@ -160,9 +166,16 @@ public class Model implements Runnable {
 
 	public synchronized MapToDraw getMapToDraw() {
 		//TODO tu musze skopiowac - deep copy wszystkiego
-		if (map != null)
-			return new MapToDraw(map.getBlockHolder(), map.getEntities(), map.getBonuses(), map.getWidthBlocks(),
-													map.getHeightBlocks(), paused, (startTime > 0), win, over);
+		if (map != null) {
+			LinkedList<Entity> entities = new LinkedList<Entity>();
+			entities.add(getPlayer());
+			entities.addAll(map.getEnemies());
+			entities.addAll(map.getBombs());
+			LinkedList<Bonus> bonuses = new LinkedList<Bonus>(map.getBonuses());
+			bonuses.addAll(map.getExits());
+			return new MapToDraw(map.getBlockHolder(), entities, bonuses, map.getWidthBlocks(), map.getHeightBlocks(),
+																				paused, (startTime > 0), win, over);
+		}
 		return new MapToDraw(false, win, over);
 	}
 	

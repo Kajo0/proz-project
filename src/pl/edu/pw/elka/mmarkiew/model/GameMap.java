@@ -22,6 +22,7 @@ public class GameMap {
 	private Point playerStartPosition;
 	private LinkedList<Bomb> bombs;
 	private LinkedList<Bonus> bonuses;
+	private LinkedList<Exit> exits;
 	
 	public GameMap(Player player, int widthBlocks, int heightBlocks) {
 		this.player = player;
@@ -32,6 +33,7 @@ public class GameMap {
 		this.playerStartPosition = new Point(0, 0);
 		this.bombs = new LinkedList<Bomb>();
 		this.bonuses = new LinkedList<Bonus>();
+		this.exits = new LinkedList<Exit>();
 	}
 
 	public void setPlayer(Player player) {
@@ -86,7 +88,6 @@ public class GameMap {
 	
 	public LinkedList<Entity> getEntities() {
 		LinkedList<Entity> l = new LinkedList<Entity>(enemies);
-		l.addFirst(player);
 		l.addAll(bombs);
 		return l;
 	}
@@ -138,14 +139,8 @@ public class GameMap {
 	
 	public void addBonus(Bonus bonus) {
 		if (bonus != null) {
-			if (!this.bonuses.isEmpty()) {
-				if (bonus instanceof Exit) {
-					if (this.bonuses.get(0) instanceof Exit) {
-						this.bonuses.set(0, bonus);
-					} else this.bonuses.addFirst(bonus);
-					return;
-				}
-			}
+			if (bonus instanceof Exit)
+				addExit((Exit) bonus);
 			this.bonuses.add(bonus);
 		}
 	}
@@ -157,6 +152,15 @@ public class GameMap {
 				break;
 			}
 		}
+	}
+	
+	public LinkedList<Exit> getExits() {
+		return exits;
+	}
+	
+	public void addExit(Exit exit) {
+		if (exit != null)
+			exits.add(exit);
 	}
 
 	public static int getTilePosition(float xy) {

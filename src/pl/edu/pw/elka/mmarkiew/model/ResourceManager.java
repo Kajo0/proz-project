@@ -45,12 +45,6 @@ public class ResourceManager {
 		return AnalizeMap(listOfLines, width, height);
 	}
 
-	/**
-	 * Invoke by loadMap to generate proper terrain map
-	 * @param listOfLines
-	 * @param width
-	 * @param height
-	 */
 	private GameMap AnalizeMap(final ArrayList<String> listOfLines, final int width, final int height) {
 		Iterator<String> it = listOfLines.iterator();
 		String line;
