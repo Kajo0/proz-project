@@ -11,31 +11,57 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 
+/**
+ * Everything with wide concept of collisions
+ * @author Acer
+ *
+ */
 public class CollisionDetector {
 	private GameMap map;
 
-	public CollisionDetector(GameMap map) {
+	/**
+	 * Take care abour collisions
+	 * @param map
+	 */
+	public CollisionDetector(final GameMap map) {
 		this.map = map;
 	}
 	
-	public void setMap(GameMap map) {
-		this.map = map;
-	}
-	
-	public void detectCollision() {
+	/**
+	 * Detect all of collisions on the actual map
+	 */
+	public synchronized void detectCollision() {
+		/*
+		 * Check player collision with blocks
+		 */
 		checkEntityBlockCollision(map.getPlayer(), map.getBlockHolder());
 		
+		/*
+		 * Check enemies and bombs collisions with blocks
+		 */
 		for (Entity e : map.getEntities())
 			checkEntityBlockCollision(e, map.getBlockHolder());
 		
-		checkPlayerEntityCollision(map.getEntities());
+		/*
+		 * Check player collisions with enemies, bombs, bonuses
+		 */
+		checkPlayerEntityCollision(map.getEnemies());
 		checkPlayerBombCollision(map.getBombs());
 		checkPlayerBonusCollision(map.getBonuses());
 		
+		/*
+		 * Check enemies and bombs collisions
+		 */
 		checkEnemiesCollision(map.getEntities());
 	}
 
-	public void checkEntityBlockCollision(final Entity entity, final BlockHolder blocks) {
+	/**
+	 * Checks if is collisions with map blocks and stop entities<br>
+	 * not to go further
+	 * @param entity - Entity to check collision
+	 * @param blocks - Block to check collision with
+	 */
+	private void checkEntityBlockCollision(final Entity entity, final BlockHolder blocks) {
 		//TODO better colision do
 		float xPlayerPosition = entity.getX();
 		float yPlayerPosition = entity.getY();
@@ -44,11 +70,18 @@ public class CollisionDetector {
 		float dividedAnimWidth = entity.getWidth() / 2;
 		float dividedAnimHeight = entity.getHeight() / 2;
 		
+		/*
+		 * Explosion entities like destroyed block or explosion has no collisions with blocks 
+		 */
 		if (entity instanceof ExplosionEntity)
 			return;
 
-		// gora dol prawo lewo
-		
+		/*
+		 * Checks collisions in sequence: (from->to)
+		 * down->up, up->down, right->left, left->right
+		 * 
+		 * Checked method by trial and mistakes
+		 */
 		int i1 = 0, i2 = 0, i3 = 0;
 		float f1 = 0, f2 = 0;
 		boolean comparison = false;
@@ -87,39 +120,73 @@ public class CollisionDetector {
 		}
 	}
 	
-	public void checkPlayerEntityCollision(LinkedList<Entity> linkedList) {
+	/**
+	 * Checks player-entities collisions
+	 * @param entities - Entities with which is need to be checked collision
+	 */
+	private void checkPlayerEntityCollision(final LinkedList<Entity> entities) {
 		Player player = map.getPlayer();
-		for (Entity e : linkedList) {
+		
+		for (Entity e : entities) {
+			/*
+			 * If entity is dead, do not do nothing
+			 */
 			if (e.isAlive() && isEntitiesCollision(player, e)) {
+				/*
+				 * if there is collision with alive enemy or explosion
+				 * set player dead and return, model take care about player
+				 */
 				if (e instanceof Enemy || e instanceof ExplosionEntity) {
 					player.setDead();
 					return;
-				} else
-				if (e instanceof DestroyingBrick) {
+				} 
+				/*
+				 * If there is destroyed brick, just stop player
+				 */
+				else if (e instanceof DestroyingBrick) {
 					checkPlayerStopCollision(player, e);
-				}
-				if (e instanceof Bomb && player.isBouncingBomb()) {
-					e.collisionX();
-					e.collisionY();
 				}
 			}
 		}
 	}
 
-	private void checkPlayerBombCollision(LinkedList<Bomb> bombs) {
+	/**
+	 * Checks player - bombs collisions
+	 * @param bombs - List of planted bombs
+	 */
+	private void checkPlayerBombCollision(final LinkedList<Bomb> bombs) {
 		Player player = map.getPlayer();
-		int b = 0;
-		for (Bomb e : bombs) {
-			if (isEntitiesCollision(player, e)) {
-				if (!player.isOnBomb())
-					checkPlayerStopCollision(player, e);
-			} else b++;
+		int onAnyBombStanding = 0;
+		
+		for (Bomb b : bombs) {
+			if (isEntitiesCollision(player, b)) {
+				if (!player.isOnBomb()) {
+					
+					checkPlayerStopCollision(player, b);
+					
+					if (player.isBouncingBomb()) {
+						b.collisionX();
+						b.collisionY();
+					}
+				}
+			} else onAnyBombStanding++;
 		}
-		if (b == bombs.size())
+		
+		/*
+		 * If player isn't standing on any bomb,
+		 * block him down with bombs collision
+		 */
+		if (onAnyBombStanding == bombs.size())
 			player.setOnBomb(false);
 	}
 
-	private void checkPlayerStopCollision(Player player, Entity entity) {
+	/**
+	 * Checks if player collide with object which can stop him<br><br>
+	 * It depends on player trajectory to stop him correctly
+	 * @param player - Player
+	 * @param entity - Collide entity potencial stopping
+	 */
+	private void checkPlayerStopCollision(final Player player, final Entity entity) {
 		float xPlayerPosition = player.getX();
 		float yPlayerPosition = player.getY();
 		float xEntityPosition = entity.getX();
@@ -129,9 +196,17 @@ public class CollisionDetector {
 		float dividedEntityWidth = entity.getWidth() / 2;
 		float dividedEntityHeight = entity.getHeight() / 2;
 		
+		/* Is there one direction of player movement */
 		boolean oneDirection = false;
+		/* Is he moving horizontal or vertical */
 		boolean horizontalCollision = false;
 		
+		boolean isBombEntity = (entity instanceof Bomb);
+		
+		/*
+		 * If there are 2 directions of player movement
+		 * Check which collision check first
+		 */
 		if (player.getXVelocity() != 0 && player.getYVelocity() != 0) {
 			float deltaX = Math.abs(xPlayerPosition - xEntityPosition);
 			float deltaY = Math.abs(yPlayerPosition - yEntityPosition);
@@ -142,12 +217,25 @@ public class CollisionDetector {
 			
 		} else oneDirection = true;
 		
-		// gora dol lewo prawo
+		/*
+		 * Checks collisions in sequence: (from->to)
+		 * down->up, up->down, right->left, left->right
+		 * 
+		 * Calculated method
+		 * 
+		 * If player moving only one direction check 2  'ifs'
+		 * otherwise thanks to previous calculations check smart
+		 * 
+		 * If player can moves bombs and there is a bomb stopping,
+		 * bounce it away -> set it player speed
+		 */
+		
+		//TODO usprawnic to
 		if (player.getYVelocity() < 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();
 			player.setY(yEntityPosition + dividedEntityHeight + dividedPlayerHeight);
 
-			if (player.isBouncingBomb())
+			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getYVelocity() == 0)
 					entity.setYVelocity(-player.getMaxVelocity());
 		}
@@ -155,7 +243,7 @@ public class CollisionDetector {
 			player.collisionY();
 			player.setY(yEntityPosition - dividedEntityHeight - dividedPlayerHeight);
 			
-			if (player.isBouncingBomb())
+			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getYVelocity() == 0)
 					entity.setYVelocity(player.getMaxVelocity());
 		}
@@ -163,7 +251,7 @@ public class CollisionDetector {
 			player.collisionX();
 			player.setX(xEntityPosition + dividedPlayerWidth + dividedEntityWidth);
 			
-			if (player.isBouncingBomb())
+			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getXVelocity() == 0)
 					entity.setXVelocity(-player.getMaxVelocity());
 		}
@@ -171,15 +259,24 @@ public class CollisionDetector {
 			player.collisionX();
 			player.setX(xEntityPosition - dividedEntityWidth - dividedPlayerWidth);
 			
-			if (player.isBouncingBomb())
+			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getXVelocity() == 0)
 					entity.setXVelocity(player.getMaxVelocity());
 		}
 		
 	}
 
-	private void checkPlayerBonusCollision(LinkedList<Bonus> bonuses) {
+	/**
+	 * Checks player - bonus collisions<br>
+	 * If there is such collision, add bonus to collide player
+	 * @param bonuses - list of active bonuses
+	 */
+	private void checkPlayerBonusCollision(final LinkedList<Bonus> bonuses) {
 		Player player = map.getPlayer();
+		
+		/*
+		 * If there is collision, add bonus to player and kill bonus
+		 */
 		for (Bonus b : bonuses) {
 			if (b.isAlive() && isEntitiesCollision(player, b)) {
 				b.bonusideEntity(player);
@@ -188,22 +285,36 @@ public class CollisionDetector {
 		}
 	}
 
-	public void checkEnemiesCollision(LinkedList<Entity> enemies) {
+	/**
+	 * Checks collision between enemies and bombs
+	 * @param enemies - List of enemies
+	 */
+	private void checkEnemiesCollision(final LinkedList<Entity> enemies) {
 		//TODO usprawnic kolizje
 		Entity[] entities = enemies.toArray(new Entity[enemies.size()]);
 
 		for (int i = 0; i < entities.length - 1; i++)
 			for (int j = i + 1; j < entities.length; j++)
-				if (!entities[i].isAlive() || !entities[j].isAlive() || entities[i] instanceof Player)
+				/* If though one is dead continue */
+				if (!entities[i].isAlive() || !entities[j].isAlive())
 					continue;
+				/* Collision between bombs and explosions do nothing */
 				else if (entities[i] instanceof Bomb && entities[j] instanceof ExplosionEntity ||
 							entities[j] instanceof Bomb && entities[i] instanceof ExplosionEntity)
 					continue;
-				else if (isEntitiesCollision(entities[i], entities[j])) {
-					if (entities[i] instanceof Enemy && entities[j] instanceof ExplosionEntity)
+				else  if (isEntitiesCollision(entities[i], entities[j])) {
+					
+					/* Explosions kill enemies */
+					if (entities[i] instanceof Enemy && entities[j] instanceof ExplosionEntity) {
 						entities[i].setDead();
-					if (entities[j] instanceof Enemy && entities[j] instanceof ExplosionEntity)
+						continue;
+					}
+					if (entities[j] instanceof Enemy && entities[j] instanceof ExplosionEntity) {
 						entities[j].setDead();
+						continue;
+					}
+					
+					/* Other collisions between enemies */
 					entities[i].collisionX();
 					entities[i].collisionY();
 					entities[j].collisionX();
@@ -212,13 +323,24 @@ public class CollisionDetector {
 		
 	}
 	
+	/**
+	 * Checks is there any collisions between entities 
+	 * @param first - First entity
+	 * @param second - Second entity
+	 * @return true if collision, flase otherwise<br>also false if first == second
+	 */
 	public static boolean isEntitiesCollision(Entity first, Entity second) {
 		if (first == second)
 			return false;
+		
 		return (first.getX() + first.getWidth() / 2 - second.getX() + second.getWidth() / 2 > 0 &&
 				first.getX() - first.getWidth() / 2 - second.getX() - second.getWidth() / 2 < 0 &&
 				first.getY() + first.getHeight() / 2 - second.getY() + second.getHeight() / 2 > 0 &&
 				first.getY() - first.getHeight() / 2 - second.getY() - second.getHeight() / 2 < 0);
 	}
 
+	public synchronized void setMap(GameMap map) {
+		this.map = map;
+	}
+	
 }
