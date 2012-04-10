@@ -137,7 +137,8 @@ public class MapToDraw {
 			this.isEmpty = new boolean[width][height];
 			this.hiderBlock = GameBlock.BRICK.getImage();
 			
-			fillBlocks(blocks);
+			if (blocks != null)
+				fillBlocks(blocks);
 		}
 
 		/**
@@ -188,7 +189,8 @@ public class MapToDraw {
 		EntityInformation(final LinkedList<Entity> entities) {
 			this.entities = new LinkedList<MapToDraw.SimpleEntity>();
 			
-			fillEntities(entities);
+			if (entities != null)
+				fillEntities(entities);
 		}
 
 		/**
