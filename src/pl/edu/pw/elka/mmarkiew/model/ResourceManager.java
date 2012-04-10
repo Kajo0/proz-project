@@ -16,16 +16,40 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Enemy;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockFactory;
 import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
+/**
+ * Responsible for loading map
+ * @author Acer
+ *
+ */
 public class ResourceManager {
 	private Player playerEntity;
 	private int level;
 	
+	/**
+	 * Creates player and set him on 0 level
+	 */
 	public ResourceManager() {
 		this.level = 0;
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}
+
+	/**
+	 * Load next map from file ${++level}.txt
+	 * @return
+	 * @throws IOException
+	 */
+	public synchronized GameMap loadNextMap() throws IOException {
+		level++;
+		return loadMap("maps/" + level + ".txt");
+	}
 	
-	private GameMap loadMap(String path) throws IOException {
+	/**
+	 * Load Map from file
+	 * @param path - Path to map
+	 * @return Map of game
+	 * @throws IOException
+	 */
+	private GameMap loadMap(final String path) throws IOException {
 		ArrayList<String> listOfLines = new ArrayList<String>();
 		
 		BufferedReader buffer = new BufferedReader(new FileReader(path));
@@ -42,10 +66,17 @@ public class ResourceManager {
 		
 		height = listOfLines.size();
 		
-		return AnalizeMap(listOfLines, width, height);
+		return analyzeMap(listOfLines, width, height);
 	}
 
-	private GameMap AnalizeMap(final ArrayList<String> listOfLines, final int width, final int height) {
+	/**
+	 * Analyzes .txt file with map
+	 * @param listOfLines - List of map lines
+	 * @param width - Maximum length of line
+	 * @param height - Number of lines
+	 * @return game of map
+	 */
+	private GameMap analyzeMap(final ArrayList<String> listOfLines, int width, int height) {
 		Iterator<String> it = listOfLines.iterator();
 		String line;
 		GameMap tempMap = new GameMap(this.playerEntity, width, height);
@@ -64,8 +95,15 @@ public class ResourceManager {
 			j++;
 		}
 		
+		/*
+		 * Sets player Velocity to 0
+		 */
 		playerEntity.setXVelocity(0);
 		playerEntity.setYVelocity(0);
+		/*
+		 * If there was no specific of player Position
+		 * sets it on (1,1) tile
+		 */
 		if (tempMap.getPlayerStartPosition().equals(new Point(0, 0)))
 			tempMap.setPlayerStartPosition(GameMap.getPositionCenterFromTile(1), GameMap.getPositionCenterFromTile(1));
 		playerEntity.setX((float) tempMap.getPlayerStartPosition().getX());
@@ -74,35 +112,50 @@ public class ResourceManager {
 		return tempMap;
 	}
 	
-	private void chooseBlockEntityToCreate(GameMap tempMap, char charAt, int i, int j) {
+	/**
+	 * Choosing appropriate entity or/and block to create
+	 * @param tempMap - Actual game of map
+	 * @param charAt - Character to analyze
+	 * @param i - Tile x position
+	 * @param j - Tile y position
+	 */
+	private void chooseBlockEntityToCreate(final GameMap tempMap, char charAt, int i, int j) {
 
+		/*
+		 * Create apropriate block on this position
+		 */
 		tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + charAt) ), i, j);
 		
+		/*
+		 * Sets player position if it is Player character
+		 */
 		if ( GameEntities.getEnumEntity("" + charAt) == GameEntities.PLAYER)
 			tempMap.setPlayerStartPosition(GameMap.getPositionCenterFromTile(i), GameMap.getPositionCenterFromTile(j));
 		else
-			if ( GameEntities.getEnumEntity("" + charAt) != GameEntities.UNDEFINED) {
-				Entity e = EntityFactory.createEntity( GameEntities.getEnumEntity("" + charAt), 
-									(int) GameMap.getPositionCenterFromTile(i), (int) GameMap.getPositionCenterFromTile(j));
-				if (e instanceof Enemy)
-					tempMap.addEnemy(e);
-				else if (e instanceof Bonus) {
-					tempMap.addBonus((Bonus) e);
-					tempMap.setBlock(BlockFactory.createElement(GameBlock.BRICK), i, j);
-				}
+		/*
+		 * Create appropriate entity and possibly hide it behind destructible block
+		 */
+		if ( GameEntities.getEnumEntity("" + charAt) != GameEntities.UNDEFINED) {
+			Entity e = EntityFactory.createEntity( GameEntities.getEnumEntity("" + charAt), 
+							(int) GameMap.getPositionCenterFromTile(i), (int) GameMap.getPositionCenterFromTile(j));
+			/*
+			 * If it's enemy add it into map
+			 * else if it's bonus add it into map and hide it
+			 */
+			if (e instanceof Enemy)
+				tempMap.addEnemy(e);
+			else if (e instanceof Bonus) {
+				tempMap.addBonus((Bonus) e);
+				tempMap.setBlock(BlockFactory.createElement(GameBlock.BRICK), i, j);
 			}
+		}
 	}
 
-	public Player getPlayer() {
+	Player getPlayer() {
 		return playerEntity;
 	}
 
-	public GameMap loadNextMap() throws IOException {
-		level++;
-		return loadMap("maps/" + level + ".txt");
-	}
-
-	public int getLevel() {
+	int getLevel() {
 		return level;
 	}
 	
