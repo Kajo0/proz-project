@@ -66,7 +66,7 @@ public class Model implements Runnable {
 	/**
 	 * Main game loop
 	 */
-	private void gameLoop() {
+	private synchronized void gameLoop() {
 		long currentTime = this.startTime = System.currentTimeMillis();
 		long elapsedTime;
 		
