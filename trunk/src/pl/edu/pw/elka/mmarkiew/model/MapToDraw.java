@@ -37,8 +37,8 @@ public class MapToDraw {
 	 * @param over - Is Game Over
 	 */
 	public MapToDraw(final BlockHolder blockHolder, final LinkedList<Entity> entities,
-									final LinkedList<Entity> bonuses, final int widthBlocks, final int heightBlocks,
-											final boolean paused, final boolean running, boolean win, boolean over) {
+										final LinkedList<Entity> bonuses, int widthBlocks, int heightBlocks,
+											boolean paused, boolean running, boolean win, boolean over) {
 		this.widthBlocks = widthBlocks;
 		this.heightBlocks = heightBlocks;
 		this.paused = paused;

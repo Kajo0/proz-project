@@ -9,64 +9,93 @@ import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Explosion;
 
+/**
+ * Gameplay model
+ * @author Acer
+ *
+ */
 public class Model implements Runnable {
 	private long startTime;
 	private long gamePlayTime;
 	private boolean paused;
+	private boolean win;
+	private boolean over;
 	private GameMap map;
 	private ResourceManager resource;
 	private CollisionDetector collisionDetector;
 	private BombCalculator bombCalculator;
-	private boolean win;
-	private boolean over;
 
+	/**
+	 * Creates model with defaults parameters
+	 */
 	public Model() {
 		this.startTime = -1;
 		this.gamePlayTime = 0;
 		this.paused = false;
-		this.map = null;
-		this.resource = new ResourceManager();
-		this.collisionDetector = null;
-		this.bombCalculator = null;
 		this.win = false;
 		this.over = false;
+		this.map = null;
+		this.resource = new ResourceManager();
+		this.collisionDetector = new CollisionDetector(map);
+		this.bombCalculator = new BombCalculator(map);
 	}
 
+	/**
+	 * Invoke initialization and starts game loop
+	 */
 	@Override
-	public synchronized void run() {
+	public void run() {
 		init();
 		gameLoop();
 	}
 
-	//loads first map
+	/**
+	 * Load first map,
+	 */
 	private void init() {
 		try {
 			this.map = resource.loadNextMap();
-			this.startTime = 0;
-			this.collisionDetector = new CollisionDetector(map);
-			this.bombCalculator = new BombCalculator(map);
+			this.collisionDetector.setMap(map);
+			this.bombCalculator.setMap(map);
 		} catch (IOException e) {
 			this.map = null;
 			this.startTime = -1;
 		}
 	}
 
+	/**
+	 * Main game loop
+	 */
 	private void gameLoop() {
-		long currTime = this.startTime = System.currentTimeMillis();
+		long currentTime = this.startTime = System.currentTimeMillis();
 		long elapsedTime;
 		
 		while (true) {
-			elapsedTime = System.currentTimeMillis() - currTime;
-            currTime += elapsedTime;
+			if (map == null)
+				init();
 			
+			elapsedTime = System.currentTimeMillis() - currentTime;
+            currentTime += elapsedTime;
+			
+            /*
+             * If there is no pause, game is started
+             * and player is alive, update game
+             */
             if (!paused && startTime > 0 && getPlayer().isAlive()) {
             	update(elapsedTime);
             	gamePlayTime += elapsedTime;
             }
             
+            /*
+             * If player is dead show animation
+             * and delete all bombs and explosions
+             */
             if (!getPlayer().isAlive())
             	playerDyingAnim();
             
+            /*
+             * Little delay
+             */
             try {
 				wait(10);
 			} catch (InterruptedException e) {
@@ -74,69 +103,134 @@ public class Model implements Runnable {
 			}
 		}
 	}
-	
-	
 
+	/**
+	 * 'Shows' simple player dying animation<br>
+	 * sets default player position and<br>
+	 * removes explosions
+	 */
 	private void playerDyingAnim() {
+		
+		/*
+		 * While player hasn't fallen under map or during his dying time do not do that
+		 */
 		if ( getPlayer().getY() > map.getHeight() ||
 				getPlayer().getDieTime() + getPlayer().getDyingTime() < System.currentTimeMillis()) {
+			
+			/*
+			 * Set player alive and set him correct
+			 * Remove explosions
+			 */
 			getPlayer().setAlive(true);
 			getPlayer().setX((float) map.getPlayerStartPosition().getX());
 			getPlayer().setY((float) map.getPlayerStartPosition().getY());
 			map.removeExplosions();
 
+			/*
+			 * If he has no lifes, set game over
+			 */
 			if (getPlayer().getLifes() < 1) {
 				startTime = -2;
 				over = true;
 				win = false;
 			}
 		} else {
+			/*
+			 * Fall him down
+			 */
 			getPlayer().setY(getPlayer().getY() + 5);
 			getPlayer().update(25);
 		}
 	}
 
-	private void update(final long elapsedTime) {
+	/**
+	 * Helper updater
+	 * @param elapsedTime - Time which had elapsed before last update
+	 */
+	private synchronized void update(final long elapsedTime) {
+		/*
+		 * Update player
+		 */
 		getPlayer().update(elapsedTime);
 		
-		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
-		for (Entity e : map.getEntities()) {
-			e.update(elapsedTime);
-			if ((!e.isAlive() || e instanceof Explosion) && e.getDieTime() + e.getDyingTime() < System.currentTimeMillis())
-				entityToRemove.add(e);
-		}
-		for (Entity e : entityToRemove)
-			map.removeEnemy(e);
-				
+		/*
+		 * Update and possibly remove dead enemies and explosions
+		 */
+		updateAndRemoveDeadEnemies(elapsedTime);
+		
+		/*
+		 * Remove eaten bonuses
+		 */
 		removeBonuses();
 		
-		if (collisionDetector != null)
-			collisionDetector.detectCollision();
-
-		if (bombCalculator != null)
-			bombCalculator.calculateBombs();
+		/*
+		 * After update detect collisions
+		 * and calculate bomb things
+		 */
+		collisionDetector.detectCollision();
+		bombCalculator.calculateBombs();
         
+		/*
+		 * Check if there is clear map
+		 * first step to next map
+		 */
         checkMapCleared();
 	}
 	
+	/**
+	 * Update enemies and explosions<br>
+	 * Remove them if they are dead after their dying time
+	 */
+	private void updateAndRemoveDeadEnemies(long elapsedTime) {
+		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
+		
+		for (Entity e : map.getEntities()) {
+			e.update(elapsedTime);
+			
+			if ((!e.isAlive() || e instanceof Explosion) && e.getDieTime() + e.getDyingTime() < System.currentTimeMillis())
+				entityToRemove.add(e);
+		}
+		
+		for (Entity e : entityToRemove)
+			map.removeEnemy(e);
+	}
+
+	/**
+	 * Removes dead bonuses<br>
+	 * Bonus dying time is 0 so just remove if not alive
+	 */
 	private void removeBonuses() {
-		LinkedList<Bonus> bonusToRemove = new LinkedList<Bonus>();
+		LinkedList<Bonus> toRemove = new LinkedList<Bonus>();
+		
 		for (Bonus b : map.getBonuses()) {
 			if (!b.isAlive())
-				bonusToRemove.add(b);
+				toRemove.add(b);
 		}
-		for (Bonus b : bonusToRemove)
+		
+		for (Bonus b : toRemove)
 			map.removeBonus(b);
 	}
 
+	/**
+	 * Check if there is enemy cleared map<br>
+	 * and possibly find player collision with exit
+	 */
 	private void checkMapCleared() {
+		
 		if (map.getEnemies().isEmpty()) {
 			if (map.getExits().isEmpty())
 				nextMap();
 			else {
+				/*
+				 * If there are still dead set them alive
+				 */
 				if (!map.getExits().get(0).isAlive())
 					for (Exit e : map.getExits())
 						e.setAlive(true);
+				
+				/*
+				 * Check collisions with exits
+				 */
 				for (Exit e : map.getExits())
 					if (CollisionDetector.isEntitiesCollision(getPlayer(), e))
 						nextMap();
@@ -144,48 +238,81 @@ public class Model implements Runnable {
 		}
 	}
 
+	/**
+	 * Loads next map
+	 */
 	@SuppressWarnings("static-access")
-	private void nextMap() {
+	private synchronized void nextMap() {
+		/*
+		 * Next map -> players bonuses reset :(
+		 */
 		getPlayer().reset();
-		try {//TODO zmienic przejscie pomiedzy mapami
+		
+		/*
+		 * Set next map
+		 * If there is no next map set win :D
+		 */
+		//TODO zmienic przejscie pomiedzy mapami
+		try {
 			Thread.currentThread().sleep(100);
+			
 			map = resource.loadNextMap();
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
+			
 		} catch (IOException e) {
+		//TODO zrobic generate new map
 			map = null;
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
 			startTime = -2;
 			win = true;
 			over = false;
+			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Generate new MapToDraw object dependent on game map
+	 * @return Map ready to paint
+	 */
 	public synchronized MapToDraw getMapToDraw() {
-		//TODO tu musze skopiowac - deep copy wszystkiego
 		if (map != null) {
 			LinkedList<Entity> entities = new LinkedList<Entity>();
+			
 			entities.add(getPlayer());
 			entities.addAll(map.getEnemies());
 			entities.addAll(map.getBombs());
+			
 			LinkedList<Entity> bonuses = new LinkedList<Entity>(map.getBonuses());
 			bonuses.addAll(map.getExits());
+			
 			return new MapToDraw(map.getBlockHolder(), entities, bonuses, map.getWidthBlocks(), map.getHeightBlocks(),
 																				paused, (startTime > 0), win, over);
 		}
 		return new MapToDraw(false, win, over);
 	}
-	
+
+	/**
+	 * Generate new ModelStatistics object dependent on game play situation
+	 * @return Player statistics
+	 */
 	public synchronized ModelStatistics getStatistics() {
 		if (getPlayer() != null)
 			return new ModelStatistics(getPlayer(), gamePlayTime, resource.getLevel());
 		else return new ModelStatistics();
 	}
+
+	public synchronized void plantBomb() {
+		bombCalculator.plantBomb(getPlayer().getBombTimer());
+	}
 	
-	public void switchPause() {
+	/**
+	 * (Un)set game paused
+	 */
+	public synchronized void switchPause() {
 		this.paused = !this.paused;
 	}
 
@@ -194,9 +321,4 @@ public class Model implements Runnable {
 			return resource.getPlayer();
 		else return null;
 	}
-
-	public void plantBomb() {
-		bombCalculator.plantBomb(getPlayer().getBombTimer());
-	}
-	
 }
