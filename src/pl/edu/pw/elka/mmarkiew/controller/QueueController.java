@@ -6,13 +6,26 @@ import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
 import pl.edu.pw.elka.mmarkiew.model.Model;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
+/**
+ * To control events from view
+ * @author Acer
+ *
+ */
 public class QueueController implements Runnable {
-	private Model model;
+	private final Model model;
 	
-	public QueueController(Model model) {
+	/**
+	 * 
+	 * @param model - Game model
+	 */
+	public QueueController(final Model model) {
 		this.model = model;
 	}
 	
+	/**
+	 * Waiting for event pushed into BlockingQueue
+	 * If there is sth, calls helper function 
+	 */
 	@Override
 	public void run() {
 		ViewEvent event = null;
@@ -29,8 +42,15 @@ public class QueueController implements Runnable {
 
 	}
 
-	private void checkInput(ViewEvent event) {
+	/**
+	 * Check what is that event, and invoke some actions<br>
+	 * depended on event. Almost all events change player state.
+	 * @param event
+	 */
+	private void checkInput(final ViewEvent event) {
 		Player player = model.getPlayer();
+		boolean xVelocity = (player.getXVelocity() != 0);
+		boolean yVelocity = (player.getYVelocity() != 0);
 		
 		// TODO zmienic na gameaction
 		try {
@@ -38,21 +58,25 @@ public class QueueController implements Runnable {
 				int code = ((ViewKeyPress) event).getKeyCode();
 				boolean pressed = ((ViewKeyPress) event).isPress();
 				switch (code) {
-					case KeyEvent.VK_UP: if (pressed)
+					case KeyEvent.VK_UP: if (pressed && !yVelocity)
 											player.setYVelocity(-player.getMaxVelocity());
-										else player.setYVelocity(0);
+										else if (!pressed && yVelocity)
+											player.setYVelocity(0);
 										break;
-					case KeyEvent.VK_DOWN: if (pressed)
+					case KeyEvent.VK_DOWN: if (pressed && !yVelocity)
 												player.setYVelocity(player.getMaxVelocity());
-											else player.setYVelocity(0);
+											else if (!pressed && yVelocity)
+												player.setYVelocity(0);
 											break;
-					case KeyEvent.VK_LEFT: if (pressed)
+					case KeyEvent.VK_LEFT: if (pressed && !xVelocity)
 												player.setXVelocity(-player.getMaxVelocity());
-											else player.setXVelocity(0);
+											else if (!pressed && xVelocity)
+												player.setXVelocity(0);
 											break;
-					case KeyEvent.VK_RIGHT: if (pressed)
+					case KeyEvent.VK_RIGHT: if (pressed && !xVelocity)
 												player.setXVelocity(player.getMaxVelocity());
-											else player.setXVelocity(0);
+											else if (!pressed && xVelocity)
+												player.setXVelocity(0);
 											break;
 					case KeyEvent.VK_SPACE: if (pressed)
 												model.plantBomb();
@@ -69,8 +93,7 @@ public class QueueController implements Runnable {
 				}
 			}
 		} catch (NullPointerException e) {
-			//TODO wywalic sysouta
-			System.out.println("nie bylo playera przy key evencie");
+			//There was no player/model -> do nothing 
 		}
 	}
 

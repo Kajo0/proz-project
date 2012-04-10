@@ -5,6 +5,11 @@ import java.util.concurrent.Executors;
 import pl.edu.pw.elka.mmarkiew.model.Model;
 import pl.edu.pw.elka.mmarkiew.view.View;
 
+/**
+ * Game Controller
+ * @author Acer
+ *
+ */
 public class Controller implements Runnable {
 	public static final int GAME_X_SIZE;
 	public static final int GAME_Y_SIZE;
@@ -17,8 +22,8 @@ public class Controller implements Runnable {
 		VIEW_HEIGHT = GAME_Y_SIZE;
 	}
 	
-	private Model model;
-	private View view;
+	private final Model model;
+	private final View view;
 	
 	public Controller() {
 		this.model = new Model();
@@ -31,6 +36,9 @@ public class Controller implements Runnable {
 		executor.shutdown();
 	}
 	
+	/** Every 10 seconds gets map and statistics<br>
+	 *  which sends to view. View should draw it.
+	 */
 	@Override
 	@SuppressWarnings("static-access")
 	public void run() {

@@ -1,7 +1,13 @@
 package pl.edu.pw.elka.mmarkiew.controller.queueevents;
 
+/**
+ * To mediate between view and controller
+ * @author Acer
+ *
+ */
 public class ViewKeyPress implements ViewEvent {
 	private int keyCode;
+	/** Pressed or released */
 	private boolean press;
 	
 	public ViewKeyPress(int keyCode, boolean press) {
