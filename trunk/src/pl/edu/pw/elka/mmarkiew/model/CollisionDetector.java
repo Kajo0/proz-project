@@ -245,7 +245,7 @@ public class CollisionDetector {
 			
 			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getYVelocity() == 0)
-					entity.setYVelocity(player.getMaxVelocity());
+					entity.setYVelocity(-player.getMaxVelocity());
 		}
 		if (player.getXVelocity() < 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
@@ -253,7 +253,7 @@ public class CollisionDetector {
 			
 			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getXVelocity() == 0)
-					entity.setXVelocity(-player.getMaxVelocity());
+					entity.setXVelocity(player.getMaxVelocity());
 		}
 		if (player.getXVelocity() > 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
@@ -261,7 +261,7 @@ public class CollisionDetector {
 			
 			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getXVelocity() == 0)
-					entity.setXVelocity(player.getMaxVelocity());
+					entity.setXVelocity(-player.getMaxVelocity());
 		}
 		
 	}
