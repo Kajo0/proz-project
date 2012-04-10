@@ -31,6 +31,9 @@ public class CollisionDetector {
 	 * Detect all of collisions on the actual map
 	 */
 	public synchronized void detectCollision() {
+		if (map == null)
+			return;
+		
 		/*
 		 * Check player collision with blocks
 		 */

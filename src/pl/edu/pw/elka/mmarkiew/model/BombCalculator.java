@@ -36,6 +36,9 @@ public class BombCalculator {
 	 * Removes destroyed bombs from map and explode those that should be exploaded
 	 */
 	public synchronized void calculateBombs() {
+		if (map == null)
+			return;
+		
 		long currTime = System.currentTimeMillis();
 		ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
 		

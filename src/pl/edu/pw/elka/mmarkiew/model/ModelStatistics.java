@@ -33,7 +33,7 @@ public class ModelStatistics {
 	 * @param timer - Gameplay time
 	 * @param level - Actual level
 	 */
-	public ModelStatistics(Player player, long timer, int level) {
+	public ModelStatistics(final Player player, long timer, int level) {
 		this.timer = timer;
 		this.level = level;
 		this.lifes = player.getLifes();
