@@ -37,24 +37,26 @@ public class BombCalculator {
 		
 		for (Bomb b : toRemove) {
 			map.removeBomb(b);
-			if (explodeBomb(b))
-				map.getPlayer().bombExploded();
-			else {
-				map.getPlayer().setX((float) map.getPlayerStartPosition().getX());
-				map.getPlayer().setY((float) map.getPlayerStartPosition().getY());
-				map.removeExplosions();
-			}
+			explodeBomb(b);
+			map.getPlayer().bombExploded();
 		}
 	}
 
-	private boolean explodeBomb(Bomb b) {
+	private void explodeBomb(Bomb b) {
 		BlockHolder blocks = map.getBlockHolder();
 		int xR = GameMap.getTilePosition(b.getX());
 		int yR = GameMap.getTilePosition(b.getY());
 		int x, y;
 
 
-		map.addEnemy(EntityFactory.createEntity(GameEntities.EXPLOSION, xR, yR));		
+		map.addEnemy(EntityFactory.createEntity(GameEntities.EXPLOSION, xR, yR));
+		if (blocks.getBlock(xR, yR) instanceof BrickBlock) {
+			blocks.setBlock(BlockFactory.createElement(GameBlock.EMPTY), xR, yR);
+			Entity blen = EntityFactory.createEntity(GameEntities.DESTROYING_BRICK, xR, yR);
+			map.addEnemy(blen);
+			return;
+		}
+		
 		for (int i = 0; i < 4; i++) {
 			x = xR;
 			y = yR;
@@ -87,7 +89,6 @@ public class BombCalculator {
 				}
 			}
 		}
-		return true;
 	}
 
 	public void plantBomb(long timer) {

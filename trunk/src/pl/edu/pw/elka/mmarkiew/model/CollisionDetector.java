@@ -23,6 +23,8 @@ public class CollisionDetector {
 	}
 	
 	public void detectCollision() {
+		checkEntityBlockCollision(map.getPlayer(), map.getBlockHolder());
+		
 		for (Entity e : map.getEntities())
 			checkEntityBlockCollision(e, map.getBlockHolder());
 		
