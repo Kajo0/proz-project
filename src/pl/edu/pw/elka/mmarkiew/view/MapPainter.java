@@ -2,15 +2,11 @@ package pl.edu.pw.elka.mmarkiew.view;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
-import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
-import pl.edu.pw.elka.mmarkiew.model.entities.Player;
-import pl.edu.pw.elka.mmarkiew.model.map.BlockElement;
-import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
+import pl.edu.pw.elka.mmarkiew.model.MapToDraw.SimpleEntity;
 
 public class MapPainter implements Runnable {
 	private MapToDraw map;
@@ -40,8 +36,7 @@ public class MapPainter implements Runnable {
 		else {
 			paintMap(g);
 			paintBonuses(g);
-			paintPalyer(g);
-			paintEnemies(g);
+			paintEntities(g);
 		}
 		
 		g.dispose();
@@ -89,42 +84,27 @@ public class MapPainter implements Runnable {
 	private void paintMap(Graphics g) {
 		for (int j = 0; j < map.getHeightBlocks(); j++) {
 			for (int i = 0; i < map.getWidthBlocks(); i++) {
-				g.drawImage(map.getBlock(i, j).getImage(), i * blockSize, j * blockSize, panel);
+				g.drawImage(map.getBlockImage(i, j), i * blockSize, j * blockSize, panel);
 			}
 		}
 	}
 
-	private void paintPalyer(Graphics g) {
-		Player player = (Player) map.getEntities().get(0);
-		Image image = player.getAnim();
-		
-		g.drawImage(image, ((int) player.getX()) - image.getWidth(panel) / 2,
-							((int) player.getY()) - image.getHeight(panel) / 2, panel);
-	}
-	
-	private void paintEnemies(Graphics g) {
-		Image image = null;
-		for (Entity e : map.getEntities())
-			if ( !(e instanceof Player) ) {
-				image = e.getAnim();
-				g.drawImage(image, ((int) e.getX()) - image.getWidth(panel) / 2,
-									((int) e.getY()) - image.getHeight(panel) / 2, panel);
-			}
+	private void paintEntities(Graphics g) {
+		for (SimpleEntity e : map.getEntities())
+				g.drawImage(e.getImage(), ((int) e.getX()) - e.getImage().getWidth(panel) / 2,
+									((int) e.getY()) - e.getImage().getHeight(panel) / 2, panel);
 	}
 	
 	private void paintBonuses(Graphics g) {
-		Image image = null;
-		for (Entity b : map.getBonuses()) {
-			image = b.getAnim();
-			g.drawImage(image, ((int) b.getX()) - image.getWidth(null) / 2,
-								((int) b.getY()) - image.getHeight(null) / 2, panel);
+		for (SimpleEntity b : map.getBonuses()) {
+			g.drawImage(b.getImage(), ((int) b.getX()) - b.getImage().getWidth(null) / 2,
+								((int) b.getY()) - b.getImage().getHeight(null) / 2, panel);
 			
-			BlockElement block = map.getBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize));
-			image = block.getImage();
-			if (! (block instanceof EmptyBlock) ) {
-				g.drawImage(block.getImage(), (int) b.getX() - image.getWidth(panel) / 2,
-												(int) b.getY() - image.getWidth(panel) / 2, panel);
-			}
+			if (!map.isEmptyBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize)))
+				g.drawImage(map.getHiderBlock(),
+								(int) b.getX() - map.getHiderBlock().getWidth(panel) / 2,
+								(int) b.getY() - map.getHiderBlock().getHeight(panel) / 2,
+								panel);
 		}
 	}
 

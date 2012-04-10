@@ -171,7 +171,7 @@ public class Model implements Runnable {
 			entities.add(getPlayer());
 			entities.addAll(map.getEnemies());
 			entities.addAll(map.getBombs());
-			LinkedList<Bonus> bonuses = new LinkedList<Bonus>(map.getBonuses());
+			LinkedList<Entity> bonuses = new LinkedList<Entity>(map.getBonuses());
 			bonuses.addAll(map.getExits());
 			return new MapToDraw(map.getBlockHolder(), entities, bonuses, map.getWidthBlocks(), map.getHeightBlocks(),
 																				paused, (startTime > 0), win, over);
