@@ -55,8 +55,8 @@ public class View extends JFrame implements Runnable {
 		add(rightPanel);
 		gamePanel.requestFocus();
 		
-		
-		revalidate();
+
+//		revalidate();!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 	
 	@Override

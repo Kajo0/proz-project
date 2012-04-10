@@ -15,7 +15,7 @@ public class Main {
 	
 	public Main() {
 		try {
-		new Controller().run();
+			new Controller().run();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

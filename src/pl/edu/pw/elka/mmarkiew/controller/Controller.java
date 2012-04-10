@@ -28,7 +28,7 @@ public class Controller implements Runnable {
 	public Controller() {
 		this.model = new Model();
 		this.view = new View(VIEW_WIDTH, VIEW_HEIGHT);
-		
+
 		ExecutorService executor = Executors.newCachedThreadPool();
 		executor.execute(new Thread(model));
 		executor.execute(new Thread(view));
