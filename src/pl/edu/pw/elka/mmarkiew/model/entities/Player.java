@@ -1,15 +1,28 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
+/**
+ * Represents special entity - Player entity
+ * @author Acer
+ *
+ */
 public class Player extends Entity {
 	private int lifes;
+	/** How many bombs, player can plant */
 	private int possibleBombs;
 	private int plantedBombs;
+	/** Actual bomb exploding area */
 	private int bombArea;
 	private float defaultSpeed;
+	/** Time after which bomb explodes */
 	private long bombTimer;
+	/** If bomb can be pushed */
 	private boolean bouncingBomb;
+	/** Tells is player after bomb planting
+	 * and still on it, to do not checking collisions
+	 * with bombs */
 	private boolean onBomb;
 
+	
 	public Player(Animation anim, Animation dyingAnim) {
 		super(anim, dyingAnim);
 		this.setMaxVelocity(0.15f);
@@ -24,13 +37,20 @@ public class Player extends Entity {
 		this.setDyingTime(2000);
 	}
 	
+	/**
+	 * Increment planted bomb counter
+	 */
 	public void plantBomb() {
 		if (plantedBombs < possibleBombs)
-			this.plantedBombs++;
+			plantedBombs++;
 	}
 	
+	/**
+	 * Decrement planted bomb counter
+	 */
 	public void bombExploded() {
-		this.plantedBombs--;
+		if (plantedBombs > 0)
+			plantedBombs--;
 	}
 	
 	public boolean canPlantBomb() {
@@ -85,12 +105,20 @@ public class Player extends Entity {
 		this.onBomb = onBomb;
 	}
 	
+	/**
+	 * Set player dead, decrement life counter
+	 * and clear bomb planted counter
+	 */
 	public void setDead() {
 		super.setDead();
 		this.lifes--;
 		this.plantedBombs = 0;
 	}
 
+	/**
+	 * Reset player state into defaults
+	 * without touching lifes counter
+	 */
 	public void reset() {
 		this.bombArea = 1;
 		this.possibleBombs = 1;

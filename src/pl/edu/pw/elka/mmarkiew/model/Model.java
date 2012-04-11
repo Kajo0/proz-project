@@ -306,7 +306,8 @@ public class Model implements Runnable {
 	}
 
 	public synchronized void plantBomb() {
-		bombCalculator.plantBomb(getPlayer().getBombTimer());
+		if (getPlayer().isAlive())
+			bombCalculator.plantBomb(getPlayer().getBombTimer());
 	}
 	
 	/**
@@ -316,6 +317,10 @@ public class Model implements Runnable {
 		this.paused = !this.paused;
 	}
 
+	/**
+	 * 
+	 * @return Current player if exists, null otherwise
+	 */
 	public Player getPlayer() {
 		if (resource != null)
 			return resource.getPlayer();

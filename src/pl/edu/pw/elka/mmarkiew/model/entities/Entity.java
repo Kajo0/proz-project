@@ -2,6 +2,11 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 
 import java.awt.Image;
 
+/**
+ * Abstract class represents entity
+ * @author Acer
+ *
+ */
 public abstract class Entity {
 	private Animation anim;
 	private Animation dyingAnim;
@@ -13,10 +18,18 @@ public abstract class Entity {
 	private float width;
 	private float height;
 	private boolean alive;
+	/** Time when entity dies */
 	private long dieTime;
+	/** Time after which entity is really dead */
 	private int dyingTime;
 	
-	public Entity(Animation anim, Animation dyingAnim) {
+	/**
+	 * Creates entity with its animations in game
+	 * @param anim - Animation when is alive
+	 * @param dyingAnim - Animation when is dead
+	 */
+	@SuppressWarnings("null")
+	public Entity(final Animation anim, final Animation dyingAnim) {
 		this.anim = anim;
 		this.dyingAnim = dyingAnim;
 		this.x = 0;
@@ -24,13 +37,22 @@ public abstract class Entity {
 		this.xVelocity = 0;
 		this.yVelocity = 0;
 		this.maxVelocity = 0;
-		this.width = anim.getImage().getWidth(null);
-		this.height = anim.getImage().getHeight(null);
+		if (anim == null) {
+			this.width = anim.getImage().getWidth(null);
+			this.height = anim.getImage().getHeight(null);
+		} else {
+			this.width = 0;
+			this.height = 0;
+		}
 		this.alive = true;
 		this.dieTime = -1;
 		this.dyingTime = 2000;
 	}
 	
+	/**
+	 * Update state of entity
+	 * @param elapsedTime
+	 */
 	public void update(final long elapsedTime) {
 		if (alive) {
 			this.x += xVelocity * elapsedTime;
@@ -39,14 +61,24 @@ public abstract class Entity {
 		} else dyingAnim.update(elapsedTime);
 	}
 	
+	/**
+	 * It happens when is horizontal collision
+	 */
 	public void collisionX() {
 		this.xVelocity = 0f;
 	}
 	
+	/**
+	 * It happens when is vertical collision
+	 */
 	public void collisionY() {
 		this.yVelocity = 0f;
 	}
 
+	/**
+	 * Return actual animation image
+	 * @return Actual image
+	 */
 	public Image getAnim() {
 		if (isAlive())
 			return this.anim.getImage();
@@ -125,6 +157,9 @@ public abstract class Entity {
 		this.alive = alive;
 	}
 
+	/**
+	 * Sets time when entity die and sets it dead
+	 */
 	public void setDead() {
 		this.alive = false;
 		this.dieTime = System.currentTimeMillis();
