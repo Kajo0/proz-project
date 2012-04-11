@@ -2,7 +2,6 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.io.IOException;
 import java.util.LinkedList;
-
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Bonus;
