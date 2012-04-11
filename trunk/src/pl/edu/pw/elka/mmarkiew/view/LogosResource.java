@@ -6,6 +6,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.ImageIcon;
 
+/**
+ * Enumeration containing images to draw on view panel
+ * @author Acer
+ *
+ */
 public enum LogosResource {
 	LEVEL("images/levelLabel.png"),
 	LIFES("images/player0.png"),
@@ -16,7 +21,15 @@ public enum LogosResource {
 	
 	private Image image;
 	
+	/**
+	 * Creates enum
+	 * @param image - Path to image
+	 */
 	private LogosResource(final String image) {
+		
+		/*
+		 * If can't be executed draw blank image
+		 */
 		Image img = null;
 		if (new File(image).canExecute()) {
 			ImageIcon icon = new ImageIcon(image);

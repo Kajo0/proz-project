@@ -7,6 +7,11 @@ import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Game panel with informations about game
+ * @author Acer
+ *
+ */
 @SuppressWarnings("serial")
 public class GameInfoPanel extends JPanel {
 	private JLabel timerLabel;
@@ -16,6 +21,10 @@ public class GameInfoPanel extends JPanel {
 	private JLabel bombAreaLabel;
 	private JLabel bombTimer;
 	
+	/**
+	 * Creates game info panel
+	 * and components on it
+	 */
 	public GameInfoPanel() {
 		super();
 		setLayout(null);
@@ -30,6 +39,9 @@ public class GameInfoPanel extends JPanel {
 		init();
 	}
 
+	/**
+	 * Initialize game info panel componentes
+	 */
 	private void init() {
 		ArrayList<JLabel> labels = new ArrayList<JLabel>(Arrays.asList(timerLabel, levelLabel, lifeLabel, bombLabel,
 																		bombAreaLabel, bombTimer));
@@ -51,6 +63,9 @@ public class GameInfoPanel extends JPanel {
 		add(bombTimer);
 	}
 	
+	/**
+	 * Paints components of game info panel 
+	 */
 	public void paint(Graphics g) {
 		super.paint(g);
 		

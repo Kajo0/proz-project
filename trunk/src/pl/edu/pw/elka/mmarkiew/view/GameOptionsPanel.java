@@ -4,11 +4,20 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Options panel of game
+ * @author Acer
+ *
+ */
 @SuppressWarnings("serial")
 public class GameOptionsPanel extends JPanel {
 	private JLabel optionLabel;
 	private JButton[] keyButtons;
 	
+	/**
+	 * Creates game options panel
+	 * and swing components on it
+	 */
 	public GameOptionsPanel() {
 		super();
 		
@@ -20,17 +29,20 @@ public class GameOptionsPanel extends JPanel {
 		init();
 	}
 
+	/**
+	 * Option panel initialization
+	 */
 	private void init() {
 		setLayout(null);
 		
 		optionLabel.setText("<html><body><center>Options Menu:<br><small><sub>(Click to change)");
 		optionLabel.setBounds(50, 10, 100, 40);
 		keyButtons[0].setText("P");
-		keyButtons[1].setText("\u2191");
+		keyButtons[1].setText("\u2191");	// UP arrow
 		keyButtons[2].setText("F");
-		keyButtons[3].setText("\u2190");
-		keyButtons[4].setText("\u2193");
-		keyButtons[5].setText("\u2192");
+		keyButtons[3].setText("\u2190");	// LEFT arrow
+		keyButtons[4].setText("\u2193");	// DOWN arrow
+		keyButtons[5].setText("\u2192");	// RIGHT arrow
 		keyButtons[6].setText("1");
 		keyButtons[7].setText("2");
 		keyButtons[8].setText("3");

@@ -281,10 +281,10 @@ public class Model implements Runnable {
 	public synchronized MapToDraw getMapToDraw() {
 		if (map != null) {
 			LinkedList<Entity> entities = new LinkedList<Entity>();
-			
-			entities.add(getPlayer());
+
 			entities.addAll(map.getEnemies());
 			entities.addAll(map.getBombs());
+			entities.add(getPlayer());
 			
 			LinkedList<Entity> bonuses = new LinkedList<Entity>(map.getBonuses());
 			bonuses.addAll(map.getExits());

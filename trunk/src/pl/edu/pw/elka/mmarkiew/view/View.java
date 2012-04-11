@@ -12,6 +12,11 @@ import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.ModelStatistics;
 
+/**
+ * Game view
+ * @author Acer
+ *
+ */
 @SuppressWarnings("serial")
 public class View extends JFrame implements Runnable {
 	private int width;
@@ -19,8 +24,13 @@ public class View extends JFrame implements Runnable {
 	private Canvas gamePanel;
 	private RightPanel rightPanel;
 
+	/**
+	 * Creates new View
+	 * @param width - Frame width
+	 * @param height - Frame height
+	 */
 	public View(int width, int height) {
-		super("Bomberman version 0.0");
+		super("Bomberman version 0.1");
 
 		this.width = width;
 		this.height = height;
@@ -31,6 +41,9 @@ public class View extends JFrame implements Runnable {
 		init();
 	}
 	
+	/**
+	 * Initialize frame
+	 */
 	private void init() {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
@@ -50,28 +63,42 @@ public class View extends JFrame implements Runnable {
 		gamePanel.setBackground(Color.LIGHT_GRAY);
 
 		add(gamePanel);
+		/*
+		 * Set it double buffered by buffer strategy
+		 */
 		gamePanel.createBufferStrategy(2);
 		
 		add(rightPanel);
+		/*
+		 * Add focus into game
+		 */
 		gamePanel.requestFocus();
-		
-
-//		revalidate();!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
-	
+
+	/**
+	 * Resize window to show whole panes by adding insets<br>
+	 * Add request listener
+	 */
 	@Override
 	public void run() {
-		// TODO View run = init graph
 		Insets insets = Window.getWindows()[0].getInsets();
 		this.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
 		
 		gamePanel.addKeyListener(new MovementListener());
 	}
 
+	/**
+	 * Invoke swing painter method to paint map
+	 * @param map - Informations necessary to paint map
+	 */
 	public void sendMapModel(MapToDraw map) {
 		SwingUtilities.invokeLater(new MapPainter(gamePanel, map));
 	}
 
+	/**
+	 * Invoke update of player statistics
+	 * @param statistics - Informations about player
+	 */
 	public void sendStatistics(final ModelStatistics statistics) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -81,7 +108,11 @@ public class View extends JFrame implements Runnable {
 		});
 	}
 
-	protected void updateStatistics(ModelStatistics statistics) {
+	/**
+	 * Sets new text into labels
+	 * @param statistics - Player statistics
+	 */
+	private void updateStatistics(ModelStatistics statistics) {
 		rightPanel.getGameInfo().setTimerLabel(statistics.getTimer() / 1000);
 		rightPanel.getGameInfo().setLevelLabel(statistics.getLevel());
 		rightPanel.getGameInfo().setLifeLabel(statistics.getLifes());
