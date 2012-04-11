@@ -4,7 +4,21 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
+/**
+ * Class represents Bonus entites
+ * @author Acer
+ *
+ */
 public abstract class Bonus extends Entity {
+	
+	/**
+	 * Creates Bonus entity<br>
+	 * Calls super Entity constructor
+	 * @param anim - Animation when is alive
+	 * @param dyingAnim - Animation when dying
+	 * @param x - Position
+	 * @param y - Position
+	 */
 	public Bonus(Animation anim, Animation dyingAnim, float x, float y) {
 		super(anim, dyingAnim);
 		this.setX(x);
@@ -12,5 +26,9 @@ public abstract class Bonus extends Entity {
 		this.setDyingTime(0);
 	}
 	
-	public abstract void bonusideEntity(Player e);
+	/**
+	 * Update player by giving him appropriate bonus
+	 * @param player - Player
+	 */
+	public abstract void bonusideEntity(Player player);
 }
