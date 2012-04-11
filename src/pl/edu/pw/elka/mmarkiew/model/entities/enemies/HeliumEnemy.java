@@ -2,6 +2,11 @@ package pl.edu.pw.elka.mmarkiew.model.entities.enemies;
 
 import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 
+/**
+ * Representing simply fast enemy
+ * @author Acer
+ *
+ */
 public class HeliumEnemy extends Enemy {
 	
 	public HeliumEnemy(Animation anim, Animation dyingAnim, float x, float y) {
