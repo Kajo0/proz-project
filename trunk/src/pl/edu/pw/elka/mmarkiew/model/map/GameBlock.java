@@ -9,17 +9,32 @@ import javax.swing.ImageIcon;
 
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
+/**
+ * Enumeration representing available game blocks 
+ * @author Acer
+ *
+ */
 public enum GameBlock {
 	STONE("#", "images/stoneBlock.png"),
 	BRICK("@", "images/brickBlock.png"),
 	EMPTY(" ", "images/emptyBlock.png");
 	
+	/** String representing block */
 	private final String character;
+	/** Block imgage */
 	private final Image image;
 	
+	/**
+	 * Creates and load image of block
+	 * @param character - String representing block
+	 * @param image - Path to block image
+	 */
 	private GameBlock(final String character, final String image) {
 		this.character = character;
 		
+		/*
+		 * If there is no image, create blank image
+		 */
 		Image img = null;
 		if (new File(image).canExecute()) {
 			ImageIcon icon = new ImageIcon(image);
@@ -50,9 +65,9 @@ public enum GameBlock {
 	}
 	
 	/**
-	 * Return enum form of given character
-	 * @param character enum string
-	 * @return enum GameBlocks
+	 * Return GameBlock if such exists
+	 * @param character - Entity representation string
+	 * @return Apropriate GameBlock, EMPTY if didn't find
 	 */
 	public static GameBlock getEnumBlock(final String character) {
 		for (GameBlock g : values()) {
