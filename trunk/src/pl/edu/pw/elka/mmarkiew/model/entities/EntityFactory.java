@@ -12,16 +12,42 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.DestroyingBrick;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.HeliumEnemy;
 
+/**
+ * Factory of entities
+ * @author Acer
+ *
+ */
 public abstract class EntityFactory {
+	
+	/**
+	 * Creates given entity
+	 * @param entity - GameEntity object to create
+	 * @return Created entity
+	 */
 	public static Entity createEntity(final GameEntities entity) {
 		return createEntity(entity, 0, 0);
 	}
 
+	/**
+	 * Overloaded function with integer position
+	 * Creates entity and sets it on (x, y) position
+	 * @param entity - GameEntity object to create
+	 * @param x - Position
+	 * @param y - Position
+	 * @return Created entity
+	 */
 	public static Entity createEntity(final GameEntities entity, int x, int y) {
 		return createEntity(entity, (float) x, (float) y);
 	}
 	
-	public static Entity createEntity(final GameEntities entity, final float x, final float y) {
+	/**
+	 * Creates entity and sets it on (x, y) position
+	 * @param entity - GameEntity object to create
+	 * @param x - Position
+	 * @param y - Position
+	 * @return Created entity
+	 */
+	public static Entity createEntity(final GameEntities entity, float x, float y) {
 	
 		switch (entity) {
 			case PLAYER:	return new Player(entity.getAnim().clone(), entity.getDyingAnim());
@@ -40,7 +66,16 @@ public abstract class EntityFactory {
 		}
 	}
 	
-	public static Bomb createBombEntity(final float x, final float y, final long plantTime, long timer, int area) {
+	/**
+	 * Creates bomb entity with given parameters
+	 * @param x - Position
+	 * @param y - Position
+	 * @param plantTime - Time when bomb was planted
+	 * @param timer - Time after which bomb explodes
+	 * @param area - Explosion area
+	 * @return Appropriate Bomb object
+	 */
+	public static Bomb createBombEntity(float x, float y, long plantTime, long timer, int area) {
 		return new Bomb(GameEntities.BOMB.getAnim().clone(), x, y, plantTime, timer, area);
 	}
 }

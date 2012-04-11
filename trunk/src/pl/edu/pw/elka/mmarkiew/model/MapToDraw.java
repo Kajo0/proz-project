@@ -158,6 +158,12 @@ public class MapToDraw {
 				}
 		}
 		
+		/**
+		 * 
+		 * @param x - Position
+		 * @param y - Position
+		 * @return Image of block, null if out of bounds
+		 */
 		public Image getBlock(int x, int y) {
 			if (x < 0 || x > MapToDraw.this.widthBlocks - 1 ||
 					y < 0 || y > MapToDraw.this.heightBlocks - 1)

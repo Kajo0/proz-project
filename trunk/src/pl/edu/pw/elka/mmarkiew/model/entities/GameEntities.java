@@ -6,6 +6,12 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
+/**
+ * Enum defines posibble entities in game<br>
+ * And contain them Animation to clone them
+ * @author Acer
+ *
+ */
 public enum GameEntities {
 	PLAYER				("P",	"player",					"playerDying"),
 	BALOON				("B",	"ballonEnemy",				"ballonEnemyDying"),
@@ -25,9 +31,19 @@ public enum GameEntities {
 	private final Animation anim;
 	private final Animation dyingAnim;
 	
+	/**
+	 * Generates game entity
+	 * @param character - String represents entity
+	 * @param anim - Entity animation
+	 * @param dyingAnim - Entity animation when is in agony
+	 */
 	private GameEntities(final String character, final String anim, final String dyingAnim) {
 		this.character = character;
 		
+		/*
+		 * If there is no dead animation,
+		 * both animations are the same
+		 */
 		this.anim = createAnimation(anim);
 		if (dyingAnim.equals(""))
 			this.dyingAnim = this.anim;
@@ -50,6 +66,11 @@ public enum GameEntities {
 		return getCharacter();
 	}
 	
+	/**
+	 * Return GameEntity if such exists
+	 * @param character - Entity representation string
+	 * @return Apropriate GameEntity, UNDEFINED if didn't find
+	 */
 	public static GameEntities getEnumEntity(final String character) {
 		for (GameEntities g : values()) {
 			if (g.getCharacter().equals(character))
@@ -58,9 +79,20 @@ public enum GameEntities {
 		return UNDEFINED;
 	}
 	
+	/**
+	 * Helper function to load next frames of animation and made it as
+	 * one complete animation.<br>
+	 * First frame sufix: 0.png, next ${number}.png
+	 * @param anim - Filename without number and extension
+	 * @return Created Animation from frames<br>
+	 * If there was no image, return Blank square animation
+	 */
 	private Animation createAnimation(String anim) {
 		Animation a = new Animation();
 
+		/*
+		 * Loading next frames if exists
+		 */
 		File file = new File("images" + File.separator + anim + "0.png");
 		if (file.canExecute()) {
 			a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
@@ -70,6 +102,9 @@ public enum GameEntities {
 				a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
 			
 		} else {
+			/*
+			 * Create blank square image
+			 */
 			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
 																				BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bufImg.getGraphics();
