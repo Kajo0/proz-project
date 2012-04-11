@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
