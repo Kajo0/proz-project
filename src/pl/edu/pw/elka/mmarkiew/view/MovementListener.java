@@ -6,8 +6,13 @@ import pl.edu.pw.elka.mmarkiew.controller.ViewEventQueue;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
 
+/**
+ * KeyListener adapter<br>
+ * Sends proper events into queue
+ * @author Acer
+ *
+ */
 public class MovementListener implements KeyListener, ViewEvent {
-	
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -16,8 +21,6 @@ public class MovementListener implements KeyListener, ViewEvent {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		
-		
 	}
 
 	@Override
