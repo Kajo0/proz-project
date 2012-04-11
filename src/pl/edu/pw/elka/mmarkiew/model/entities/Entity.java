@@ -28,7 +28,6 @@ public abstract class Entity {
 	 * @param anim - Animation when is alive
 	 * @param dyingAnim - Animation when is dead
 	 */
-	@SuppressWarnings("null")
 	public Entity(final Animation anim, final Animation dyingAnim) {
 		this.anim = anim;
 		this.dyingAnim = dyingAnim;
@@ -37,16 +36,17 @@ public abstract class Entity {
 		this.xVelocity = 0;
 		this.yVelocity = 0;
 		this.maxVelocity = 0;
-		if (anim == null) {
-			this.width = anim.getImage().getWidth(null);
-			this.height = anim.getImage().getHeight(null);
-		} else {
-			this.width = 0;
-			this.height = 0;
-		}
 		this.alive = true;
 		this.dieTime = -1;
 		this.dyingTime = 2000;
+
+		try {
+			this.width = anim.getImage().getWidth(null);
+			this.height = anim.getImage().getHeight(null);
+		} catch (NullPointerException e) {
+			this.width = 0;
+			this.height = 0;
+		}
 	}
 	
 	/**
