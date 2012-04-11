@@ -6,7 +6,7 @@ package pl.edu.pw.elka.mmarkiew.model.map;
  *
  */
 public class BlockHolder {
-	/** int blocks */
+	/** in blocks */
 	private int width;
 	private int height;
 	private BlockElement[][] blocks;
@@ -23,14 +23,14 @@ public class BlockHolder {
 	}
 	
 	/**
-	 * Sets new block into matrix, or do nothnig
+	 * Sets new block into matrix, or do nothing
 	 * if there was out of bounds position
 	 * @param block - BlockElement to put
 	 * @param x - Tile position
 	 * @param y - Tile position
 	 */
 	public void setBlock(BlockElement block, int x, int y) {
-		if (x < 0 || x > width - 1 || y < 0 || y > height- 1 )
+		if (x < 0 || x > width - 1 || y < 0 || y > height - 1 )
 			return;
 		else blocks[x][y] = block;
 	}
