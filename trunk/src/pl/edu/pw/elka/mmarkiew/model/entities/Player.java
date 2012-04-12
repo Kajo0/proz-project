@@ -23,7 +23,7 @@ public class Player extends Entity {
 	private boolean onBomb;
 
 	
-	public Player(Animation anim, Animation dyingAnim) {
+	public Player(final Animation anim, final Animation dyingAnim) {
 		super(anim, dyingAnim);
 		this.setMaxVelocity(0.15f);
 		this.setLifes(3);

@@ -14,7 +14,7 @@ public class EmptyBlock extends BlockElement{
 	 * Creates empty block
 	 * @param image - Block image
 	 */
-	public EmptyBlock(Image image) {
+	public EmptyBlock(final Image image) {
 		super(image);
 	}
 }

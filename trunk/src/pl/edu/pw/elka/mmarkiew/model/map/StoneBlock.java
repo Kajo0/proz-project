@@ -14,7 +14,7 @@ public class StoneBlock extends BlockElement {
 	 * Creates stone block, which can't be destroyed
 	 * @param image - Block image
 	 */
-	public StoneBlock(Image image) {
+	public StoneBlock(final Image image) {
 		super(image);
 	}
 }

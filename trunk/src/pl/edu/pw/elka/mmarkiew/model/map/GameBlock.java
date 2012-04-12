@@ -13,9 +13,9 @@ import pl.edu.pw.elka.mmarkiew.model.GameMap;
  *
  */
 public enum GameBlock {
-	STONE("#", "images/stoneBlock.png"),
-	BRICK("@", "images/brickBlock.png"),
-	EMPTY(" ", "images/emptyBlock.png");
+	STONE("#", "./images/stoneBlock.png"),
+	BRICK("@", "./images/brickBlock.png"),
+	EMPTY(" ", "./images/emptyBlock.png");
 	
 	/** String representing block */
 	private final String character;

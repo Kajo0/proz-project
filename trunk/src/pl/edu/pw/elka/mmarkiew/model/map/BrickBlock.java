@@ -14,7 +14,7 @@ public class BrickBlock extends BlockElement {
 	 * Creates block made of bricks, which can be destroyed
 	 * @param image - Brick block image
 	 */
-	public BrickBlock(Image image) {
+	public BrickBlock(final Image image) {
 		super(image);
 	}
 }
