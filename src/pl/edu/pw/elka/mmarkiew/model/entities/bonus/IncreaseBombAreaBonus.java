@@ -10,11 +10,11 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
  */
 public class IncreaseBombAreaBonus extends Bonus {
 
-	public IncreaseBombAreaBonus(Animation anim, Animation dyingAnim, float x, float y) {
+	public IncreaseBombAreaBonus(final Animation anim, final Animation dyingAnim, float x, float y) {
 		super(anim, dyingAnim, x, y);
 	}
 	
-	public void bonusideEntity(Player e) {
+	public void bonusideEntity(final Player e) {
 		e.setBombArea(e.getBombArea() + 1);
 	}
 }

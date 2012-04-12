@@ -21,7 +21,7 @@ public abstract class Enemy extends Entity {
 	 * @param x - Position
 	 * @param y - Position
 	 */
-	public Enemy(Animation anim, Animation dyingAnim, float x, float y) {
+	public Enemy(final Animation anim, final Animation dyingAnim, float x, float y) {
 		this(anim, dyingAnim);
 		this.setX(x);
 		this.setY(y);

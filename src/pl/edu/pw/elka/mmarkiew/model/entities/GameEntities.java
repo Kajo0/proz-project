@@ -93,11 +93,11 @@ public enum GameEntities {
 		/*
 		 * Loading next frames if exists
 		 */
-		File file = new File("images" + File.separator + anim + "0.png");
+		File file = new File("./images" + File.separator + anim + "0.png");
 		if (file.canExecute()) {
 			a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
 
-			file = new File("images" + File.separator + anim + "1.png");
+			file = new File("./images" + File.separator + anim + "1.png");
 			for (int i = 1; file.canExecute(); i++, file = new File("images" + File.separator + anim + i + ".png"))
 				a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
 			

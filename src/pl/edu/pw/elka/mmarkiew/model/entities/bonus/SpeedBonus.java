@@ -10,11 +10,11 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
  */
 public class SpeedBonus extends Bonus {
 
-	public SpeedBonus(Animation anim, Animation dyingAnim, float x, float y) {
+	public SpeedBonus(final Animation anim, final Animation dyingAnim, float x, float y) {
 		super(anim, dyingAnim, x, y);
 	}
 	
-	public void bonusideEntity(Player e) {
+	public void bonusideEntity(final Player e) {
 		e.setMaxVelocity(e.getMaxVelocity() + 0.05f);
 	}
 }
