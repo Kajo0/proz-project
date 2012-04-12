@@ -2,7 +2,6 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
@@ -93,14 +92,16 @@ public enum GameEntities {
 		/*
 		 * Loading next frames if exists
 		 */
-		File file = new File("./images" + File.separator + anim + "0.png");
-		if (file.canExecute()) {
-			a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
+		
+		anim = "/" + anim;
+		if (getClass().getResource(anim + "0.png") != null) {
+			a.addFrame(new ImageIcon(getClass().getResource(anim + "0.png")).getImage(), 250);
 
-			file = new File("./images" + File.separator + anim + "1.png");
-			for (int i = 1; file.canExecute(); i++, file = new File("images" + File.separator + anim + i + ".png"))
-				a.addFrame(new ImageIcon(file.getPath()).getImage(), 250);
-			
+			int i = 1;
+			while (getClass().getResource(anim + i + ".png") != null) {
+				a.addFrame(new ImageIcon(getClass().getResource(anim + i + ".png")).getImage(), 250);
+				++i;
+			}
 		} else {
 			/*
 			 * Create blank square image

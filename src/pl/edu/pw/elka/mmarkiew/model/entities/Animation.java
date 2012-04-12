@@ -77,7 +77,7 @@ public class Animation {
 			}
 			
 			while (animTime > getFrame(currentImage).endTime) {
-				currentImage++;
+				++currentImage;
 			}
 		}
 	}

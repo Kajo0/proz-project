@@ -50,7 +50,7 @@ public class GameInfoPanel extends JPanel {
 			l.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
 			l.setHorizontalAlignment(JLabel.LEFT);
 			l.setBounds(80, 10 + i * 50, 120, 50);
-			i++;
+			++i;
 		}
 		timerLabel.setBounds(0, 10, 200, 50);
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -77,7 +77,7 @@ public class GameInfoPanel extends JPanel {
 		for (LogosResource l : logos) {
 			g.drawImage(l.getImage(), 40 - l.getImage().getWidth(this) / 2,
 										35 + i * 50 - l.getImage().getHeight(this) / 2, this);
-			i++;
+			++i;
 		}
 		
 		g.dispose();

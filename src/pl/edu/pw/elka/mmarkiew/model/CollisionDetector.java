@@ -88,7 +88,7 @@ public class CollisionDetector {
 		int i1 = 0, i2 = 0, i3 = 0;
 		float f1 = 0, f2 = 0;
 		boolean comparison = false;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; ++i) {
 			switch (i) {
 				case 0: i1 = xTilePlayerPosition;	i2 = yTilePlayerPosition-1;	i3 = yTilePlayerPosition;
 						f1 = yPlayerPosition;		f2 = - dividedAnimHeight;
@@ -172,7 +172,7 @@ public class CollisionDetector {
 						b.collisionY();
 					}
 				}
-			} else onAnyBombStanding++;
+			} else ++onAnyBombStanding;
 		}
 		
 		/*
@@ -296,8 +296,8 @@ public class CollisionDetector {
 		//TODO usprawnic kolizje
 		Entity[] entities = enemies.toArray(new Entity[enemies.size()]);
 
-		for (int i = 0; i < entities.length - 1; i++)
-			for (int j = i + 1; j < entities.length; j++)
+		for (int i = 0; i < entities.length - 1; ++i)
+			for (int j = i + 1; j < entities.length; ++j)
 				/* If though one is dead continue */
 				if (!entities[i].isAlive() || !entities[j].isAlive())
 					continue;

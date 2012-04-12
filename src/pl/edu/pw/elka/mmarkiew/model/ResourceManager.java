@@ -38,8 +38,14 @@ public class ResourceManager {
 	 * @throws IOException
 	 */
 	public synchronized GameMap loadNextMap() throws IOException {
-		level++;
-		return loadMap("maps/" + level + ".txt");
+		++level;
+		try {
+			return loadMap();
+		} catch (NullPointerException e) {
+			if (level > 1)
+				return generateMap();
+			throw new IOException();
+		}
 	}
 	
 	/**
@@ -48,10 +54,12 @@ public class ResourceManager {
 	 * @return Map of game
 	 * @throws IOException
 	 */
-	private GameMap loadMap(final String path) throws IOException {
+	private GameMap loadMap() throws IOException {
 		ArrayList<String> listOfLines = new ArrayList<String>();
-		
-		BufferedReader buffer = new BufferedReader(new FileReader(path));
+
+//		BufferedReader buffer = new BufferedReader(new FileReader(path));
+		BufferedReader buffer = new BufferedReader(new FileReader(getClass()
+																.getResource("/" + level + ".txt").getPath()));
 		
 		int width = 0;
 		int height = 0;
@@ -84,14 +92,14 @@ public class ResourceManager {
 		while (it.hasNext()) {
 			line = it.next();
 			
-			for (int i = 0; i < width; i++) {
+			for (int i = 0; i < width; ++i) {
 				if (i < line.length()) {
 					chooseBlockEntityToCreate(tempMap, line.charAt(i), i, j);
 				} else {
 					tempMap.setBlock(BlockFactory.createElement(GameBlock.EMPTY), i, j);
 				}
 			}
-			j++;
+			++j;
 		}
 		
 		/*
@@ -121,7 +129,7 @@ public class ResourceManager {
 	private void chooseBlockEntityToCreate(final GameMap tempMap, char charAt, int i, int j) {
 
 		/*
-		 * Create apropriate block on this position
+		 * Create appropriate block on this position
 		 */
 		tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock( "" + charAt) ), i, j);
 		
@@ -132,7 +140,7 @@ public class ResourceManager {
 			tempMap.setPlayerStartPosition(GameMap.getPositionCenterFromTile(i), GameMap.getPositionCenterFromTile(j));
 		else
 		/*
-		 * Create appropriate entity and possibly hide it behind destructible block
+		 * Create appropriate entity and possibly hide it behind destructive block
 		 */
 		if ( GameEntities.getEnumEntity("" + charAt) != GameEntities.UNDEFINED) {
 			Entity e = EntityFactory.createEntity( GameEntities.getEnumEntity("" + charAt), 
@@ -147,6 +155,21 @@ public class ResourceManager {
 				tempMap.addBonus((Bonus) e);
 				tempMap.setBlock(BlockFactory.createElement(GameBlock.BRICK), i, j);
 			}
+		}
+	}
+	
+	/**
+	 * Generates random map
+	 * @return Created random map
+	 * @throws IOException
+	 */
+	private GameMap generateMap() throws IOException {
+		//TODO map generation
+		try {
+			return loadMap();
+		} catch (NullPointerException e) {
+			--level;
+			throw new IOException();
 		}
 	}
 

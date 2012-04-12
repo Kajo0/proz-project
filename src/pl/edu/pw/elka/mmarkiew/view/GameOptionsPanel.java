@@ -23,7 +23,7 @@ public class GameOptionsPanel extends JPanel {
 		
 		optionLabel = new JLabel();
 		keyButtons = new JButton[10];
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; ++i)
 			keyButtons[i] = new JButton();
 		
 		init();
@@ -49,18 +49,18 @@ public class GameOptionsPanel extends JPanel {
 		keyButtons[9].setText("SPACE");
 		
 		int k = 0;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 3; ++j) {
 				keyButtons[k].setBounds(j % 3 * 60 + (j + 1) * 4, i % 3 * 60 + 60 + (i + 1) * 4, 60, 60);
 				keyButtons[k].setFocusable(false);
-				k++;
+				++k;
 			}
 		}
 		keyButtons[9].setBounds(4, 256, 188, 60);
 		keyButtons[9].setFocusable(false);
 		
 		add(optionLabel);
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; ++i)
 			add(keyButtons[i]);
 	}
 }
