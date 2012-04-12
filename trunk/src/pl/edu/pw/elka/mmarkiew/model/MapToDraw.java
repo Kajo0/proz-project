@@ -147,8 +147,8 @@ public class MapToDraw {
 		 */
 		private void fillBlocks(final BlockHolder blocks) {
 			
-			for (int i = 0; i < MapToDraw.this.widthBlocks; i++)
-				for (int j = 0; j < MapToDraw.this.heightBlocks; j++) {
+			for (int i = 0; i < MapToDraw.this.widthBlocks; ++i)
+				for (int j = 0; j < MapToDraw.this.heightBlocks; ++j) {
 					
 					this.blocks[i][j] = blocks.getBlock(i, j).getImage();
 					

@@ -42,7 +42,7 @@ public class Player extends Entity {
 	 */
 	public void plantBomb() {
 		if (plantedBombs < possibleBombs)
-			plantedBombs++;
+			++plantedBombs;
 	}
 	
 	/**

@@ -120,8 +120,8 @@ public class MapPainter implements Runnable {
 	 * @param g - Canv graphics to draw on it
 	 */
 	private void paintMap(Graphics g) {
-		for (int j = 0; j < map.getHeightBlocks(); j++) {
-			for (int i = 0; i < map.getWidthBlocks(); i++) {
+		for (int j = 0; j < map.getHeightBlocks(); ++j) {
+			for (int i = 0; i < map.getWidthBlocks(); ++i) {
 				g.drawImage(map.getBlockImage(i, j), i * blockSize, j * blockSize, panel);
 			}
 		}

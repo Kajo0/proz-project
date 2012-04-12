@@ -82,12 +82,12 @@ public class BombCalculator {
 		 * Makes cross of enemy explosion entities
 		 * Stops on non EmptyBlock
 		 */
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; ++i) {
 			x = xR;
 			y = yR;
 			
 			destroyedBrickAnimation:
-			for (int j = 1; j <= b.getArea(); j++) {
+			for (int j = 1; j <= b.getArea(); ++j) {
 				
 				/*
 				 * Way to 'recurse'

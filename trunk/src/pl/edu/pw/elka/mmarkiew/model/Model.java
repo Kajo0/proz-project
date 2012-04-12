@@ -260,14 +260,13 @@ public class Model implements Runnable {
 			bombCalculator.setMap(map);
 			
 		} catch (IOException e) {
-		//TODO zrobic generate new map
 			map = null;
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
 			startTime = -2;
 			win = true;
 			over = false;
-			
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -3,7 +3,6 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
@@ -13,9 +12,9 @@ import pl.edu.pw.elka.mmarkiew.model.GameMap;
  *
  */
 public enum GameBlock {
-	STONE("#", "./images/stoneBlock.png"),
-	BRICK("@", "./images/brickBlock.png"),
-	EMPTY(" ", "./images/emptyBlock.png");
+	STONE("#", "stoneBlock"),
+	BRICK("@", "brickBlock"),
+	EMPTY(" ", "emptyBlock");
 	
 	/** String representing block */
 	private final String character;
@@ -27,17 +26,18 @@ public enum GameBlock {
 	 * @param character - String representing block
 	 * @param image - Path to block image
 	 */
-	private GameBlock(final String character, final String image) {
+	private GameBlock(final String character, String image) {
 		this.character = character;
 		
 		/*
 		 * If there is no image, create blank image
 		 */
 		Image img = null;
-		if (new File(image).canExecute()) {
-			ImageIcon icon = new ImageIcon(image);
-			img = icon.getImage();
-		} else {
+		image = "/" + image;
+		if (getClass().getResource(image + ".png") != null)
+			img = new ImageIcon(getClass().getResource(image + ".png")).getImage();
+		
+		else {
 			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
 																				BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bufImg.getGraphics();
