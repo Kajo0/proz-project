@@ -14,7 +14,8 @@ public class IncreaseLifeNumberBonus extends Bonus {
 		super(anim, dyingAnim, x, y);
 	}
 	
-	public void bonusideEntity(final Player e) {
-		e.setLifes(e.getLifes() + 1);
+	public void bonusideEntity(final Player player) {
+		super.bonusideEntity(player);
+		player.setLifes(player.getLifes() + 1);
 	}
 }

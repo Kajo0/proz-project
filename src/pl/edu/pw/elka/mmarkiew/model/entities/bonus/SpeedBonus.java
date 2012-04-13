@@ -14,7 +14,8 @@ public class SpeedBonus extends Bonus {
 		super(anim, dyingAnim, x, y);
 	}
 	
-	public void bonusideEntity(final Player e) {
-		e.setMaxVelocity(e.getMaxVelocity() + 0.05f);
+	public void bonusideEntity(final Player player) {
+		super.bonusideEntity(player);
+		player.setMaxVelocity(player.getMaxVelocity() + 0.05f);
 	}
 }
