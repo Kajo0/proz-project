@@ -17,6 +17,13 @@ public class MapPainter implements Runnable {
 	private MapToDraw map;
 	private Canvas panel;
 	private int blockSize;
+	/**
+	 * To make big map shown it is needed to
+	 * move drawing images on canvas
+	 * Those are horozontal & vertical moves
+	 */
+	private int dx;
+	private int dy;
 	
 	/**
 	 * Creates new painter
@@ -27,6 +34,8 @@ public class MapPainter implements Runnable {
 		this.panel = gamePanel;
 		this.map = map;
 		this.blockSize = GameMap.BLOCK_SIZE;
+		this.dx = 0;
+		this.dy = 0;
 	}
 	
 	/**
@@ -34,9 +43,11 @@ public class MapPainter implements Runnable {
 	 */
 	@Override
 	public void run() {
-		Graphics g = panel.getBufferStrategy().getDrawGraphics();
 		
+		Graphics g = panel.getBufferStrategy().getDrawGraphics();
 		g.clearRect(0, 0, panel.getWidth(), panel.getHeight());
+		
+		prepareDeltasMovingMap();
 		
 		/*
 		 * If pauses show paused string
@@ -60,6 +71,51 @@ public class MapPainter implements Runnable {
 		g.dispose();
 		panel.getBufferStrategy().show();
 		
+	}
+
+	/**
+	 * Calculates how much and where map should be
+	 * moved to show player
+	 */
+	private void prepareDeltasMovingMap() {
+		dx = 0;
+		dy = 0;
+		
+		/*
+		 * If there is any map => game is playing calculate deltas
+		 * -> If there is too wide map move it to see player
+		 */
+		if (map.isStarted()) {
+			
+			float playerX = map.getEntities().getLast().getX();
+			float playerY = map.getEntities().getLast().getY();
+			
+			if (map.getWidthBlocks() > panel.getWidth() / blockSize) {
+				if (playerX > panel.getWidth() / 2) {
+					
+					dx = (int) (panel.getWidth() / 2 - playerX);
+					
+					/*
+					 * If player reach right edge
+					 */
+					if (panel.getWidth() - dx > map.getWidthBlocks() * blockSize)
+						dx = - (map.getWidthBlocks() * blockSize - panel.getWidth());
+				}
+			}
+			
+			if (map.getHeightBlocks() > panel.getHeight() / blockSize) {
+				if (playerY > panel.getHeight() / 2) {
+					
+					dy = (int) (panel.getHeight() / 2 - playerY);
+
+					/*
+					 * If player reach bottom edge
+					 */
+					if (panel.getHeight() - dy > map.getHeightBlocks() * blockSize)
+						dy = - (map.getHeightBlocks() * blockSize - panel.getHeight());
+				}
+			}
+		}
 	}
 
 	/**
@@ -122,7 +178,7 @@ public class MapPainter implements Runnable {
 	private void paintMap(Graphics g) {
 		for (int j = 0; j < map.getHeightBlocks(); ++j) {
 			for (int i = 0; i < map.getWidthBlocks(); ++i) {
-				g.drawImage(map.getBlockImage(i, j), i * blockSize, j * blockSize, panel);
+				g.drawImage(map.getBlockImage(i, j), i * blockSize + dx, j * blockSize + dy, panel);
 			}
 		}
 	}
@@ -133,8 +189,8 @@ public class MapPainter implements Runnable {
 	 */
 	private void paintEntities(Graphics g) {
 		for (SimpleEntity e : map.getEntities())
-				g.drawImage(e.getImage(), ((int) e.getX()) - e.getImage().getWidth(panel) / 2,
-									((int) e.getY()) - e.getImage().getHeight(panel) / 2, panel);
+				g.drawImage(e.getImage(), ((int) e.getX()) - e.getImage().getWidth(panel) / 2 + dx,
+											((int) e.getY()) - e.getImage().getHeight(panel) / 2 + dy, panel);
 	}
 
 	/**
@@ -144,13 +200,13 @@ public class MapPainter implements Runnable {
 	 */
 	private void paintBonuses(Graphics g) {
 		for (SimpleEntity b : map.getBonuses()) {
-			g.drawImage(b.getImage(), ((int) b.getX()) - b.getImage().getWidth(null) / 2,
-								((int) b.getY()) - b.getImage().getHeight(null) / 2, panel);
+			g.drawImage(b.getImage(), ((int) b.getX()) - b.getImage().getWidth(null) / 2 + dx,
+										((int) b.getY()) - b.getImage().getHeight(null) / 2 + dy, panel);
 			
 			if (!map.isEmptyBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize)))
 				g.drawImage(map.getHiderBlock(),
-								(int) b.getX() - map.getHiderBlock().getWidth(panel) / 2,
-								(int) b.getY() - map.getHiderBlock().getHeight(panel) / 2,
+								(int) b.getX() - map.getHiderBlock().getWidth(panel) / 2 + dx,
+								(int) b.getY() - map.getHiderBlock().getHeight(panel) / 2 + dy,
 								panel);
 		}
 	}
