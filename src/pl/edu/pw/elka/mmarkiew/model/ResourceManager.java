@@ -24,12 +24,14 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 public class ResourceManager {
 	private Player playerEntity;
 	private int level;
+	private int maxLevel;
 	
 	/**
 	 * Creates player and set him on 0 level
 	 */
 	public ResourceManager() {
 		this.level = 0;
+		this.maxLevel = 30;
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}
 
@@ -53,12 +55,12 @@ public class ResourceManager {
 	 * Load Map from file
 	 * @param path - Path to map
 	 * @return Map of game
-	 * @throws IOException
+	 * @throws IOException - if IOException or end Game
+	 * @throws NullPointerException - If source not found
 	 */
-	private GameMap loadMap() throws IOException {
+	private GameMap loadMap() throws IOException, NullPointerException {
 		ArrayList<String> listOfLines = new ArrayList<String>();
 
-//		BufferedReader buffer = new BufferedReader(new FileReader(path));
 		BufferedReader buffer = new BufferedReader(new FileReader(getClass()
 																.getResource("/" + level + ".txt").getPath()));
 		
@@ -162,22 +164,27 @@ public class ResourceManager {
 	/**
 	 * Generates random map
 	 * @return Created random map
-	 * @throws IOException
+	 * @throws IOException - If level > maxLevel => WIN
 	 */
 	private GameMap generateMap() throws IOException {
 		//TODO map generation
 		try {
-			int dimension = 10 + level / 2;
+			if (level > maxLevel)
+				throw new IOException();
+			
+			int dimension = 10 + level;
 			dimension += (dimension % 2 == 0) ? 1 : 0;
 			
 			/*
-			 * How often bonuses are generate
+			 * How often & how much bonuses are generate
 			 */
 			int bonusSpawn = 5;
+			int maxBonusAmount = level + 5;
 			/*
-			 * How often enemies are generate
+			 * How often & how much enemies are generate
 			 */
-			int enemySpawn = 50 / level + 1;
+			int enemySpawn = 150 / level + 2;
+			int maxEnemyAmount = level * 2;
 			
 			ArrayList<String> lines = new ArrayList<String>();
 			StringBuilder line = new StringBuilder();
@@ -196,22 +203,33 @@ public class ResourceManager {
 					 */
 					if (i % (dimension - 1) == 0 || j % (dimension - 1) == 0 || i % 2 == 0 && j % 2 == 0)
 						line.append(GameBlock.STONE.getCharacter());
+					
 					else {
 						/*
 						 * Left player some spawn space
 						 */
 						if (i == 1 && j <= 3 || j == 1 && i <= 3)
 							line.append(GameBlock.EMPTY);
-						else
+						
+						else {
 							/*
 							 * Rand bonus, enemy or brick
 							 */
-							if (rand.nextInt(bonusSpawn) == 0)
-								line.append(GameEntities.getRandomBonusCharacter());
-							else if (rand.nextInt(enemySpawn) == 0)
-								line.append(GameEntities.getRandomEnemyCharacter());
-							else
+							if (maxBonusAmount > 0 || maxEnemyAmount > 0) {
+								if (maxBonusAmount > 0 && rand.nextInt(bonusSpawn) == 0) {
+									line.append(GameEntities.getRandomBonusCharacter());
+									--maxBonusAmount;
+									
+								} else if (maxEnemyAmount > 0 && rand.nextInt(enemySpawn) == 0) {
+									line.append(GameEntities.getRandomEnemyCharacter());
+									--maxEnemyAmount;
+									
+								} else
+									line.append(GameBlock.values()[rand.nextInt(2) + 1].getCharacter());
+								
+							} else
 								line.append(GameBlock.values()[rand.nextInt(2) + 1].getCharacter());
+						}
 					}
 				}
 				
@@ -219,10 +237,11 @@ public class ResourceManager {
 			}
 
 			return analyzeMap(lines, dimension, dimension);
-//			throw new NullPointerException();
 		} catch (NullPointerException e) {
-			--level;
 			throw new IOException();
+		} catch (IOException e) {
+			--level;
+			throw e;
 		}
 	}
 
