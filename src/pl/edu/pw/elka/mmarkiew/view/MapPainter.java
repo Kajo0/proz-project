@@ -13,7 +13,7 @@ import pl.edu.pw.elka.mmarkiew.model.MapToDraw.SimpleEntity;
  * @author Acer
  *
  */
-public class MapPainter implements Runnable {
+public class MapPainter {
 	private MapToDraw map;
 	private Canvas panel;
 	private int blockSize;
@@ -41,8 +41,7 @@ public class MapPainter implements Runnable {
 	/**
 	 * Calls appropriate paint functions to show it on canv
 	 */
-	@Override
-	public void run() {
+	public void paint() {
 		
 		Graphics g = panel.getBufferStrategy().getDrawGraphics();
 		g.clearRect(0, 0, panel.getWidth(), panel.getHeight());
@@ -209,6 +208,14 @@ public class MapPainter implements Runnable {
 								(int) b.getY() - map.getHiderBlock().getHeight(panel) / 2 + dy,
 								panel);
 		}
+	}
+	
+	public boolean isMap() {
+		return this.map != null;
+	}
+	
+	public void setMap(MapToDraw map) {
+		this.map = map;
 	}
 
 }

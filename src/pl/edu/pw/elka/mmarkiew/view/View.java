@@ -23,6 +23,7 @@ public class View extends JFrame implements Runnable {
 	private int height;
 	private Canvas gamePanel;
 	private RightPanel rightPanel;
+	private MapPainter mapPainter;
 
 	/**
 	 * Creates new View
@@ -37,6 +38,8 @@ public class View extends JFrame implements Runnable {
 		
 		this.gamePanel = new Canvas();
 		this.rightPanel = new RightPanel();
+		
+		this.mapPainter = new MapPainter(gamePanel, null);
 		
 		init();
 	}
@@ -91,8 +94,14 @@ public class View extends JFrame implements Runnable {
 	 * Invoke swing painter method to paint map
 	 * @param map - Informations necessary to paint map
 	 */
-	public void sendMapModel(MapToDraw map) {
-		SwingUtilities.invokeLater(new MapPainter(gamePanel, map));
+	public void sendMapModel(final MapToDraw map) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				mapPainter.setMap(map);
+				mapPainter.paint();
+			}
+		});
 	}
 
 	/**

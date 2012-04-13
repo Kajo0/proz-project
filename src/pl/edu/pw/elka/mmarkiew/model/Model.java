@@ -123,6 +123,7 @@ public class Model implements Runnable {
 			getPlayer().setAlive(true);
 			getPlayer().setX((float) map.getPlayerStartPosition().getX());
 			getPlayer().setY((float) map.getPlayerStartPosition().getY());
+			
 			map.removeExplosions();
 
 			/*
