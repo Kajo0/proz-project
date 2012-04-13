@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.EntityFactory;
 import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
@@ -166,7 +167,59 @@ public class ResourceManager {
 	private GameMap generateMap() throws IOException {
 		//TODO map generation
 		try {
-			return loadMap();
+			int dimension = 10 + level / 2;
+			dimension += (dimension % 2 == 0) ? 1 : 0;
+			
+			/*
+			 * How often bonuses are generate
+			 */
+			int bonusSpawn = 5;
+			/*
+			 * How often enemies are generate
+			 */
+			int enemySpawn = 50 / level + 1;
+			
+			ArrayList<String> lines = new ArrayList<String>();
+			StringBuilder line = new StringBuilder();
+			
+			Random rand = new Random();
+			
+			/*
+			 * Generating map
+			 */
+			for (int i = 0; i < dimension; ++i) {
+				line.setLength(0);
+				
+				for (int j = 0; j < dimension; ++j) {
+					/*
+					 * Borders & inside blocks
+					 */
+					if (i % (dimension - 1) == 0 || j % (dimension - 1) == 0 || i % 2 == 0 && j % 2 == 0)
+						line.append(GameBlock.STONE.getCharacter());
+					else {
+						/*
+						 * Left player some spawn space
+						 */
+						if (i == 1 && j <= 3 || j == 1 && i <= 3)
+							line.append(GameBlock.EMPTY);
+						else
+							/*
+							 * Rand bonus, enemy or brick
+							 */
+							if (rand.nextInt(bonusSpawn) == 0)
+								line.append(GameEntities.getRandomBonusCharacter());
+							else if (rand.nextInt(enemySpawn) == 0)
+								line.append(GameEntities.getRandomEnemyCharacter());
+							else
+								line.append(GameBlock.values()[rand.nextInt(2) + 1].getCharacter());
+					}
+				}
+				
+				lines.add(line.toString());
+			}
+
+			return analyzeMap(lines, dimension, dimension);
+//			throw new NullPointerException();
 		} catch (NullPointerException e) {
 			--level;
 			throw new IOException();

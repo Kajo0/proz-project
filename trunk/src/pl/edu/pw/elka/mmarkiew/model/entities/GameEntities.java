@@ -2,6 +2,8 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
@@ -13,22 +15,23 @@ import pl.edu.pw.elka.mmarkiew.model.GameMap;
  */
 public enum GameEntities {
 	PLAYER				("P",	"player",					"playerDying"),
+	BOMB				("BOM",	"bomb",						""),
+	EXPLOSION			("EXP",	"explosion",				""),
+	DESTROYING_BRICK	("DES",	"destroyingBrick",			""),
+	UNDEFINED			("",	"undefined",				""),
 	BALOON				("B",	"ballonEnemy",				"ballonEnemyDying"),
 	HELIUM				("H",	"heliumEnemy",				"ballonEnemyDying"),
-	BOMB				("BOM",	"bomb",						""),
 	EXIT				("E",	"exitOpen",					"exitClose"),
 	SPEED				("S",	"speedBonus",				""),
 	AREA_INC			("A",	"increaseBombAreaBonus",	""),
 	BOMB_INC			("N",	"increaseBombAmountBonus",	""),
 	LIFE_INC			("L",	"increaseLifeNumberBonus",	""),
-	BOUNCING_BOMB		("G",	"bouncingBombBonus",		""),
-	EXPLOSION			("EXP",	"explosion",				""),
-	DESTROYING_BRICK	("DES",	"destroyingBrick",			""),
-	UNDEFINED			("",	"undefined",				"");
+	BOUNCING_BOMB		("G",	"bouncingBombBonus",		"");
 	
 	private final String character;
 	private final Animation anim;
 	private final Animation dyingAnim;
+	private static Random rand = new Random();
 	
 	/**
 	 * Generates game entity
@@ -116,6 +119,22 @@ public enum GameEntities {
 		}
 		
 		return a;
+	}
+	
+	/**
+	 * Generates random bonus character
+	 * @return Random string represents bonus
+	 */
+	public static String getRandomBonusCharacter() {
+		return GameEntities.values()[rand.nextInt(6) + 7].toString();
+	}
+	
+	/**
+	 * Generates random enemy character
+	 * @return Random string represents enemy
+	 */
+	public static String getRandomEnemyCharacter() {
+		return GameEntities.values()[rand.nextInt(2) + 5].toString();
 	}
 	
 }
