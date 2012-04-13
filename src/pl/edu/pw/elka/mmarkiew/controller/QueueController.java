@@ -1,6 +1,8 @@
 package pl.edu.pw.elka.mmarkiew.controller;
 
 import java.awt.event.KeyEvent;
+
+import pl.edu.pw.elka.mmarkiew.controller.queueevents.GamePlayEvent;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
 import pl.edu.pw.elka.mmarkiew.model.Model;
@@ -90,6 +92,12 @@ public class QueueController implements Runnable {
 											model.switchPause();
 										break;
 					case KeyEvent.VK_ESCAPE: System.exit(0);//TODO Wywalic escape sysexit
+				}
+			} else if (event instanceof GamePlayEvent) {
+				
+				switch (((GamePlayEvent) event).getCode()) {
+					case NEW_GAME: model.newGame();
+									break;
 				}
 			}
 		} catch (NullPointerException e) {

@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,6 +22,7 @@ public class GameInfoPanel extends JPanel {
 	private JLabel bombLabel;
 	private JLabel bombAreaLabel;
 	private JLabel bombTimer;
+	private JButton newGameButton;
 	
 	/**
 	 * Creates game info panel
@@ -35,6 +38,8 @@ public class GameInfoPanel extends JPanel {
 		bombLabel = new JLabel();
 		bombAreaLabel = new JLabel();
 		bombTimer = new JLabel();
+		
+		newGameButton = new JButton();
 		
 		init();
 	}
@@ -55,12 +60,21 @@ public class GameInfoPanel extends JPanel {
 		timerLabel.setBounds(0, 10, 200, 50);
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
 		
+		newGameButton.setBounds(25, 500, 150, 50);
+		newGameButton.setText("New Game");
+		newGameButton.setFocusable(false);
+		newGameButton.setActionCommand("NEW_GAME");
+		
+		newGameButton.addActionListener(new ClickingListener());
+		
 		add(timerLabel);
 		add(levelLabel);
 		add(lifeLabel);
 		add(bombLabel);
 		add(bombAreaLabel);
 		add(bombTimer);
+		
+		add(newGameButton);
 	}
 	
 	/**
@@ -108,5 +122,9 @@ public class GameInfoPanel extends JPanel {
 
 	public void setBombTimer(long bombTimer) {
 		this.bombTimer.setText("<html><body>" + (float) bombTimer / 1000 + " <span style=\"font-size: 15px;\">sec.");
+	}
+	
+	public JButton getNewGameButton() {
+		return newGameButton;
 	}
 }

@@ -44,35 +44,53 @@ public class Model implements Runnable {
 	 */
 	@Override
 	public void run() {
-		init();
+		newGame();
 		gameLoop();
 	}
 
+	/**
+	 * Sets new game parameters
+	 */
+	public void newGame() {
+		resource.reset();
+		
+		this.gamePlayTime = 0;
+		this.paused = false;
+		this.win = false;
+		this.over = false;
+		
+		init();
+	}
+	
 	/**
 	 * Load first map,
 	 */
 	private void init() {
 		try {
+			/*
+			 * Next map in initialization is first map
+			 */
 			this.map = resource.loadNextMap();
 			this.collisionDetector.setMap(map);
 			this.bombCalculator.setMap(map);
+			this.startTime = System.currentTimeMillis();
+			
 		} catch (IOException e) {
 			this.map = null;
 			this.startTime = -1;
-		}
+			
+		} catch (WinGameException e) {}
 	}
 
 	/**
 	 * Main game loop
 	 */
 	private synchronized void gameLoop() {
-		long currentTime = this.startTime = System.currentTimeMillis();
+		long currentTime = this.startTime;
 		long elapsedTime;
 		
 		while (true) {
-			if (map == null)
-				init();
-			
+
 			elapsedTime = System.currentTimeMillis() - currentTime;
             currentTime += elapsedTime;
 			
@@ -260,16 +278,18 @@ public class Model implements Runnable {
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
 			
-		} catch (IOException e) {
+		} catch (WinGameException e) {
 			map = null;
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
-			startTime = -2;
+			startTime = -1;
 			win = true;
 			over = false;
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			init();
 		}
 	}
 
