@@ -14,6 +14,7 @@ public class ModelStatistics {
 	private int bombs;
 	private int bombArea;
 	private long bombTimer;
+	private boolean bouncingBomb;
 	
 	/**
 	 * Creates null model => Everything is 0
@@ -25,6 +26,7 @@ public class ModelStatistics {
 		this.bombs = 0;
 		this.bombArea = 0;
 		this.bombTimer = 0;
+		this.bouncingBomb = false;
 	}
 
 	/**
@@ -40,6 +42,7 @@ public class ModelStatistics {
 		this.bombs = player.getPossibleBombs();
 		this.bombArea = player.getBombArea();
 		this.bombTimer = player.getBombTimer();
+		this.bouncingBomb = player.isBouncingBomb();
 	}
 
 	public long getTimer() {
@@ -64,6 +67,10 @@ public class ModelStatistics {
 
 	public long getBombTimer() {
 		return bombTimer;
+	}
+	
+	public boolean isBouncingBomb() {
+		return bouncingBomb;
 	}
 
 }
