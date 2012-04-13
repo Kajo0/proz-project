@@ -48,47 +48,47 @@ public class GameOptionsPanel extends JPanel {
 		};
 		
 		
-		optionLabel.setText("<html><body><center>Options Menu:<br><small><sub>(Click to change)");
+		optionLabel.setText("<html><body><center>Options Menu:<br><small><sub>(Over to tooltip)");
 		optionLabel.setBounds(50, 10, 100, 40);
 		keyButtons[0].setText("P");
 		keyButtons[0].setToolTipText("Switch pause");
-		keyButtons[0].setActionCommand("80");
+//		keyButtons[0].setActionCommand("80");
 		
 		keyButtons[1].setText("\u2191");	// UP arrow
 		keyButtons[1].setToolTipText("Go up");
-		keyButtons[1].setActionCommand("38");
+//		keyButtons[1].setActionCommand("38");
 		
 		keyButtons[2].setText("F");
 		keyButtons[2].setToolTipText("Do nothing");
-		keyButtons[2].setActionCommand("70");
+//		keyButtons[2].setActionCommand("70");
 		
 		keyButtons[3].setText("\u2190");	// LEFT arrow
 		keyButtons[3].setToolTipText("Go left");
-		keyButtons[3].setActionCommand("37");
+//		keyButtons[3].setActionCommand("37");
 		
 		keyButtons[4].setText("\u2193");	// DOWN arrow
 		keyButtons[4].setToolTipText("Go down");
-		keyButtons[4].setActionCommand("40");
+//		keyButtons[4].setActionCommand("40");
 		
 		keyButtons[5].setText("\u2192");	// RIGHT arrow
 		keyButtons[5].setToolTipText("Go right");
-		keyButtons[5].setActionCommand("39");
+//		keyButtons[5].setActionCommand("39");
 		
 		keyButtons[6].setText("1");
 		keyButtons[6].setToolTipText("Set bomb timer at 1 second");
-		keyButtons[6].setActionCommand("49");
+//		keyButtons[6].setActionCommand("49");
 		
 		keyButtons[7].setText("2");
 		keyButtons[7].setToolTipText("Set bomb timer at 2 seconds");
-		keyButtons[7].setActionCommand("50");
+//		keyButtons[7].setActionCommand("50");
 		
 		keyButtons[8].setText("3");
 		keyButtons[8].setToolTipText("Set bomb timer at 3 seconds");
-		keyButtons[8].setActionCommand("51");
+//		keyButtons[8].setActionCommand("51");
 		
 		keyButtons[9].setText("SPACE");
 		keyButtons[9].setToolTipText("Plant bomb");
-		keyButtons[9].setActionCommand("32");
+//		keyButtons[9].setActionCommand("32");
 		
 		int k = 0;
 		for (int i = 0; i < 3; ++i) {

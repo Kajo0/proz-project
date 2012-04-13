@@ -76,10 +76,16 @@ public class Model implements Runnable {
 			this.startTime = System.currentTimeMillis();
 			
 		} catch (IOException e) {
+			/* Sth IO not right if you're there, can't load first map */
 			this.map = null;
 			this.startTime = -1;
 			
-		} catch (WinGameException e) {}
+		} catch (WinGameException e) {
+			/*
+			 * You should never be here
+			 * ignore
+			 */
+		}
 	}
 
 	/**
@@ -268,7 +274,7 @@ public class Model implements Runnable {
 		
 		/*
 		 * Set next map
-		 * If there is no next map set win :D
+		 * If there is no next map (level > maxLevel) set win :D
 		 */
 		//TODO zmienic przejscie pomiedzy mapami
 		try {
@@ -279,6 +285,7 @@ public class Model implements Runnable {
 			bombCalculator.setMap(map);
 			
 		} catch (WinGameException e) {
+			/* Player win game, stop it */
 			map = null;
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
@@ -289,6 +296,7 @@ public class Model implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			/* Should never be here, but if, made new map */
 			init();
 		}
 	}
