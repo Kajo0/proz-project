@@ -16,7 +16,8 @@ public enum LogosResource {
 	BOMBS("bombsLabel"),
 	STEPS("increaseBombAreaBonus0"),
 	TIMER("timerLabel"),
-	INFO_BACKGROUND("infoBackground");
+	INFO_BACKGROUND("infoBackground"),
+	BOUNCE("bouncingBombBonus0");
 	
 	private Image image;
 	

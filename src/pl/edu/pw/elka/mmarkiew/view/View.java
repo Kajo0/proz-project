@@ -135,7 +135,8 @@ public class View extends JFrame implements Runnable {
 		rightPanel.getGameInfo().setLifeLabel(statistics.getLifes());
 		rightPanel.getGameInfo().setBombLabel(statistics.getBombs());
 		rightPanel.getGameInfo().setBombAreaLabel(statistics.getBombArea());
-		rightPanel.getGameInfo().setBombTimer(statistics.getBombTimer());
+		rightPanel.getGameInfo().setBombTimerLabel(statistics.getBombTimer());
+		rightPanel.getGameInfo().setBouncingBombLabel(statistics.isBouncingBomb());
 	}
 
 }

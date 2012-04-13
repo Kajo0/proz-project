@@ -21,7 +21,8 @@ public class GameInfoPanel extends JPanel {
 	private JLabel lifeLabel;
 	private JLabel bombLabel;
 	private JLabel bombAreaLabel;
-	private JLabel bombTimer;
+	private JLabel bombTimerLabel;
+	private JLabel bouncingBombLabel;
 	private JButton newGameButton;
 	
 	/**
@@ -37,7 +38,8 @@ public class GameInfoPanel extends JPanel {
 		lifeLabel = new JLabel();
 		bombLabel = new JLabel();
 		bombAreaLabel = new JLabel();
-		bombTimer = new JLabel();
+		bombTimerLabel = new JLabel();
+		bouncingBombLabel = new JLabel();
 		
 		newGameButton = new JButton();
 		
@@ -49,7 +51,7 @@ public class GameInfoPanel extends JPanel {
 	 */
 	private void init() {
 		ArrayList<JLabel> labels = new ArrayList<JLabel>(Arrays.asList(timerLabel, levelLabel, lifeLabel, bombLabel,
-																		bombAreaLabel, bombTimer));
+																	bombAreaLabel, bombTimerLabel, bouncingBombLabel));
 		int i = 0;
 		for (JLabel l : labels) {
 			l.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
@@ -72,7 +74,8 @@ public class GameInfoPanel extends JPanel {
 		add(lifeLabel);
 		add(bombLabel);
 		add(bombAreaLabel);
-		add(bombTimer);
+		add(bombTimerLabel);
+		add(bouncingBombLabel);
 		
 		add(newGameButton);
 	}
@@ -86,7 +89,8 @@ public class GameInfoPanel extends JPanel {
 		g.drawImage(LogosResource.INFO_BACKGROUND.getImage(), 0, 0, null);
 		
 		ArrayList<LogosResource> logos = new ArrayList<LogosResource>(Arrays.asList(LogosResource.LEVEL,
-							LogosResource.LIFES, LogosResource.BOMBS, LogosResource.STEPS, LogosResource.TIMER));
+														LogosResource.LIFES, LogosResource.BOMBS, LogosResource.STEPS,
+														LogosResource.TIMER, LogosResource.BOUNCE));
 		int i = 1;
 		for (LogosResource l : logos) {
 			g.drawImage(l.getImage(), 40 - l.getImage().getWidth(this) / 2,
@@ -120,8 +124,14 @@ public class GameInfoPanel extends JPanel {
 																				((bombAreaLabel != 1) ? "s" : ""));
 	}
 
-	public void setBombTimer(long bombTimer) {
-		this.bombTimer.setText("<html><body>" + (float) bombTimer / 1000 + " <span style=\"font-size: 15px;\">sec.");
+	public void setBombTimerLabel(long bombTimerLabel) {
+		this.bombTimerLabel.setText("<html><body>" + (float) bombTimerLabel / 1000 +
+																			" <span style=\"font-size: 15px;\">sec.");
+	}
+	
+	public void setBouncingBombLabel(boolean bouncingBombLabel) {
+		this.bouncingBombLabel.setText("<html><body><span style=\"font-size: 15px;\">Can" +
+												(bouncingBombLabel ? "" : "'t") + " push bombs!");
 	}
 	
 	public JButton getNewGameButton() {
