@@ -1,7 +1,7 @@
 package pl.edu.pw.elka.mmarkiew.controller.queueevents;
 
 /**
- * To mediate between view and controller
+ * To mediate between view and controller via keyboard
  * @author Acer
  *
  */

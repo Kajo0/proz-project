@@ -100,6 +100,14 @@ public class View extends JFrame implements Runnable {
 			public void run() {
 				mapPainter.setMap(map);
 				mapPainter.paint();
+				
+				/*
+				 * Enabling new game button after end game
+				 */
+				if (map.isOver() || !map.isStarted())
+					rightPanel.getGameInfo().getNewGameButton().setEnabled(true);
+				else
+					rightPanel.getGameInfo().getNewGameButton().setEnabled(false);
 			}
 		});
 	}
