@@ -21,7 +21,8 @@ public class Player extends Entity {
 	 * and still on it, to do not checking collisions
 	 * with bombs */
 	private boolean onBomb;
-
+	/** If player is immortal */
+	private boolean immoritality;
 	
 	public Player(final Animation anim, final Animation dyingAnim) {
 		super(anim, dyingAnim);
@@ -34,6 +35,7 @@ public class Player extends Entity {
 		this.defaultSpeed = this.getMaxVelocity();
 		this.bouncingBomb = false;
 		this.onBomb = false;
+		this.immoritality = false;
 		this.setDyingTime(2000);
 	}
 	
@@ -105,6 +107,14 @@ public class Player extends Entity {
 		this.onBomb = onBomb;
 	}
 	
+	public boolean isImmortal() {
+		return immoritality;
+	}
+	
+	public void setImmortality(boolean immortality) {
+		this.immoritality = immortality;
+	}
+	
 	/**
 	 * Set player dead, decrement life counter
 	 * and clear bomb planted counter
@@ -124,6 +134,7 @@ public class Player extends Entity {
 		this.possibleBombs = 1;
 		this.plantedBombs = 0;
 		this.bouncingBomb = false;
+		this.immoritality = false;
 		this.setMaxVelocity(this.defaultSpeed);
 	}
 }

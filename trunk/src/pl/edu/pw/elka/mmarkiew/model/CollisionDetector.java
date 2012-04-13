@@ -47,8 +47,12 @@ public class CollisionDetector {
 		
 		/*
 		 * Check player collisions with enemies, bombs, bonuses
+		 * At first simply spawn protection 3 sek pause time included
 		 */
-		checkPlayerEntityCollision(map.getEnemies());
+		if (!map.getPlayer().isImmortal() &&
+				System.currentTimeMillis() - map.getPlayer().getDieTime() > map.getPlayer().getDyingTime() + 3000)
+			checkPlayerEntityCollision(map.getEnemies());
+				
 		checkPlayerBombCollision(map.getBombs());
 		checkPlayerBonusCollision(map.getBonuses());
 		
