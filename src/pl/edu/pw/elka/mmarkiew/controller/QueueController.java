@@ -23,7 +23,7 @@ public class QueueController implements Runnable {
 	public QueueController(final Model model) {
 		this.model = model;
 	}
-	
+
 	/**
 	 * Waiting for event pushed into BlockingQueue
 	 * If there is sth, calls helper function 
@@ -54,7 +54,6 @@ public class QueueController implements Runnable {
 		boolean xVelocity = (player.getXVelocity() != 0);
 		boolean yVelocity = (player.getYVelocity() != 0);
 		
-		// TODO zmienic na gameaction
 		try {
 			if (event instanceof ViewKeyPress) {
 				int code = ((ViewKeyPress) event).getKeyCode();

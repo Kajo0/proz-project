@@ -52,6 +52,11 @@ public class ResourceManager {
 			return loadMap();
 		} catch (NullPointerException e) {
 			try {
+				/*
+				 * If there were any previous levels it's ok
+				 * generate next map
+				 * Else throw IOException to show that there was sth not right
+				 */
 				if (level > 1)
 					return generateMap();
 				else throw new IOException();
@@ -178,7 +183,6 @@ public class ResourceManager {
 	 * @throws WinGameException - If level > maxLevel => WIN
 	 */
 	private GameMap generateMap() throws WinGameException {
-		//TODO map generation
 		if (level > maxLevel)
 			throw new WinGameException();
 		
