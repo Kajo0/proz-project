@@ -31,7 +31,7 @@ public class ResourceManager {
 	 */
 	public ResourceManager() {
 		this.level = 0;
-		this.maxLevel = 1;
+		this.maxLevel = 30;
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}
 	
