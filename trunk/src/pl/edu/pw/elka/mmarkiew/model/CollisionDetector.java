@@ -145,6 +145,7 @@ public class CollisionDetector {
 				 */
 				if (e instanceof Enemy || e instanceof ExplosionEntity) {
 					player.setDead();
+					SoundManager.playKill();
 					return;
 				} 
 				/*
@@ -244,7 +245,7 @@ public class CollisionDetector {
 
 			if (isBombEntity && player.isBouncingBomb())
 				if (entity.getYVelocity() == 0)
-					entity.setYVelocity(-player.getMaxVelocity());
+					entity.setYVelocity(player.getMaxVelocity());
 		}
 		if (player.getYVelocity() > 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();

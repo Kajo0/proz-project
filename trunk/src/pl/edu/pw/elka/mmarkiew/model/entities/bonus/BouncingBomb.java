@@ -14,8 +14,9 @@ public class BouncingBomb extends Bonus{
 		super(anim, dyingAnim, x, y);
 	}
 	
-	public void bonusideEntity(final Player e) {
-		e.setBouncingBomb(true);
+	public void bonusideEntity(final Player player) {
+		super.bonusideEntity(player);
+		player.setBouncingBomb(true);
 	}
 }
 

@@ -23,6 +23,7 @@ public class Model implements Runnable {
 	private ResourceManager resource;
 	private CollisionDetector collisionDetector;
 	private BombCalculator bombCalculator;
+	private SoundManager sound;
 
 	/**
 	 * Creates model with defaults parameters
@@ -37,6 +38,7 @@ public class Model implements Runnable {
 		this.resource = new ResourceManager();
 		this.collisionDetector = new CollisionDetector(map);
 		this.bombCalculator = new BombCalculator(map);
+		this.sound = new SoundManager();
 	}
 
 	/**
@@ -44,6 +46,7 @@ public class Model implements Runnable {
 	 */
 	@Override
 	public void run() {
+		new Thread(sound).start();
 		newGame();
 		gameLoop();
 	}
@@ -278,11 +281,13 @@ public class Model implements Runnable {
 		 */
 		//TODO zmienic przejscie pomiedzy mapami
 		try {
+			SoundManager.playExit();
 			Thread.currentThread().sleep(100);
 			
 			map = resource.loadNextMap();
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
+			System.gc();
 			
 		} catch (WinGameException e) {
 			/* Player win game, stop it */
