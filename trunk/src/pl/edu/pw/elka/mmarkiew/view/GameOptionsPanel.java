@@ -58,8 +58,8 @@ public class GameOptionsPanel extends JPanel {
 		keyButtons[1].setToolTipText("Go up");
 //		keyButtons[1].setActionCommand("38");
 		
-		keyButtons[2].setText("F");
-		keyButtons[2].setToolTipText("Do nothing");
+		keyButtons[2].setText("B/S");
+		keyButtons[2].setToolTipText("Switch music/effects on/off");
 //		keyButtons[2].setActionCommand("70");
 		
 		keyButtons[3].setText("\u2190");	// LEFT arrow

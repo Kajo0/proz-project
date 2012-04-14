@@ -1,11 +1,11 @@
 package pl.edu.pw.elka.mmarkiew.controller;
 
 import java.awt.event.KeyEvent;
-
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.GamePlayEvent;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewEvent;
 import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
 import pl.edu.pw.elka.mmarkiew.model.Model;
+import pl.edu.pw.elka.mmarkiew.model.SoundManager;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
@@ -90,6 +90,12 @@ public class QueueController implements Runnable {
 					case KeyEvent.VK_P: if (pressed)
 											model.switchPause();
 										break;
+					case KeyEvent.VK_B: if (pressed)
+											SoundManager.switchBackgroundMusicEnable();
+										break;
+					case KeyEvent.VK_S: if (pressed)
+											SoundManager.switchSoundEffectsEnable();
+										break;
 					case KeyEvent.VK_ESCAPE: System.exit(0);//TODO Wywalic escape sysexit
 				}
 			} else if (event instanceof GamePlayEvent) {
@@ -97,11 +103,15 @@ public class QueueController implements Runnable {
 				switch (((GamePlayEvent) event).getCode()) {
 					case NEW_GAME: model.newGame();
 									break;
+					case SWITCH_BACKGROUND_MUSIC: SoundManager.switchBackgroundMusicEnable();
+									break;
+					case SWITCH_SOUND_EFFECTS: SoundManager.switchSoundEffectsEnable();
+									break;
 				}
 			}
 		} catch (NullPointerException e) {
 			//There was no player/model -> do nothing 
 		}
 	}
-
+	
 }

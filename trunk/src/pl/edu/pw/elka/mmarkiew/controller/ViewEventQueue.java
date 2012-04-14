@@ -9,7 +9,7 @@ public abstract class ViewEventQueue {
 	private final static BlockingQueue<ViewEvent> queue = new LinkedBlockingQueue<ViewEvent>();
 	
 	/**
-	 * Static access to queue
+	 * Static access to the queue
 	 * @return queue
 	 */
 	public final static BlockingQueue<ViewEvent> getInstance() {

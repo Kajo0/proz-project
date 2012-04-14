@@ -52,7 +52,7 @@ public class BombCalculator {
 			map.removeBomb(b);
 			explodeBomb(b);
 			
-			SoundManager.playExplosion();
+			SoundManager.playSound(SoundManager.EXPLOSION);
 			
 			map.getPlayer().bombExploded();
 		}

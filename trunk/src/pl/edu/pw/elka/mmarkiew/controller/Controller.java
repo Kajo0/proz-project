@@ -44,17 +44,18 @@ public class Controller implements Runnable {
 	 *  which sends to view. View should draw it.
 	 */
 	@Override
-	@SuppressWarnings("static-access")
 	public void run() {
 		while (true) {
-			try {
-				Thread.currentThread().sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			synchronized (model) {
+				try {
+					model.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+	
+				view.sendMapModel(model.getMapToDraw());
+				view.sendStatistics(model.getStatistics());
 			}
-
-			view.sendMapModel(model.getMapToDraw());
-			view.sendStatistics(model.getStatistics());
 		}
 	}
 

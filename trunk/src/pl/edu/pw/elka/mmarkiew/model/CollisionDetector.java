@@ -47,10 +47,10 @@ public class CollisionDetector {
 		
 		/*
 		 * Check player collisions with enemies, bombs, bonuses
-		 * At first simply spawn protection 3 sek pause time included
+		 * At first simply spawn protection 1 sek pause time included
 		 */
 		if (!map.getPlayer().isImmortal() &&
-				System.currentTimeMillis() - map.getPlayer().getDieTime() > map.getPlayer().getDyingTime() + 3000)
+				System.currentTimeMillis() - map.getPlayer().getDieTime() > map.getPlayer().getDyingTime() + 1000)
 			checkPlayerEntityCollision(map.getEnemies());
 				
 		checkPlayerBombCollision(map.getBombs());
@@ -145,7 +145,8 @@ public class CollisionDetector {
 				 */
 				if (e instanceof Enemy || e instanceof ExplosionEntity) {
 					player.setDead();
-					SoundManager.playKill();
+					SoundManager.playSound(SoundManager.KILL);
+					
 					return;
 				} 
 				/*
@@ -307,10 +308,16 @@ public class CollisionDetector {
 				if (!entities[i].isAlive() || !entities[j].isAlive())
 					continue;
 				/* Collision between bombs and explosions do nothing */
-				else if (entities[i] instanceof Bomb && entities[j] instanceof ExplosionEntity ||
-							entities[j] instanceof Bomb && entities[i] instanceof ExplosionEntity)
-					continue;
+//				else if (entities[i] instanceof Bomb && entities[j] instanceof ExplosionEntity ||
+//							entities[j] instanceof Bomb && entities[i] instanceof ExplosionEntity)
+//					continue;
 				else  if (isEntitiesCollision(entities[i], entities[j])) {
+					
+					/* Explode bomb by bomb explosion */
+					if (entities[i] instanceof Bomb && entities[j] instanceof ExplosionEntity)
+						((Bomb) entities[i]).explode();
+					else if (entities[j] instanceof Bomb && entities[i] instanceof ExplosionEntity)
+						((Bomb) entities[j]).explode();
 					
 					/* Explosions kill enemies */
 					if (entities[i] instanceof Enemy && entities[j] instanceof ExplosionEntity) {
