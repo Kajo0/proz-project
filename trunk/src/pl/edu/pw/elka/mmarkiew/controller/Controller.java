@@ -3,6 +3,7 @@ package pl.edu.pw.elka.mmarkiew.controller;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import pl.edu.pw.elka.mmarkiew.model.Model;
+import pl.edu.pw.elka.mmarkiew.model.SoundManager;
 import pl.edu.pw.elka.mmarkiew.view.View;
 
 /**
@@ -24,14 +25,17 @@ public class Controller implements Runnable {
 	
 	private final Model model;
 	private final View view;
+	private final SoundManager sound;
 	
 	public Controller() {
 		this.model = new Model();
 		this.view = new View(VIEW_WIDTH, VIEW_HEIGHT);
+		this.sound = new SoundManager();
 
 		ExecutorService executor = Executors.newCachedThreadPool();
 		executor.execute(new Thread(model));
 		executor.execute(new Thread(view));
+		executor.execute(new Thread(sound));
 		executor.execute(new Thread(new QueueController(model)));
 		executor.shutdown();
 	}
