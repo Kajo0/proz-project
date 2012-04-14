@@ -32,6 +32,6 @@ public abstract class Bonus extends Entity {
 	 * @param player - Player
 	 */
 	public void bonusideEntity(Player player) {
-		SoundManager.playBonus();
+		SoundManager.playSound(SoundManager.BONUS);
 	}
 }

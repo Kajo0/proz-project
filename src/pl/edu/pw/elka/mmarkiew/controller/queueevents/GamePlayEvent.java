@@ -7,7 +7,9 @@ package pl.edu.pw.elka.mmarkiew.controller.queueevents;
  */
 public class GamePlayEvent implements ViewEvent {
 	public static enum codes {
-		NEW_GAME;
+		NEW_GAME,
+		SWITCH_BACKGROUND_MUSIC,
+		SWITCH_SOUND_EFFECTS;
 	}
 	private codes code;
 	

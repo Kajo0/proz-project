@@ -13,8 +13,7 @@ public class ClickingListener implements ActionListener {
 		try {
 			ViewEventQueue.getInstance().put(new GamePlayEvent(GamePlayEvent.codes.valueOf(e.getActionCommand())));
 			
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
-		}
+		} catch (InterruptedException ex) {}
+		catch (IllegalArgumentException ex) {}
 	}
 }

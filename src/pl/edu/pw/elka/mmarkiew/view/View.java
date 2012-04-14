@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 import pl.edu.pw.elka.mmarkiew.controller.Controller;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.ModelStatistics;
+import pl.edu.pw.elka.mmarkiew.model.SoundManager;
 
 /**
  * Game view
@@ -105,9 +106,9 @@ public class View extends JFrame implements Runnable {
 				 * Enabling new game button after end game
 				 */
 				if (map.isOver() || !map.isStarted())
-					rightPanel.getGameInfo().getNewGameButton().setEnabled(true);
+					rightPanel.getGameInfo().setNewGameButtonEnable(true);
 				else
-					rightPanel.getGameInfo().getNewGameButton().setEnabled(false);
+					rightPanel.getGameInfo().setNewGameButtonEnable(false);
 			}
 		});
 	}
@@ -137,6 +138,9 @@ public class View extends JFrame implements Runnable {
 		rightPanel.getGameInfo().setBombAreaLabel(statistics.getBombArea());
 		rightPanel.getGameInfo().setBombTimerLabel(statistics.getBombTimer());
 		rightPanel.getGameInfo().setBouncingBombLabel(statistics.isBouncingBomb());
+
+		rightPanel.getGameInfo().setBackgroundMusicButtonIcon(SoundManager.isBackgroundOn());
+		rightPanel.getGameInfo().setSoundEffectsButtonIcon(SoundManager.isSoundEffectOn());
 	}
 
 }

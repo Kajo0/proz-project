@@ -4,7 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +24,8 @@ public class GameInfoPanel extends JPanel {
 	private JLabel bombTimerLabel;
 	private JLabel bouncingBombLabel;
 	private JButton newGameButton;
+	private JButton backgroundMusicToogleButton;
+	private JButton soundEffectsToogleButton;
 	
 	/**
 	 * Creates game info panel
@@ -43,6 +45,9 @@ public class GameInfoPanel extends JPanel {
 		
 		newGameButton = new JButton();
 		
+		backgroundMusicToogleButton = new JButton();
+		soundEffectsToogleButton = new JButton();
+		
 		init();
 	}
 
@@ -50,6 +55,7 @@ public class GameInfoPanel extends JPanel {
 	 * Initialize game info panel componentes
 	 */
 	private void init() {
+		/* Game things */
 		ArrayList<JLabel> labels = new ArrayList<JLabel>(Arrays.asList(timerLabel, levelLabel, lifeLabel, bombLabel,
 																	bombAreaLabel, bombTimerLabel, bouncingBombLabel));
 		int i = 0;
@@ -62,6 +68,7 @@ public class GameInfoPanel extends JPanel {
 		timerLabel.setBounds(0, 10, 200, 50);
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
 		
+		/* New ame button */
 		newGameButton.setBounds(25, 500, 150, 50);
 		newGameButton.setText("New Game");
 		newGameButton.setFocusable(false);
@@ -69,6 +76,18 @@ public class GameInfoPanel extends JPanel {
 		
 		newGameButton.addActionListener(new ClickingListener());
 		
+		/* Sound buttons */
+		backgroundMusicToogleButton.setBounds(50, 440, 40, 40);
+		backgroundMusicToogleButton.setFocusable(false);
+		backgroundMusicToogleButton.setActionCommand("SWITCH_BACKGROUND_MUSIC");
+		soundEffectsToogleButton.setBounds(110, 440, 40, 40);
+		soundEffectsToogleButton.setFocusable(false);
+		soundEffectsToogleButton.setActionCommand("SWITCH_SOUND_EFFECTS");
+
+		backgroundMusicToogleButton.addActionListener(new ClickingListener());
+		soundEffectsToogleButton.addActionListener(new ClickingListener());
+		
+		/* Adding */
 		add(timerLabel);
 		add(levelLabel);
 		add(lifeLabel);
@@ -78,6 +97,9 @@ public class GameInfoPanel extends JPanel {
 		add(bouncingBombLabel);
 		
 		add(newGameButton);
+		
+		add(backgroundMusicToogleButton);
+		add(soundEffectsToogleButton);
 	}
 	
 	/**
@@ -134,7 +156,17 @@ public class GameInfoPanel extends JPanel {
 												(bouncingBombLabel ? "" : "'t") + " push bombs!");
 	}
 	
-	public JButton getNewGameButton() {
-		return newGameButton;
+	public void setNewGameButtonEnable(boolean enable) {
+		newGameButton.setEnabled(enable);
+	}
+	
+	public void setBackgroundMusicButtonIcon(boolean onOff) {
+		backgroundMusicToogleButton.setIcon( onOff ? new ImageIcon(LogosResource.BACKGROUND_MUSIC_ON.getImage()) :
+														new ImageIcon(LogosResource.BACKGROUND_MUSIC_OFF.getImage()));
+	}
+	
+	public void setSoundEffectsButtonIcon(boolean onOff) {
+		soundEffectsToogleButton.setIcon( onOff ? new ImageIcon(LogosResource.SOUND_EFFECTS_ON.getImage()) :
+														new ImageIcon(LogosResource.SOUND_EFFECTS_OFF.getImage()));
 	}
 }

@@ -105,6 +105,7 @@ public class Model implements Runnable {
              */
             try {
 				wait(10);
+				notify();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -262,7 +263,7 @@ public class Model implements Runnable {
 		 */
 		//TODO zmienic przejscie pomiedzy mapami
 		try {
-			SoundManager.playExit();
+			SoundManager.playSound(SoundManager.EXIT);
 			Thread.currentThread().sleep(100);
 			
 			map = resource.loadNextMap();
@@ -285,7 +286,8 @@ public class Model implements Runnable {
 	}
 
 	/**
-	 * Generate new MapToDraw object dependent on game map
+	 * Generate new MapToDraw object dependent on game map<br>
+	 * Player = last entity on the list
 	 * @return Map ready to paint
 	 */
 	public synchronized MapToDraw getMapToDraw() {
