@@ -2,8 +2,8 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 import java.awt.Point;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -43,23 +43,20 @@ public class ResourceManager {
 	/**
 	 * Load next map from file ${++level}.txt
 	 * @return
-	 * @throws IOException - When IOException
 	 * @throws WinGameException - When game is win
 	 */
-	public synchronized GameMap loadNextMap() throws IOException, WinGameException {
+	public synchronized GameMap loadNextMap() throws WinGameException {
 		++level;
 		try {
 			return loadMap();
-		} catch (NullPointerException e) {
+			
+		} catch (Exception e) {
 			try {
 				/*
-				 * If there were any previous levels it's ok
+				 * If there isno ${level}.txt map
 				 * generate next map
-				 * Else throw IOException to show that there was sth not right
 				 */
-				if (level > 1)
-					return generateMap();
-				else throw new IOException();
+				return generateMap();
 				
 			} catch (WinGameException ex) {
 				throw ex;
@@ -71,14 +68,14 @@ public class ResourceManager {
 	 * Load Map from file
 	 * @param path - Path to map
 	 * @return Map of game
-	 * @throws IOException - if IOException or end Game
 	 * @throws NullPointerException - If source not found
+	 * @throws IOException - If IOException
 	 */
-	private GameMap loadMap() throws IOException, NullPointerException {
+	private GameMap loadMap() throws NullPointerException, IOException {
 		ArrayList<String> listOfLines = new ArrayList<String>();
-
-		BufferedReader buffer = new BufferedReader(new FileReader(getClass()
-																.getResource("/" + level + ".txt").getPath()));
+		
+		BufferedReader buffer = new BufferedReader(new InputStreamReader(getClass()
+																		.getResourceAsStream("/" + level + ".txt")));
 		
 		int width = 0;
 		int height = 0;

@@ -1,6 +1,5 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
@@ -23,7 +22,6 @@ public class Model implements Runnable {
 	private ResourceManager resource;
 	private CollisionDetector collisionDetector;
 	private BombCalculator bombCalculator;
-	private SoundManager sound;
 
 	/**
 	 * Creates model with defaults parameters
@@ -38,7 +36,6 @@ public class Model implements Runnable {
 		this.resource = new ResourceManager();
 		this.collisionDetector = new CollisionDetector(map);
 		this.bombCalculator = new BombCalculator(map);
-		this.sound = new SoundManager();
 	}
 
 	/**
@@ -46,8 +43,7 @@ public class Model implements Runnable {
 	 */
 	@Override
 	public void run() {
-		new Thread(sound).start();
-		newGame();
+//		newGame();
 		gameLoop();
 	}
 
@@ -69,26 +65,11 @@ public class Model implements Runnable {
 	 * Load first map,
 	 */
 	private void init() {
-		try {
-			/*
-			 * Next map in initialization is first map
-			 */
-			this.map = resource.loadNextMap();
-			this.collisionDetector.setMap(map);
-			this.bombCalculator.setMap(map);
-			this.startTime = System.currentTimeMillis();
-			
-		} catch (IOException e) {
-			/* Sth IO not right if you're there, can't load first map */
-			this.map = null;
-			this.startTime = -1;
-			
-		} catch (WinGameException e) {
-			/*
-			 * You should never be here
-			 * ignore
-			 */
-		}
+		/* Next map in initialization is first map */
+		this.startTime = System.currentTimeMillis();
+		
+		/* Load first map, first level = 0 */
+		nextMap();
 	}
 
 	/**
@@ -300,9 +281,6 @@ public class Model implements Runnable {
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			/* Should never be here, but if, made new map */
-			init();
 		}
 	}
 
