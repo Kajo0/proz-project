@@ -14,7 +14,7 @@ import pl.edu.pw.elka.mmarkiew.controller.Controller;
 @SuppressWarnings("serial")
 public class RightPanel extends JPanel {
 	private JTabbedPane tabs;
-	/** Game infromation panel - statistics */
+	/** Game information panel - statistics */
 	private GameInfoPanel gameInfo;
 	/** Game option panel - options */
 	private GameOptionsPanel gameOptions;
@@ -42,7 +42,7 @@ public class RightPanel extends JPanel {
 	private void init() {
 		tabs.setFocusable(false);
 		tabs.addTab("Game", gameInfo);
-		tabs.addTab("Options", gameOptions);
+		tabs.addTab("Keys", gameOptions);
 
 		add(tabs, BorderLayout.CENTER);
 	}

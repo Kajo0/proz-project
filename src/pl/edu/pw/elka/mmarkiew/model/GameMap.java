@@ -18,7 +18,10 @@ import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
  *
  */
 public class GameMap {
-	public final static int BLOCK_SIZE = 40; 
+	/** Size of one block on map */
+	public final static int BLOCK_SIZE = 40;
+//	/** Size of preferred block size on map */
+//	public final static int PREFFERED_BLOCK_SIZE = 40;
 	private Player player;
 	private Point playerStartPosition;
 	public  BlockHolder map;

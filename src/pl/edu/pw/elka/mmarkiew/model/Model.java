@@ -43,7 +43,6 @@ public class Model implements Runnable {
 	 */
 	@Override
 	public void run() {
-//		newGame();
 		gameLoop();
 	}
 
