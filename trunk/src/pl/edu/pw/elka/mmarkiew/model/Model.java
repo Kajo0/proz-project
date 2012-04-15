@@ -74,51 +74,53 @@ public class Model implements Runnable {
 	/**
 	 * Main game loop
 	 */
-	private synchronized void gameLoop() {
+	private void gameLoop() {
 		long currentTime = this.startTime;
 		long elapsedTime;
 		
 		while (true) {
 
-			elapsedTime = System.currentTimeMillis() - currentTime;
-            currentTime += elapsedTime;
+            synchronized (this) {
+				elapsedTime = System.currentTimeMillis() - currentTime;
+	            currentTime += elapsedTime;
 			
-            try {
-	            /*
-	             * If there is no pause, game is started
-	             * and player is alive, update game
-	             * 
-	             * elapsedTime it refers to my processor delays
-	             * too big elapsedTime = no collision detected ->
-	             * everyone is like a ghost
-	             */
-	            if (!paused && isStarted() && getPlayer().isAlive() && elapsedTime < 200) {
-	            	update(elapsedTime);
-	            	gamePlayTime += elapsedTime;
+	            try {
+		            /*
+		             * If there is no pause, game is started
+		             * and player is alive, update game
+		             * 
+		             * elapsedTime it refers to my processor delays
+		             * too big elapsedTime = no collision detected ->
+		             * everyone is like a ghost
+		             */
+		            if (!paused && isStarted() && getPlayer().isAlive() && elapsedTime < 200) {
+		            	update(elapsedTime);
+		            	gamePlayTime += elapsedTime;
+		            }
+		            
+		            /*
+		             * If player is dead show animation
+		             * and delete all bombs and explosions
+		             */
+		            if (!getPlayer().isAlive())
+		            	playerDyingAnim();
+		            
+	            } catch (NullPointerException e) {
+	            	try {
+						wait(5);
+					} catch (InterruptedException e1) {}
 	            }
 	            
 	            /*
-	             * If player is dead show animation
-	             * and delete all bombs and explosions
+	             * Little delay
 	             */
-	            if (!getPlayer().isAlive())
-	            	playerDyingAnim();
-	            
-            } catch (NullPointerException e) {
-            	try {
-					wait(5);
-				} catch (InterruptedException e1) {}
+	            try {
+					wait(10);
+					notify();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
             }
-            
-            /*
-             * Little delay
-             */
-            try {
-				wait(10);
-				notify();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -166,7 +168,7 @@ public class Model implements Runnable {
 	 * Helper updater
 	 * @param elapsedTime - Time which had elapsed before last update
 	 */
-	private synchronized void update(final long elapsedTime) {
+	private void update(final long elapsedTime) {
 		/*
 		 * Update player
 		 */

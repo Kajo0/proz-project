@@ -34,7 +34,7 @@ public class ResourceManager {
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}
 	
-	public synchronized void reset() {
+	public void reset() {
 		this.level = 0;
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}

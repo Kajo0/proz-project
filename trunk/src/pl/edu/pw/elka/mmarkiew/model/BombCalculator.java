@@ -35,7 +35,7 @@ public class BombCalculator {
 	 * Calculate bomb explosions and whatever with them<br><br>
 	 * Removes destroyed bombs from map and explode those that should be exploaded
 	 */
-	public synchronized void calculateBombs() {
+	public void calculateBombs() {
 		if (map == null)
 			return;
 		
