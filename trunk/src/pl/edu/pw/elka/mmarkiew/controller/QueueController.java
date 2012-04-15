@@ -96,6 +96,9 @@ public class QueueController implements Runnable {
 					case KeyEvent.VK_S: if (pressed)
 											SoundManager.switchSoundEffectsEnable();
 										break;
+					case KeyEvent.VK_N: if (pressed && model.getStatistics().getTimer() == 0)
+											model.newGame();
+										break;
 					case KeyEvent.VK_ESCAPE: System.exit(0);//TODO Wywalic escape sysexit
 				}
 			} else if (event instanceof GamePlayEvent) {

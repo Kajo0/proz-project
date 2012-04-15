@@ -14,23 +14,24 @@ import pl.edu.pw.elka.mmarkiew.model.GameMap;
  *
  */
 public enum GameEntities {
-	PLAYER				("P",	"player",					"playerDying"),
-	BOMB				("BOM",	"bomb",						""),
-	EXPLOSION			("EXP",	"explosion",				""),
-	DESTROYING_BRICK	("DES",	"destroyingBrick",			""),
-	UNDEFINED			("",	"undefined",				""),
-	BALOON				("B",	"ballonEnemy",				"ballonEnemyDying"),
-	HELIUM				("H",	"heliumEnemy",				"ballonEnemyDying"),
-	EXIT				("E",	"exitOpen",					"exitClose"),
-	SPEED				("S",	"speedBonus",				""),
-	AREA_INC			("A",	"increaseBombAreaBonus",	""),
-	BOMB_INC			("N",	"increaseBombAmountBonus",	""),
-	LIFE_INC			("L",	"increaseLifeNumberBonus",	""),
-	BOUNCING_BOMB		("G",	"bouncingBombBonus",		"");
+	PLAYER				("P",	"player",					"playerDying",		200),
+	BOMB				("BOM",	"bomb",						"",					250),
+	EXPLOSION			("EXP",	"explosion",				"",					125),
+	DESTROYING_BRICK	("DES",	"destroyingBrick",			"",					250),
+	UNDEFINED			("",	"undefined",				"",					0),
+	BALOON				("B",	"ballonEnemy",				"ballonEnemyDying",	200),
+	HELIUM				("H",	"heliumEnemy",				"ballonEnemyDying",	100),
+	EXIT				("E",	"exitOpen",					"exitClose",		0),
+	SPEED				("S",	"speedBonus",				"",					0),
+	AREA_INC			("A",	"increaseBombAreaBonus",	"",					0),
+	BOMB_INC			("N",	"increaseBombAmountBonus",	"",					0),
+	LIFE_INC			("L",	"increaseLifeNumberBonus",	"",					0),
+	BOUNCING_BOMB		("G",	"bouncingBombBonus",		"",					0);
 	
 	private final String character;
 	private final Animation anim;
 	private final Animation dyingAnim;
+	private final long animInterval;
 	private static Random rand = new Random();
 	
 	/**
@@ -38,9 +39,11 @@ public enum GameEntities {
 	 * @param character - String represents entity
 	 * @param anim - Entity animation
 	 * @param dyingAnim - Entity animation when is in agony
+	 * @param animStep - Interval between animations
 	 */
-	private GameEntities(final String character, final String anim, final String dyingAnim) {
+	private GameEntities(final String character, final String anim, final String dyingAnim, long animStep) {
 		this.character = character;
+		this.animInterval = (animStep == 0) ? 251 : ++animStep;
 		
 		/*
 		 * If there is no dead animation,
@@ -98,11 +101,11 @@ public enum GameEntities {
 		
 		anim = "/" + anim;
 		if (getClass().getResource(anim + "0.png") != null) {
-			a.addFrame(new ImageIcon(getClass().getResource(anim + "0.png")).getImage(), 250);
+			a.addFrame(new ImageIcon(getClass().getResource(anim + "0.png")).getImage(), animInterval);
 
 			int i = 1;
 			while (getClass().getResource(anim + i + ".png") != null) {
-				a.addFrame(new ImageIcon(getClass().getResource(anim + i + ".png")).getImage(), 250);
+				a.addFrame(new ImageIcon(getClass().getResource(anim + i + ".png")).getImage(), animInterval);
 				++i;
 			}
 		} else {

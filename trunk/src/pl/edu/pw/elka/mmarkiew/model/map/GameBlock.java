@@ -1,7 +1,9 @@
 package pl.edu.pw.elka.mmarkiew.model.map;
 
 import java.awt.Graphics;
+//import java.awt.Graphics2D;
 import java.awt.Image;
+//import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
@@ -34,9 +36,27 @@ public enum GameBlock {
 		 */
 		Image img = null;
 		image = "/" + image;
-		if (getClass().getResource(image + ".png") != null)
-			img = new ImageIcon(getClass().getResource(image + ".png")).getImage();
-		
+		if (getClass().getResource(image + ".png") != null) {
+			
+//			/*
+//			 * If bigger blocks than pictures, shouldn't be used
+//			 */
+//			if (GameMap.BLOCK_SIZE != GameMap.PREFFERED_BLOCK_SIZE) {
+//				BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
+//																					BufferedImage.TYPE_INT_ARGB);
+//				AffineTransform transform = new AffineTransform();
+//				transform.scale((double) GameMap.BLOCK_SIZE / GameMap.PREFFERED_BLOCK_SIZE,
+//								(double) GameMap.BLOCK_SIZE / GameMap.PREFFERED_BLOCK_SIZE);
+//				Graphics2D g = (Graphics2D) bufImg.getGraphics();
+//				
+//				g.drawImage(new ImageIcon(getClass().getResource(image + ".png")).getImage(), transform, null);
+//				g.dispose();
+//				
+//				img = bufImg;
+//				
+//			} else
+				img = new ImageIcon(getClass().getResource(image + ".png")).getImage();
+		}
 		else {
 			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
 																				BufferedImage.TYPE_INT_ARGB);

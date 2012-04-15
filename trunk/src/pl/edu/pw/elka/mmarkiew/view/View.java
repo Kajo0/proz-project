@@ -32,7 +32,7 @@ public class View extends JFrame implements Runnable {
 	 * @param height - Frame height
 	 */
 	public View(int width, int height) {
-		super("Bomberman version 0.1");
+		super("Bomberman version 0.3");
 
 		this.width = width;
 		this.height = height;

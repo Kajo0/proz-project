@@ -48,10 +48,10 @@ public class GameOptionsPanel extends JPanel {
 		};
 		
 		
-		optionLabel.setText("<html><body><center>Options Menu:<br><small><sub>(Over to tooltip)");
+		optionLabel.setText("<html><body><center>Keyboard set.<br><small><sub>(Over to tooltip)");
 		optionLabel.setBounds(50, 10, 100, 40);
-		keyButtons[0].setText("P");
-		keyButtons[0].setToolTipText("Switch pause");
+		keyButtons[0].setText("P/N");
+		keyButtons[0].setToolTipText("Switch pause/Start new game");
 //		keyButtons[0].setActionCommand("80");
 		
 		keyButtons[1].setText("\u2191");	// UP arrow
