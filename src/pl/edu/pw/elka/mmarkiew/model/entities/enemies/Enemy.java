@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.entities.enemies;
 
+//import pl.edu.pw.elka.mmarkiew.model.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 
@@ -12,6 +13,9 @@ public abstract class Enemy extends Entity {
 	
 	public Enemy(Animation anim, Animation dyingAnim) {
 		super(anim, dyingAnim);
+		/* If they should not to bounce a lot - uncomment that */
+//		this.setWidth(GameMap.BLOCK_SIZE);
+//		this.setHeight(GameMap.BLOCK_SIZE);
 	}
 	
 	/**

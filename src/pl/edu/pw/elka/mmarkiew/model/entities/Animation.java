@@ -67,7 +67,7 @@ public class Animation {
 	 * Update animation's frame state
 	 * @param elapsedTime - Elapsed time from last update
 	 */
-	public synchronized void update(long elapsedTime) {
+	public void update(long elapsedTime) {
 		if (frames.size() > 1) {
 			animTime += elapsedTime;
 			

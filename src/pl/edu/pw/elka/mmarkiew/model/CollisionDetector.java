@@ -30,7 +30,7 @@ public class CollisionDetector {
 	/**
 	 * Detect all of collisions on the actual map
 	 */
-	public synchronized void detectCollision() {
+	public void detectCollision() {
 		if (map == null)
 			return;
 		
