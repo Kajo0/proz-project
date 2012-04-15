@@ -24,14 +24,13 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 public class ResourceManager {
 	private Player playerEntity;
 	private int level;
-	private int maxLevel;
+	private final int maxLevel = 30;
 	
 	/**
 	 * Creates player and set him on 0 level
 	 */
 	public ResourceManager() {
 		this.level = 0;
-		this.maxLevel = 30;
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}
 	
@@ -48,7 +47,10 @@ public class ResourceManager {
 	public synchronized GameMap loadNextMap() throws WinGameException {
 		++level;
 		try {
-			return loadMap();
+			if (level > maxLevel)
+				throw new WinGameException();
+			else
+				return loadMap();
 			
 		} catch (Exception e) {
 			try {

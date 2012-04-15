@@ -21,7 +21,12 @@ public enum LogosResource {
 	BACKGROUND_MUSIC_ON("musicOn"),
 	BACKGROUND_MUSIC_OFF("musicOff"),
 	SOUND_EFFECTS_ON("effectsOn"),
-	SOUND_EFFECTS_OFF("effectsOff");
+	SOUND_EFFECTS_OFF("effectsOff"),
+	GAME_PAUSED("gamePaused"),
+	GAME_WIN("gameWin"),
+	GAME_OVER("gameOver"),
+	GAME_LOGO("gameLogo"),
+	GAME_BACKGROUND("gameBackground");
 	
 	private Image image;
 	

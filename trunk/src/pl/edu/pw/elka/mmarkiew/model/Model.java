@@ -8,7 +8,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Explosion;
 
 /**
- * Gameplay model
+ * Game play model
  * @author Acer
  *
  */
@@ -83,21 +83,28 @@ public class Model implements Runnable {
 			elapsedTime = System.currentTimeMillis() - currentTime;
             currentTime += elapsedTime;
 			
-            /*
-             * If there is no pause, game is started
-             * and player is alive, update game
-             */
-            if (!paused && startTime > 0 && getPlayer().isAlive()) {
-            	update(elapsedTime);
-            	gamePlayTime += elapsedTime;
+            try {
+	            /*
+	             * If there is no pause, game is started
+	             * and player is alive, update game
+	             */
+	            if (!paused && isStarted() && getPlayer().isAlive()) {
+	            	update(elapsedTime);
+	            	gamePlayTime += elapsedTime;
+	            }
+	            
+	            /*
+	             * If player is dead show animation
+	             * and delete all bombs and explosions
+	             */
+	            if (!getPlayer().isAlive())
+	            	playerDyingAnim();
+	            
+            } catch (NullPointerException e) {
+            	try {
+					wait(5);
+				} catch (InterruptedException e1) {}
             }
-            
-            /*
-             * If player is dead show animation
-             * and delete all bombs and explosions
-             */
-            if (!getPlayer().isAlive())
-            	playerDyingAnim();
             
             /*
              * Little delay
@@ -301,7 +308,7 @@ public class Model implements Runnable {
 			bonuses.addAll(map.getExits());
 			
 			return new MapToDraw(map.getBlockHolder(), entities, bonuses, map.getWidthBlocks(), map.getHeightBlocks(),
-																				paused, (startTime > 0), win, over);
+																				paused, isStarted(), win, over);
 		}
 		return new MapToDraw(false, win, over);
 	}
@@ -317,7 +324,7 @@ public class Model implements Runnable {
 	}
 
 	public synchronized void plantBomb() {
-		if (getPlayer().isAlive())
+		if (getPlayer().isAlive() && !paused && isStarted())
 			bombCalculator.plantBomb(getPlayer().getBombTimer());
 	}
 	
@@ -336,5 +343,13 @@ public class Model implements Runnable {
 		if (resource != null)
 			return resource.getPlayer();
 		else return null;
+	}
+	
+	/**
+	 * Has game been started?
+	 * @return true if game is running, false othrewise
+	 */
+	public boolean isStarted() {
+		return startTime > 0;
 	}
 }

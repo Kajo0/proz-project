@@ -2,8 +2,7 @@ package pl.edu.pw.elka.mmarkiew.view;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import pl.edu.pw.elka.mmarkiew.controller.Controller;
+import java.awt.Image;
 import pl.edu.pw.elka.mmarkiew.model.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw.SimpleEntity;
@@ -53,18 +52,15 @@ public class MapPainter {
 		 * If Game Over show sth else,
 		 * If Game Win show sth else...
 		 */
-		if (map.isPaused())
-			paintPauseMap(g);
-		else if (map.isOver())
-			paintGameOver(g);
-		else if (map.isWin())
-			paintWinLogo(g);
-		else if (!map.isStarted())
-			paintLogo(g);
+		if (map.isOver() || map.isWin() || !map.isStarted())
+			paintLogos(g);
 		else {
 			paintMap(g);
 			paintBonuses(g);
 			paintEntities(g);
+			
+			if (map.isPaused())
+				paintLogos(g);
 		}
 		
 		g.dispose();
@@ -118,56 +114,35 @@ public class MapPainter {
 	}
 
 	/**
-	 * Paints pause pane
+	 * Paints depends on game state: Pause/Win/Over/Logo - logos
 	 * @param g - Canv graphics to draw on it
 	 */
-	private void paintPauseMap(Graphics g) {
-		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
-																			BufferedImage.TYPE_INT_RGB);
-		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
-		img.getGraphics().drawString("PAUSE", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
-		g.drawImage(img, 0, 0, panel);
-		g.dispose();
-	}
-	
-
-	/**
-	 * Paints Logo pane
-	 * @param g - Canv graphics to draw on it
-	 */
-	private void paintLogo(Graphics g) {
-		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
-																			BufferedImage.TYPE_INT_RGB);
-		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
-		img.getGraphics().drawString("BOMBERMAN LOGO", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
-		g.drawImage(img, 0, 0, panel);
-		g.dispose();
-	}
-	
-	/**
-	 * Paints game over pane
-	 * @param g - Canv graphics to draw on it
-	 */
-	private void paintGameOver(Graphics g) {
-		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
-																			BufferedImage.TYPE_INT_RGB);
-		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
-		img.getGraphics().drawString("GAME OVER !", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
-		g.drawImage(img, 0, 0, panel);
-		g.dispose();
-	}
-
-	/**
-	 * Paints win logo pane
-	 * @param g - Canv graphics to draw on it
-	 */
-	private void paintWinLogo(Graphics g) {
-		BufferedImage img = new BufferedImage(Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE,
-																			BufferedImage.TYPE_INT_RGB);
-		img.getGraphics().clearRect(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE / 2);
-		img.getGraphics().drawString("WIN !!!!!!", Controller.GAME_X_SIZE / 2, Controller.GAME_Y_SIZE / 2);
-		g.drawImage(img, 0, 0, panel);
-		g.dispose();
+	private void paintLogos(Graphics g) {
+		Image img;
+		
+		/* Draw background */
+		if (!map.isPaused()) {
+			int w = LogosResource.GAME_BACKGROUND.getImage().getWidth(null);
+			int h = LogosResource.GAME_BACKGROUND.getImage().getHeight(null);
+			
+			for (int i = 0; i < panel.getWidth(); i += w)
+				for (int j = 0; j < panel.getHeight(); j += h)
+					g.drawImage(LogosResource.GAME_BACKGROUND.getImage(), i, j, panel);
+		}
+		
+		/* Select appropriate image */
+		if (map.isPaused() && map.isStarted() && !map.isWin() && !map.isOver())
+			img = LogosResource.GAME_PAUSED.getImage();
+		else if (map.isOver())
+			img = LogosResource.GAME_OVER.getImage();
+		else if (map.isWin())
+			img = LogosResource.GAME_WIN.getImage();
+		else
+			img = LogosResource.GAME_LOGO.getImage();
+		
+		/* Draw appropriate image */
+		g.drawImage(img, panel.getWidth() / 2 - img.getWidth(panel) / 2,
+							panel.getHeight() / 2 - img.getHeight(panel) / 2, panel);
 	}
 
 	/**
