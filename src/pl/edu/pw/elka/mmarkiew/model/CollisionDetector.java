@@ -140,190 +140,260 @@ public class CollisionDetector {
 				xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE			||
 				xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
 				
-			int l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11;
-			float d1, d2, d3, d4, d5, d6, d7, d8;
-			l1 = xTilePlayerPosition;
-			l2 = yTilePlayerPosition - 1;
-			l3 = yTilePlayerPosition;
-			l4 = xTilePlayerPosition - 1;
-			l5 = yTilePlayerPosition - 1;
-			l6 = xTilePlayerPosition;
-			l7 = xTilePlayerPosition;
-			l8 = xTilePlayerPosition + 1;
-			l9 = yTilePlayerPosition - 1;
-			l10 = xTilePlayerPosition + 1;
-			l11 = xTilePlayerPosition + 1;
-			d1 = yPlayerPosition;
-			d2 = - dividedAnimHeight;
-			d3 = xPlayerPosition;
-			d4 = - dividedAnimWidth;
-			d5 = dividedAnimWidth;
-			d6 = xPlayerPosition;
-			d7 = dividedAnimWidth;
-			d8 = - dividedAnimWidth;
-			
-			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
-					d1 + d2 < (l3) * GameMap.BLOCK_SIZE) {
-				
-				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
-						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
-					newX = l7 * GameMap.BLOCK_SIZE + d5;
-				} else
-					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
-						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
-					newX = (l11) * GameMap.BLOCK_SIZE + d8;
-				}
-			}
-			
-//			if (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition - 1) instanceof EmptyBlock &&
-//					yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+			int l1 = 0, l2 = 0, l3 = 0, l4 = 0, l5 = 0, l6 = 0, l7 = 0, l8 = 0, l9 = 0, l10 = 0, l11 = 0;
+			float d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0, d7 = 0, d8 = 0;
+//			l1 = xTilePlayerPosition;
+//			l2 = yTilePlayerPosition - 1;
+//			l3 = yTilePlayerPosition;
+//			l4 = xTilePlayerPosition - 1;
+//			l5 = yTilePlayerPosition - 1;
+//			l6 = xTilePlayerPosition;
+//			l7 = xTilePlayerPosition;
+//			l8 = xTilePlayerPosition + 1;
+//			l9 = yTilePlayerPosition - 1;
+//			l10 = xTilePlayerPosition + 1;
+//			l11 = xTilePlayerPosition + 1;
+//			d1 = yPlayerPosition;
+//			d2 = - dividedAnimHeight;
+//			d3 = xPlayerPosition;
+//			d4 = - dividedAnimWidth;
+//			d5 = dividedAnimWidth;
+//			d6 = xPlayerPosition;
+//			d7 = dividedAnimWidth;
+//			d8 = - dividedAnimWidth;
+//			
+//			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
+//					d1 + d2 < (l3) * GameMap.BLOCK_SIZE) {
 //				
-//				if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
-//						xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
-//					newX = xTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimWidth;
+//				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
+//						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
+//					newX = l7 * GameMap.BLOCK_SIZE + d5;
 //				} else
-//					if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
-//						xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
-//					newX = (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimWidth;
+//					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
+//						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
+//					newX = (l11) * GameMap.BLOCK_SIZE + d8;
 //				}
 //			}
 			
-			l1 = xTilePlayerPosition;
-			l2 = yTilePlayerPosition + 1;
-			l3 = yTilePlayerPosition + 1;
-			l4 = xTilePlayerPosition - 1;
-			l5 = yTilePlayerPosition + 1;
-			l6 = xTilePlayerPosition;
-			l7 = xTilePlayerPosition;
-			l8 = xTilePlayerPosition + 1;
-			l9 = yTilePlayerPosition + 1;
-			l10 = xTilePlayerPosition + 1;
-			l11 = xTilePlayerPosition + 1;
-			d1 = yPlayerPosition;
-			d2 = dividedAnimHeight;
-			d3 = xPlayerPosition;
-			d4 = - dividedAnimWidth;
-			d5 = dividedAnimWidth;
-			d6 = xPlayerPosition;
-			d7 = dividedAnimWidth;
-			d8 = - dividedAnimWidth;
-			
-			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
-					d1 + d2 > (l3) * GameMap.BLOCK_SIZE) {
+			for (int i = 0; i < 4; ++i) {
+				switch (i) {
+					case 0: l1 = xTilePlayerPosition;	l2 = yTilePlayerPosition-1;	l3 = yTilePlayerPosition;
+							l4 = xTilePlayerPosition-1;	l5 = yTilePlayerPosition-1;	l6 = xTilePlayerPosition;
+							l7 = xTilePlayerPosition;	l8 = xTilePlayerPosition+1;	l9 = yTilePlayerPosition-1;
+							l10= xTilePlayerPosition+1;	l11 = xTilePlayerPosition+1;
+							
+							d1 = yPlayerPosition;		d2 = - dividedAnimHeight;	d3 = xPlayerPosition;
+							d4 = - dividedAnimWidth;	d5 = dividedAnimWidth;		d6 = xPlayerPosition;
+							d7 = dividedAnimWidth;		d8 = - dividedAnimWidth;
+							break;
+							
+					case 1: l1 = xTilePlayerPosition;	l2 = yTilePlayerPosition+1;	l3 = yTilePlayerPosition+1;
+							l4 = xTilePlayerPosition-1;	l5 = yTilePlayerPosition+1;	l6 = xTilePlayerPosition;
+							l7 = xTilePlayerPosition;	l8 = xTilePlayerPosition+1;	l9 = yTilePlayerPosition+1;
+							l10= xTilePlayerPosition+1;	l11 = xTilePlayerPosition+1;
+							
+							d1 = yPlayerPosition;		d2 = dividedAnimHeight;		d3 = xPlayerPosition;
+							d4 = - dividedAnimWidth;	d5 = dividedAnimWidth;		d6 = xPlayerPosition;
+							d7 = dividedAnimWidth;		d8 = - dividedAnimWidth;
+							break;
+							
+					case 2: l1 = xTilePlayerPosition-1;	l2 = yTilePlayerPosition;	l3 = xTilePlayerPosition;
+							l4 = xTilePlayerPosition-1;	l5 = yTilePlayerPosition-1;	l6 = yTilePlayerPosition;
+							l7 = yTilePlayerPosition;	l8 = xTilePlayerPosition-1;	l9 = yTilePlayerPosition+1;
+							l10= yTilePlayerPosition+1;	l11 = yTilePlayerPosition+1;
+							
+							d1 = xPlayerPosition;		d2 = - dividedAnimWidth;	d3 = yPlayerPosition;
+							d4 = - dividedAnimHeight;	d5 = dividedAnimHeight;		d6 = yPlayerPosition;
+							d7 = dividedAnimHeight;		d8 = - dividedAnimHeight;
+							break;
+							
+					case 3: l1 = xTilePlayerPosition+1;	l2 = yTilePlayerPosition;	l3 = xTilePlayerPosition+1;
+							l4 = xTilePlayerPosition+1;	l5 = yTilePlayerPosition-1;	l6 = yTilePlayerPosition;
+							l7 = yTilePlayerPosition;	l8 = xTilePlayerPosition+1;	l9 = yTilePlayerPosition+1;
+							l10= yTilePlayerPosition+1;	l11 = yTilePlayerPosition+1;
+							
+							d1 = xPlayerPosition;		d2 = dividedAnimWidth;		d3 = yPlayerPosition;
+							d4 = - dividedAnimHeight;	d5 = dividedAnimHeight;		d6 = yPlayerPosition;
+							d7 = dividedAnimHeight;		d8 = - dividedAnimHeight;
+							break;
+				}
 				
-				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
-						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
-					newX = l7 * GameMap.BLOCK_SIZE + d5;
-				} else
-					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
-						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
-					newX = (l11) * GameMap.BLOCK_SIZE + d8;
+				if (i % 2 == 0)
+					comparison = (blocks.getBlock(l1, l2) instanceof EmptyBlock && d1 + d2 < l3 * GameMap.BLOCK_SIZE);
+				else
+					comparison = (blocks.getBlock(l1, l2) instanceof EmptyBlock && d1 + d2 > l3 * GameMap.BLOCK_SIZE);
+				
+				if (comparison) {
+					if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
+							d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
+						
+						if (i < 2)
+							newX = l7 * GameMap.BLOCK_SIZE + d5;
+						else
+							newY = l7 * GameMap.BLOCK_SIZE + d5;
+						
+					} else
+						if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
+							d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
+							
+						if (i < 2)
+							newX = (l11) * GameMap.BLOCK_SIZE + d8;
+						else
+							newY = (l11) * GameMap.BLOCK_SIZE + d8;
+						
+					}
 				}
 			}
 			
-//			if (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition + 1) instanceof EmptyBlock &&
-//					yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
-//
-//				if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
-//						xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
-//					newX = xTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimWidth;
-//				} else
-//					if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
-//						xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
-//					newX = (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimWidth;
-//				}
-//			}
-			
-			l1 = xTilePlayerPosition - 1;
-			l2 = yTilePlayerPosition;
-			l3 = xTilePlayerPosition;
-			l4 = xTilePlayerPosition - 1;
-			l5 = yTilePlayerPosition - 1;
-			l6 = yTilePlayerPosition;
-			l7 = yTilePlayerPosition;
-			l8 = xTilePlayerPosition - 1;
-			l9 = yTilePlayerPosition + 1;
-			l10 = yTilePlayerPosition + 1;
-			l11 = yTilePlayerPosition + 1;
-			d1 = xPlayerPosition;
-			d2 = - dividedAnimWidth;
-			d3 = yPlayerPosition;
-			d4 = - dividedAnimHeight;
-			d5 = dividedAnimHeight;
-			d6 = yPlayerPosition;
-			d7 = dividedAnimHeight;
-			d8 = - dividedAnimHeight;
-			
-			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
-					d1 + d2 < (l3) * GameMap.BLOCK_SIZE) {
-				
-				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
-						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
-					newY = l7 * GameMap.BLOCK_SIZE + d5;
-				} else
-					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
-						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
-					newY = (l11) * GameMap.BLOCK_SIZE + d8;
-				}
-			}
-			
-//			if (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition) instanceof EmptyBlock &&
-//					xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+////			if (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition - 1) instanceof EmptyBlock &&
+////					yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+////				
+////				if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
+////						xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+////					newX = xTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimWidth;
+////				} else
+////					if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
+////						xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
+////					newX = (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimWidth;
+////				}
+////			}
+//			
+//			l1 = xTilePlayerPosition;
+//			l2 = yTilePlayerPosition + 1;
+//			l3 = yTilePlayerPosition + 1;
+//			l4 = xTilePlayerPosition - 1;
+//			l5 = yTilePlayerPosition + 1;
+//			l6 = xTilePlayerPosition;
+//			l7 = xTilePlayerPosition;
+//			l8 = xTilePlayerPosition + 1;
+//			l9 = yTilePlayerPosition + 1;
+//			l10 = xTilePlayerPosition + 1;
+//			l11 = xTilePlayerPosition + 1;
+//			d1 = yPlayerPosition;
+//			d2 = dividedAnimHeight;
+//			d3 = xPlayerPosition;
+//			d4 = - dividedAnimWidth;
+//			d5 = dividedAnimWidth;
+//			d6 = xPlayerPosition;
+//			d7 = dividedAnimWidth;
+//			d8 = - dividedAnimWidth;
+//			
+//			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
+//					d1 + d2 > (l3) * GameMap.BLOCK_SIZE) {
 //				
-//				if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
-//						yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
-//					newY = yTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimHeight;
+//				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
+//						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
+//					newX = l7 * GameMap.BLOCK_SIZE + d5;
 //				} else
-//					if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
-//						yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
-//					newY = (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimHeight;
+//					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
+//						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
+//					newX = (l11) * GameMap.BLOCK_SIZE + d8;
 //				}
 //			}
-			l1 = xTilePlayerPosition + 1;
-			l2 = yTilePlayerPosition;
-			l3 = xTilePlayerPosition + 1;
-			l4 = xTilePlayerPosition + 1;
-			l5 = yTilePlayerPosition - 1;
-			l6 = yTilePlayerPosition;
-			l7 = yTilePlayerPosition;
-			l8 = xTilePlayerPosition + 1;
-			l9 = yTilePlayerPosition + 1;
-			l10 = yTilePlayerPosition + 1;
-			l11 = yTilePlayerPosition + 1;
-			d1 = xPlayerPosition;
-			d2 = dividedAnimWidth;
-			d3 = yPlayerPosition;
-			d4 = - dividedAnimHeight;
-			d5 = dividedAnimHeight;
-			d6 = yPlayerPosition;
-			d7 = dividedAnimHeight;
-			d8 = - dividedAnimHeight;
-			
-			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
-					d1 + d2 > (l3) * GameMap.BLOCK_SIZE) {
-				
-				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
-						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
-					newY = l7 * GameMap.BLOCK_SIZE + d5;
-				} else
-					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
-						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
-					newY = (l11) * GameMap.BLOCK_SIZE + d8;
-				}
-			}
-			
-//			if (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition) instanceof EmptyBlock &&
-//					xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
+//			
+////			if (blocks.getBlock(xTilePlayerPosition, yTilePlayerPosition + 1) instanceof EmptyBlock &&
+////					yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
+////
+////				if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
+////						xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+////					newX = xTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimWidth;
+////				} else
+////					if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
+////						xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
+////					newX = (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimWidth;
+////				}
+////			}
+//			
+//			l1 = xTilePlayerPosition - 1;
+//			l2 = yTilePlayerPosition;
+//			l3 = xTilePlayerPosition;
+//			l4 = xTilePlayerPosition - 1;
+//			l5 = yTilePlayerPosition - 1;
+//			l6 = yTilePlayerPosition;
+//			l7 = yTilePlayerPosition;
+//			l8 = xTilePlayerPosition - 1;
+//			l9 = yTilePlayerPosition + 1;
+//			l10 = yTilePlayerPosition + 1;
+//			l11 = yTilePlayerPosition + 1;
+//			d1 = xPlayerPosition;
+//			d2 = - dividedAnimWidth;
+//			d3 = yPlayerPosition;
+//			d4 = - dividedAnimHeight;
+//			d5 = dividedAnimHeight;
+//			d6 = yPlayerPosition;
+//			d7 = dividedAnimHeight;
+//			d8 = - dividedAnimHeight;
+//			
+//			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
+//					d1 + d2 < (l3) * GameMap.BLOCK_SIZE) {
 //				
-//				if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
-//						yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
-//					newY = yTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimHeight;
+//				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
+//						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
+//					newY = l7 * GameMap.BLOCK_SIZE + d5;
 //				} else
-//					if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
-//						yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
-//					newY = (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimHeight;
+//					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
+//						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
+//					newY = (l11) * GameMap.BLOCK_SIZE + d8;
 //				}
 //			}
+//			
+////			if (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition) instanceof EmptyBlock &&
+////					xPlayerPosition - dividedAnimWidth < (xTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+////				
+////				if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
+////						yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+////					newY = yTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimHeight;
+////				} else
+////					if (! (blocks.getBlock(xTilePlayerPosition - 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
+////						yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
+////					newY = (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimHeight;
+////				}
+////			}
+//			l1 = xTilePlayerPosition + 1;
+//			l2 = yTilePlayerPosition;
+//			l3 = xTilePlayerPosition + 1;
+//			l4 = xTilePlayerPosition + 1;
+//			l5 = yTilePlayerPosition - 1;
+//			l6 = yTilePlayerPosition;
+//			l7 = yTilePlayerPosition;
+//			l8 = xTilePlayerPosition + 1;
+//			l9 = yTilePlayerPosition + 1;
+//			l10 = yTilePlayerPosition + 1;
+//			l11 = yTilePlayerPosition + 1;
+//			d1 = xPlayerPosition;
+//			d2 = dividedAnimWidth;
+//			d3 = yPlayerPosition;
+//			d4 = - dividedAnimHeight;
+//			d5 = dividedAnimHeight;
+//			d6 = yPlayerPosition;
+//			d7 = dividedAnimHeight;
+//			d8 = - dividedAnimHeight;
+//			
+//			if (blocks.getBlock(l1, l2) instanceof EmptyBlock &&
+//					d1 + d2 > (l3) * GameMap.BLOCK_SIZE) {
+//				
+//				if (! (blocks.getBlock(l4, l5) instanceof EmptyBlock) &&
+//						d3 + d4 < (l6) * GameMap.BLOCK_SIZE) {
+//					newY = l7 * GameMap.BLOCK_SIZE + d5;
+//				} else
+//					if (! (blocks.getBlock(l8, l9) instanceof EmptyBlock) &&
+//						d6 + d7 > (l10) * GameMap.BLOCK_SIZE) {
+//					newY = (l11) * GameMap.BLOCK_SIZE + d8;
+//				}
+//			}
+//			
+////			if (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition) instanceof EmptyBlock &&
+////					xPlayerPosition + dividedAnimWidth > (xTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
+////				
+////				if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition - 1) instanceof EmptyBlock) &&
+////						yPlayerPosition - dividedAnimHeight < (yTilePlayerPosition) * GameMap.BLOCK_SIZE) {
+////					newY = yTilePlayerPosition * GameMap.BLOCK_SIZE + dividedAnimHeight;
+////				} else
+////					if (! (blocks.getBlock(xTilePlayerPosition + 1, yTilePlayerPosition + 1) instanceof EmptyBlock) &&
+////						yPlayerPosition + dividedAnimHeight > (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE) {
+////					newY = (yTilePlayerPosition + 1) * GameMap.BLOCK_SIZE - dividedAnimHeight;
+////				}
+////			}
 			
 			float minX = Math.abs(xPlayerPosition - newX);
 			float minY = Math.abs(yPlayerPosition - newY);
