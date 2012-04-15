@@ -33,15 +33,6 @@ public class Bomb extends Entity {
 		this.timer = timer;
 		this.area = area;
 	}
-	
-	/**
-	 * Sets bomb timer to 0, which means that it should
-	 * explode as fast as can calculate it
-	 */
-	public void setDead() {
-		super.setDead();
-		this.timer = 0;
-	}
 
 	public long getPlantTime() {
 		return plantTime;
@@ -71,5 +62,13 @@ public class Bomb extends Entity {
 		this.setYVelocity(-this.getYVelocity());
 	}
 
+	/**
+	 * Sets bomb timer to 0, which means that it should
+	 * explode as fast as can calculate it
+	 */
+	public void setDead() {
+		super.setDead();
+		this.timer = 0;
+	}
 
 }
