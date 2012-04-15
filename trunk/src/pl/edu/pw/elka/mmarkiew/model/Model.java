@@ -87,8 +87,12 @@ public class Model implements Runnable {
 	            /*
 	             * If there is no pause, game is started
 	             * and player is alive, update game
+	             * 
+	             * elapsedTime it refers to my processor delays
+	             * too big elapsedTime = no collision detected ->
+	             * everyone is like a ghost
 	             */
-	            if (!paused && isStarted() && getPlayer().isAlive()) {
+	            if (!paused && isStarted() && getPlayer().isAlive() && elapsedTime < 200) {
 	            	update(elapsedTime);
 	            	gamePlayTime += elapsedTime;
 	            }
