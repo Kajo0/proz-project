@@ -38,7 +38,8 @@ public class Bomb extends Entity {
 	 * Sets bomb timer to 0, which means that it should
 	 * explode as fast as can calculate it
 	 */
-	public void explode() {
+	public void setDead() {
+		super.setDead();
 		this.timer = 0;
 	}
 

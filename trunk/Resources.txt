@@ -5,8 +5,8 @@ Background music: (Open source)
 	http://100p100musique.free.fr
 
 Images:
-	Nuclear explosion on logo:
+	Nuclear explosion on logo: (Open source)
 		http://openclipart.org
 
-	Rest of images:
-		homemade
+	Rest of images: (Free)
+		homemade using Gimp

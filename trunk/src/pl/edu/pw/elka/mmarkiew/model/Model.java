@@ -267,10 +267,9 @@ public class Model implements Runnable {
 		 * Set next map
 		 * If there is no next map (level > maxLevel) set win :D
 		 */
-		//TODO zmienic przejscie pomiedzy mapami
 		try {
 			SoundManager.playSound(SoundManager.EXIT);
-			Thread.currentThread().sleep(100);
+			Thread.currentThread().sleep(50);
 			
 			map = resource.loadNextMap();
 			collisionDetector.setMap(map);
