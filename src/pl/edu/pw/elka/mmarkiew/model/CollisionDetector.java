@@ -239,7 +239,6 @@ public class CollisionDetector {
 		 * bounce it away -> set it player speed
 		 */
 		
-		//TODO usprawnic to
 		if (player.getYVelocity() < 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();
 			player.setY(yEntityPosition + dividedEntityHeight + dividedPlayerHeight);
@@ -248,6 +247,7 @@ public class CollisionDetector {
 				if (entity.getYVelocity() == 0)
 					entity.setYVelocity(player.getMaxVelocity());
 		}
+		
 		if (player.getYVelocity() > 0 && (horizontalCollision || oneDirection)) {
 			player.collisionY();
 			player.setY(yEntityPosition - dividedEntityHeight - dividedPlayerHeight);
@@ -256,6 +256,7 @@ public class CollisionDetector {
 				if (entity.getYVelocity() == 0)
 					entity.setYVelocity(-player.getMaxVelocity());
 		}
+		
 		if (player.getXVelocity() < 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
 			player.setX(xEntityPosition + dividedPlayerWidth + dividedEntityWidth);
@@ -264,6 +265,7 @@ public class CollisionDetector {
 				if (entity.getXVelocity() == 0)
 					entity.setXVelocity(player.getMaxVelocity());
 		}
+		
 		if (player.getXVelocity() > 0 && (!horizontalCollision || oneDirection)) {
 			player.collisionX();
 			player.setX(xEntityPosition - dividedEntityWidth - dividedPlayerWidth);
@@ -272,7 +274,6 @@ public class CollisionDetector {
 				if (entity.getXVelocity() == 0)
 					entity.setXVelocity(-player.getMaxVelocity());
 		}
-		
 	}
 
 	/**
@@ -299,7 +300,7 @@ public class CollisionDetector {
 	 * @param enemies - List of enemies
 	 */
 	private void checkEnemiesCollision(final LinkedList<Entity> enemies) {
-		//TODO usprawnic kolizje
+
 		Entity[] entities = enemies.toArray(new Entity[enemies.size()]);
 
 		for (int i = 0; i < entities.length - 1; ++i)
@@ -307,25 +308,24 @@ public class CollisionDetector {
 				/* If though one is dead continue */
 				if (!entities[i].isAlive() || !entities[j].isAlive())
 					continue;
-				/* Collision between bombs and explosions do nothing */
-//				else if (entities[i] instanceof Bomb && entities[j] instanceof ExplosionEntity ||
-//							entities[j] instanceof Bomb && entities[i] instanceof ExplosionEntity)
-//					continue;
+
 				else  if (isEntitiesCollision(entities[i], entities[j])) {
 					
-					/* Explode bomb by bomb explosion */
-					if (entities[i] instanceof Bomb && entities[j] instanceof ExplosionEntity)
-						((Bomb) entities[i]).explode();
-					else if (entities[j] instanceof Bomb && entities[i] instanceof ExplosionEntity)
-						((Bomb) entities[j]).explode();
-					
-					/* Explosions kill enemies */
-					if (entities[i] instanceof Enemy && entities[j] instanceof ExplosionEntity) {
-						entities[i].setDead();
+					/* Explosions kill enemies or
+					 * Explode bomb by bomb explosion or
+					 */
+					if ( entities[i] instanceof ExplosionEntity &&
+							(entities[j] instanceof Enemy ||
+							entities[j] instanceof Bomb) ) {
+						
+						entities[j].setDead();
 						continue;
 					}
-					if (entities[j] instanceof Enemy && entities[j] instanceof ExplosionEntity) {
-						entities[j].setDead();
+					if ( entities[j] instanceof ExplosionEntity &&
+							(entities[i] instanceof Enemy ||
+							entities[i] instanceof Bomb) ) {
+						
+						entities[i].setDead();
 						continue;
 					}
 					
