@@ -337,7 +337,8 @@ public class Model implements Runnable {
 	 * (Un)set game paused
 	 */
 	public synchronized void switchPause() {
-		this.paused = !this.paused;
+		if (isStarted())
+			this.paused = !this.paused;
 	}
 
 	/**
