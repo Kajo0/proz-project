@@ -12,6 +12,7 @@ public class SoundManager implements Runnable {
 	
 	private static boolean backgroundOn;
 	private static boolean soundEffectOn;
+	private static boolean soundsOn;
 
 	public static final int EXPLOSION	= 0;
 	public static final int EXIT		= 1;
@@ -29,10 +30,12 @@ public class SoundManager implements Runnable {
 
 			soundEffectOn = true;
 			backgroundOn = true;
+			soundsOn = true;
 
 		} catch (Exception e) {
 			backgroundOn = false;
 			soundEffectOn = false;
+			soundsOn = false;
 		}
 	}
 	
@@ -48,7 +51,7 @@ public class SoundManager implements Runnable {
 		/*
 		 * If sounds off, do nothing
 		 */
-		if (!soundEffectOn)
+		if (!soundEffectOn || !soundsOn)
 			return;
 		
 		/*
@@ -107,10 +110,10 @@ public class SoundManager implements Runnable {
 		 * If was playing, stop
 		 * otherwise loop it
 		 */
-		if (!backgroundOn)
+		if (!backgroundOn && soundsOn)
 			backgroundMusic.stop();
 		
-		else if (backgroundOn)
+		else if (backgroundOn && soundsOn)
 			backgroundMusic.loop();
 	}
 	
