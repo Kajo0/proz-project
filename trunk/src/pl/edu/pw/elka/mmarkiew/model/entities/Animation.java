@@ -1,6 +1,5 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 /**
@@ -58,9 +57,9 @@ public class Animation {
 	 * @param image - Frame image
 	 * @param duration - Display time
 	 */
-	public synchronized void addFrame(Image image, long duration) {
+	public synchronized void addFrame(int animFrame, long duration) {
 		this.duration += duration;
-		this.frames.add(new AnimFrame(image, this.duration));
+		this.frames.add(new AnimFrame(animFrame, this.duration));
 	}
 
 	/**
@@ -84,13 +83,21 @@ public class Animation {
 	
 	/**
 	 * 
-	 * @return image if exists, null otherwise
+	 * @return Frame number if exists (can be 0), 0 otherwise
 	 */
-	public synchronized Image getImage() {
+	public synchronized int getAnimFrame() {
 		if (frames.size() == 0) {
-			return null;
+			return 0;
 		}
-		else return getFrame(currentImage).image;
+		else return getFrame(currentImage).animFrame;
+	}
+	
+	/**
+	 * 
+	 * @return Count frames
+	 */
+	public int getFrameCount() {
+		return frames.size();
 	}
 
 	/**
@@ -108,11 +115,11 @@ public class Animation {
 	 *
 	 */
 	private class AnimFrame {
-		Image image;
+		int animFrame;
 		long endTime;
 		
-		public AnimFrame(Image image, long endTime) {
-			this.image = image;
+		public AnimFrame(int animFrame, long endTime) {
+			this.animFrame = animFrame;
 			this.endTime = endTime;
 		}
 	}

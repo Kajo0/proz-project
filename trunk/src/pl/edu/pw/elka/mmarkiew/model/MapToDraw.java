@@ -1,8 +1,20 @@
 package pl.edu.pw.elka.mmarkiew.model;
 
-import java.awt.Image;
 import java.util.LinkedList;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
+import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
+import pl.edu.pw.elka.mmarkiew.model.entities.Player;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.BouncingBomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.Exit;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseBombAmountBonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseBombAreaBonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.IncreaseLifeNumberBonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.bonus.SpeedBonus;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.BaloonEnemy;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Bomb;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.DestroyingBrick;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.ExplosionEntity;
+import pl.edu.pw.elka.mmarkiew.model.entities.enemies.HeliumEnemy;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
@@ -14,6 +26,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
  *
  */
 public class MapToDraw {
+	public final static int blockSize = GameMap.BLOCK_SIZE;
 	private int widthBlocks;
 	private int heightBlocks;
 	private boolean paused;
@@ -62,7 +75,7 @@ public class MapToDraw {
 		this(null, null, null, 0, 0, false, started, win, over);
 	}
 
-	public Image getBlockImage(int x, int y) {
+	public GameBlock getBlock(int x, int y) {
 		return blocks.getBlock(x, y);
 	}
 
@@ -80,7 +93,7 @@ public class MapToDraw {
 	 * Returns block which is hiding bonuses
 	 * @return image of block hiding bonuses
 	 */
-	public Image getHiderBlock() {
+	public GameBlock getHiderBlock() {
 		return blocks.getHiderBlock();
 	}
 	
@@ -122,9 +135,9 @@ public class MapToDraw {
 	 *
 	 */
 	private final class BlockInformation {
-		Image[][] blocks;
+		GameBlock[][] blocks;
 		boolean[][] isEmpty;
-		Image hiderBlock;
+		GameBlock hiderBlock;
 		
 		/**
 		 * Creates helper class
@@ -133,9 +146,9 @@ public class MapToDraw {
 		 * @param height - height in block tiles
 		 */
 		BlockInformation(final BlockHolder blocks, int width, int height) {
-			this.blocks = new Image[width][height];
+			this.blocks = new GameBlock[width][height];
 			this.isEmpty = new boolean[width][height];
-			this.hiderBlock = GameBlock.BRICK.getImage();
+			this.hiderBlock = GameBlock.BRICK;
 			
 			if (blocks != null)
 				fillBlocks(blocks);
@@ -150,7 +163,7 @@ public class MapToDraw {
 			for (int i = 0; i < MapToDraw.this.widthBlocks; ++i)
 				for (int j = 0; j < MapToDraw.this.heightBlocks; ++j) {
 					
-					this.blocks[i][j] = blocks.getBlock(i, j).getImage();
+					this.blocks[i][j] = blocks.getBlock(i, j).getBlock();
 					
 					if (blocks.getBlock(i, j) instanceof EmptyBlock)
 						this.isEmpty[i][j] = true;
@@ -164,7 +177,7 @@ public class MapToDraw {
 		 * @param y - Position
 		 * @return Image of block, null if out of bounds
 		 */
-		public Image getBlock(int x, int y) {
+		public GameBlock getBlock(int x, int y) {
 			if (x < 0 || x > MapToDraw.this.widthBlocks - 1 ||
 					y < 0 || y > MapToDraw.this.heightBlocks - 1)
 				return null;
@@ -175,7 +188,7 @@ public class MapToDraw {
 			return isEmpty[x][y];
 		}
 		
-		public Image getHiderBlock() {
+		public GameBlock getHiderBlock() {
 			return hiderBlock;
 		}
 	}
@@ -204,8 +217,25 @@ public class MapToDraw {
 		 * @param entities - List of entities
 		 */
 		private void fillEntities(final LinkedList<Entity> entities) {
-			for (Entity e : entities)
-				this.entities.add(new SimpleEntity(e.getAnim(), e.getX(), e.getY()));
+			GameEntities entity;
+			
+			for (Entity e : entities) {
+				if (e instanceof Player)						entity = GameEntities.PLAYER;
+				else if (e instanceof Bomb)						entity = GameEntities.BOMB;
+				else if (e instanceof ExplosionEntity)			entity = GameEntities.EXPLOSION;
+				else if (e instanceof DestroyingBrick)			entity = GameEntities.DESTROYING_BRICK;
+				else if (e instanceof BaloonEnemy)				entity = GameEntities.BALOON;
+				else if (e instanceof HeliumEnemy)				entity = GameEntities.HELIUM;
+				else if (e instanceof Exit)						entity = GameEntities.EXIT;
+				else if (e instanceof SpeedBonus)				entity = GameEntities.SPEED;
+				else if (e instanceof IncreaseBombAreaBonus)	entity = GameEntities.AREA_INC;
+				else if (e instanceof IncreaseBombAmountBonus)	entity = GameEntities.BOMB_INC;
+				else if (e instanceof IncreaseLifeNumberBonus)	entity = GameEntities.LIFE_INC;
+				else if (e instanceof BouncingBomb)				entity = GameEntities.BOUNCING_BOMB;
+				else entity = GameEntities.UNDEFINED;
+				
+				this.entities.add(new SimpleEntity(entity, e.getAnimFrame(), e.getX(), e.getY()));
+			}
 		}
 		
 		public LinkedList<SimpleEntity> getEntities() {
@@ -220,7 +250,8 @@ public class MapToDraw {
 	 *
 	 */
 	public class SimpleEntity {
-		private Image image;
+		private GameEntities entity;
+		private int animFrame;
 		private float x;
 		private float y;
 		
@@ -230,14 +261,19 @@ public class MapToDraw {
 		 * @param x - Position
 		 * @param y - Position
 		 */
-		public SimpleEntity(final Image image, float x, float y) {
-			this.image = image;
+		public SimpleEntity(GameEntities entity, int animFrame, float x, float y) {
+			this.entity = entity;
+			this.animFrame = animFrame;
 			this.x = x;
 			this.y = y;
 		}
 		
-		public Image getImage() {
-			return image;
+		public GameEntities getEntity() {
+			return entity;
+		}
+		
+		public int getAnimFrame() {
+			return animFrame;
 		}
 		
 		public float getX() {

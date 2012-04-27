@@ -1,6 +1,6 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Image;
+import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 /**
  * Abstract class represents entity
@@ -27,10 +27,14 @@ public abstract class Entity {
 	 * Creates entity with its animations in game
 	 * @param anim - Animation when is alive
 	 * @param dyingAnim - Animation when is dead
+	 * @param width - Object width
+	 * @param height - Object height
 	 */
-	public Entity(final Animation anim, final Animation dyingAnim) {
+	public Entity(final Animation anim, final Animation dyingAnim, int width, int height) {
 		this.anim = anim;
 		this.dyingAnim = dyingAnim;
+		this.width = Math.min(width, GameMap.BLOCK_SIZE);
+		this.height = Math.min(height, GameMap.BLOCK_SIZE);
 		this.x = 0;
 		this.y = 0;
 		this.xVelocity = 0;
@@ -39,14 +43,6 @@ public abstract class Entity {
 		this.alive = true;
 		this.dieTime = -1;
 		this.dyingTime = 2000;
-
-		try {
-			this.width = anim.getImage().getWidth(null);
-			this.height = anim.getImage().getHeight(null);
-		} catch (NullPointerException e) {
-			this.width = 0;
-			this.height = 0;
-		}
 	}
 	
 	/**
@@ -76,13 +72,18 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Return actual animation image
-	 * @return Actual image
+	 * Return actual animation animFrame
+	 * @return Actual animFrame, if dead -animFrame
 	 */
-	public Image getAnim() {
+	public int getAnimFrame() {
 		if (isAlive())
-			return this.anim.getImage();
-		else return this.dyingAnim.getImage();
+			return this.anim.getAnimFrame();
+		else {
+			if (this.anim == this.dyingAnim)
+				return this.dyingAnim.getAnimFrame();
+			else
+				return -(this.dyingAnim.getFrameCount() - this.dyingAnim.getAnimFrame());
+		}
 	}
 
 	public void setAnim(Animation anim) {

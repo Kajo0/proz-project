@@ -20,8 +20,8 @@ public abstract class Bonus extends Entity {
 	 * @param x - Position
 	 * @param y - Position
 	 */
-	public Bonus(final Animation anim, final Animation dyingAnim, float x, float y) {
-		super(anim, dyingAnim);
+	public Bonus(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y) {
+		super(anim, dyingAnim, width, height);
 		this.setX(x);
 		this.setY(y);
 		this.setDyingTime(0);

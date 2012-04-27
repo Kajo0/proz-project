@@ -24,8 +24,8 @@ public class Player extends Entity {
 	/** If player is immortal */
 	private boolean immoritality;
 	
-	public Player(final Animation anim, final Animation dyingAnim) {
-		super(anim, dyingAnim);
+	public Player(final Animation anim, final Animation dyingAnim, int width, int height) {
+		super(anim, dyingAnim, width, height);
 		this.setMaxVelocity(0.15f);
 		this.setLifes(3);
 		this.possibleBombs = 1;
