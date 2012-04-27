@@ -93,7 +93,7 @@ public class Model implements Runnable {
 		             * too big elapsedTime = no collision detected ->
 		             * everyone is like a ghost
 		             */
-		            if (!paused && isStarted() && getPlayer().isAlive() && elapsedTime < 200) {
+		            if (!paused && isStarted() && getPlayer().isAlive() && elapsedTime < 50) {
 		            	update(elapsedTime);
 		            	gamePlayTime += elapsedTime;
 		            }
@@ -115,8 +115,8 @@ public class Model implements Runnable {
 	             * Little delay
 	             */
 	            try {
-					wait(10);
 					notify();
+					wait(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
