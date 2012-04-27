@@ -10,8 +10,8 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
  */
 public class IncreaseBombAmountBonus extends Bonus {
 
-	public IncreaseBombAmountBonus(final Animation anim, final Animation dyingAnim, float x, float y) {
-		super(anim, dyingAnim, x, y);
+	public IncreaseBombAmountBonus(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y) {
+		super(anim, dyingAnim, width, height, x, y);
 	}
 	
 	public void bonusideEntity(final Player player) {

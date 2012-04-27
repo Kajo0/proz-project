@@ -1,11 +1,8 @@
 package pl.edu.pw.elka.mmarkiew.model.entities;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
-import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 /**
  * Enum defines posibble entities in game<br>
@@ -32,6 +29,8 @@ public enum GameEntities {
 	private final Animation anim;
 	private final Animation dyingAnim;
 	private final long animInterval;
+	private int width;
+	private int height;
 	private static Random rand = new Random();
 	
 	/**
@@ -44,6 +43,9 @@ public enum GameEntities {
 	private GameEntities(final String character, final String anim, final String dyingAnim, long animStep) {
 		this.character = character;
 		this.animInterval = (animStep == 0) ? 251 : ++animStep;
+		
+		this.width = 1;
+		this.height = 1;
 		
 		/*
 		 * If there is no dead animation,
@@ -65,6 +67,14 @@ public enum GameEntities {
 
 	public Animation getDyingAnim() {
 		return this.dyingAnim;
+	}
+	
+	public int getWidth() {
+		return this.width;
+	}
+
+	public int getHeight() {
+		return this.height;
 	}
 	
 	public String toString() {
@@ -101,25 +111,18 @@ public enum GameEntities {
 		
 		anim = "/" + anim;
 		if (getClass().getResource(anim + "0.png") != null) {
-			a.addFrame(new ImageIcon(getClass().getResource(anim + "0.png")).getImage(), animInterval);
+			a.addFrame(0, animInterval);
+
+			this.width = new ImageIcon(getClass().getResource(anim + "0.png")).getImage().getWidth(null);
+			this.height = new ImageIcon(getClass().getResource(anim + "0.png")).getImage().getHeight(null);
 
 			int i = 1;
 			while (getClass().getResource(anim + i + ".png") != null) {
-				a.addFrame(new ImageIcon(getClass().getResource(anim + i + ".png")).getImage(), animInterval);
+				a.addFrame(i, animInterval);
 				++i;
 			}
-		} else {
-			/*
-			 * Create blank square image
-			 */
-			BufferedImage bufImg = new BufferedImage(GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE,
-																				BufferedImage.TYPE_INT_ARGB);
-			Graphics g = bufImg.getGraphics();
-			g.fillRect(10, 10, 20, 20);
-			g.dispose();
-			
-			a.addFrame(bufImg, 50);
-		}
+		} else
+			a.addFrame(0, 0);
 		
 		return a;
 	}

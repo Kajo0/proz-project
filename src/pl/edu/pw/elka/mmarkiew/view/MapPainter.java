@@ -3,7 +3,6 @@ package pl.edu.pw.elka.mmarkiew.view;
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
-import pl.edu.pw.elka.mmarkiew.model.GameMap;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw.SimpleEntity;
 
@@ -32,7 +31,7 @@ public class MapPainter {
 	public MapPainter(Canvas gamePanel, MapToDraw map) {
 		this.panel = gamePanel;
 		this.map = map;
-		this.blockSize = GameMap.BLOCK_SIZE;
+		this.blockSize = MapToDraw.blockSize;
 		this.dx = 0;
 		this.dy = 0;
 	}
@@ -152,7 +151,7 @@ public class MapPainter {
 	private void paintMap(Graphics g) {
 		for (int j = 0; j < map.getHeightBlocks(); ++j) {
 			for (int i = 0; i < map.getWidthBlocks(); ++i) {
-				g.drawImage(map.getBlockImage(i, j), i * blockSize + dx, j * blockSize + dy, panel);
+				g.drawImage(BlocksResource.getBlockImage(map.getBlock(i, j)), i * blockSize + dx, j * blockSize + dy, panel);
 			}
 		}
 	}
@@ -162,9 +161,14 @@ public class MapPainter {
 	 * @param g - Canv graphics to draw on it
 	 */
 	private void paintEntities(Graphics g) {
-		for (SimpleEntity e : map.getEntities())
-				g.drawImage(e.getImage(), ((int) e.getX()) - e.getImage().getWidth(panel) / 2 + dx,
-											((int) e.getY()) - e.getImage().getHeight(panel) / 2 + dy, panel);
+		Image img = null;
+		
+		for (SimpleEntity e : map.getEntities()) {
+			img = EntitiesResource.getEntityImage(e.getEntity(), e.getAnimFrame());
+			
+			g.drawImage(img, ((int) e.getX()) - img.getWidth(panel) / 2 + dx,
+								((int) e.getY()) - img.getHeight(panel) / 2 + dy, panel);
+		}
 	}
 
 	/**
@@ -173,15 +177,22 @@ public class MapPainter {
 	 * @param g - Canv graphics to draw on it
 	 */
 	private void paintBonuses(Graphics g) {
+		
+		Image img = null;
+		
 		for (SimpleEntity b : map.getBonuses()) {
-			g.drawImage(b.getImage(), ((int) b.getX()) - b.getImage().getWidth(null) / 2 + dx,
-										((int) b.getY()) - b.getImage().getHeight(null) / 2 + dy, panel);
+			img = EntitiesResource.getEntityImage(b.getEntity(), b.getAnimFrame());
 			
-			if (!map.isEmptyBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize)))
-				g.drawImage(map.getHiderBlock(),
-								(int) b.getX() - map.getHiderBlock().getWidth(panel) / 2 + dx,
-								(int) b.getY() - map.getHiderBlock().getHeight(panel) / 2 + dy,
-								panel);
+			g.drawImage(img, ((int) b.getX()) - img.getWidth(panel) / 2 + dx,
+								((int) b.getY()) - img.getHeight(panel) / 2 + dy, panel);
+			
+			
+			if (!map.isEmptyBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize))) {
+				img = BlocksResource.getBlockImage(map.getHiderBlock());
+			
+				g.drawImage(img, (int) b.getX() - img.getWidth(panel) / 2 + dx,
+									(int) b.getY() - img.getHeight(panel) / 2 + dy, panel);
+			}
 		}
 	}
 	

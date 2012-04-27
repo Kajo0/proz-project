@@ -10,8 +10,8 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
  *
  */
 public class Exit extends Bonus {
-	public Exit(final Animation anim, final Animation dyingAnim, float x, float y) {
-		super(anim, dyingAnim, x, y);
+	public Exit(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y) {
+		super(anim, dyingAnim, width, height, x, y);
 		this.setAlive(false);
 	}
 	

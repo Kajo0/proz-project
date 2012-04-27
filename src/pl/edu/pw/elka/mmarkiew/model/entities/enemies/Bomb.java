@@ -19,14 +19,16 @@ public class Bomb extends Entity {
 	/**
 	 * Creates Bomb with given Animation on position
 	 * @param anim - Bomb Animation
+	 * @param width - Object width
+	 * @param height - Object height
 	 * @param x - Position
 	 * @param y - Position
 	 * @param plantTime - Time when bomb was planted
 	 * @param timer - Time after which bomb explodes
 	 * @param area - Area which is reachable during explosion
 	 */
-	public Bomb(final Animation anim, float x, float y, long plantTime, long timer, int area) {
-		super(anim, anim);
+	public Bomb(final Animation anim, int width, int height, float x, float y, long plantTime, long timer, int area) {
+		super(anim, anim, width, height);
 		this.setX(GameMap.getTileCenterFromPosition(x));
 		this.setY(GameMap.getTileCenterFromPosition(y));
 		this.plantTime = plantTime;

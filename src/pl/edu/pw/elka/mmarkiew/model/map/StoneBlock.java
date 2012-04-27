@@ -1,7 +1,5 @@
 package pl.edu.pw.elka.mmarkiew.model.map;
 
-import java.awt.Image;
-
 /**
  * Class represents block which can't be destroyed<br>
  * and with which there are collisions
@@ -12,9 +10,9 @@ public class StoneBlock extends BlockElement {
 	
 	/**
 	 * Creates stone block, which can't be destroyed
-	 * @param image - Block image
+	 * @param image - Block enum
 	 */
-	public StoneBlock(final Image image) {
-		super(image);
+	public StoneBlock(final GameBlock block) {
+		super(block);
 	}
 }

@@ -20,11 +20,11 @@ public class ExplosionEntity extends Entity implements Explosion {
 	 * @param y - Position
 	 */
 	public ExplosionEntity(final Animation anim, int x, int y) {
-		super(anim, anim);
+		super(anim, anim, GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE);
 		this.setX(GameMap.getPositionCenterFromTile(x));
 		this.setY(GameMap.getPositionCenterFromTile(y));
-		this.setWidth(GameMap.BLOCK_SIZE);
-		this.setHeight(GameMap.BLOCK_SIZE);
+//		this.setWidth(GameMap.BLOCK_SIZE);
+//		this.setHeight(GameMap.BLOCK_SIZE);
 		this.setDyingTime(500);
 		setDead();
 	}

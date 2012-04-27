@@ -49,18 +49,23 @@ public abstract class EntityFactory {
 	 */
 	public static Entity createEntity(final GameEntities entity, float x, float y) {
 	
+		Animation anim = entity.getAnim().clone();
+		Animation dyingAnim = entity.getDyingAnim().clone();
+		int width = entity.getWidth();
+		int height = entity.getHeight();
+		
 		switch (entity) {
-			case PLAYER:	return new Player(entity.getAnim().clone(), entity.getDyingAnim());
-			case BALOON:	return new BaloonEnemy(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
-			case HELIUM:	return new HeliumEnemy(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
-			case EXIT:		return new Exit(entity.getAnim().clone(), entity.getDyingAnim(), x, y);
-			case SPEED:		return new SpeedBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
-			case AREA_INC:	return new IncreaseBombAreaBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
-			case BOMB_INC:	return new IncreaseBombAmountBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
-			case LIFE_INC:	return new IncreaseLifeNumberBonus(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
-			case BOUNCING_BOMB:	return new BouncingBomb(entity.getAnim().clone(), entity.getAnim().clone(), x, y);
-			case EXPLOSION:	return new ExplosionEntity(entity.getAnim().clone(), (int) x, (int) y);
-			case DESTROYING_BRICK:	return new DestroyingBrick(entity.getAnim().clone(), (int) x, (int) y);
+			case PLAYER:	return new Player(					anim, dyingAnim, width, height);
+			case BALOON:	return new BaloonEnemy(				anim, dyingAnim, width, height, x, y);
+			case HELIUM:	return new HeliumEnemy(				anim, dyingAnim, width, height, x, y);
+			case EXIT:		return new Exit(					anim, dyingAnim, width, height, x, y);
+			case SPEED:		return new SpeedBonus(				anim, dyingAnim, width, height, x, y);
+			case AREA_INC:	return new IncreaseBombAreaBonus(	anim, dyingAnim, width, height, x, y);
+			case BOMB_INC:	return new IncreaseBombAmountBonus(	anim, dyingAnim, width, height, x, y);
+			case LIFE_INC:	return new IncreaseLifeNumberBonus(	anim, dyingAnim, width, height, x, y);
+			case BOUNCING_BOMB:	return new BouncingBomb(		anim, dyingAnim, width, height, x, y);
+			case EXPLOSION:	return new ExplosionEntity(			anim, (int) x, (int) y);
+			case DESTROYING_BRICK:	return new DestroyingBrick(	anim, (int) x, (int) y);
 			case UNDEFINED: return null;
 			default:	return null;
 		}
@@ -76,6 +81,8 @@ public abstract class EntityFactory {
 	 * @return Appropriate Bomb object
 	 */
 	public static Bomb createBombEntity(float x, float y, long plantTime, long timer, int area) {
-		return new Bomb(GameEntities.BOMB.getAnim().clone(), x, y, plantTime, timer, area);
+		return new Bomb(GameEntities.BOMB.getAnim().clone(),
+							GameEntities.BOMB.getWidth(), GameEntities.BOMB.getHeight(),
+								x, y, plantTime, timer, area);
 	}
 }
