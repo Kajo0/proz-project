@@ -5,18 +5,21 @@ package pl.edu.pw.elka.mmarkiew.controller.queueevents;
  * @author Acer
  *
  */
-public class ViewKeyPress implements ViewEvent {
-	private int keyCode;
+public class ViewKeyPress extends QueueEvent {
+	public static enum Keys{UP, DOWN, LEFT, RIGHT, TIMER_1, TIMER_2, TIMER_3, PLANT,
+							PAUSE, NEW_GAME, BACKGROUND_MUSIC, SOUND_EFFECTS, EXIT, UNDEFINED};
+							
+	private Keys key;
 	/** Pressed or released */
 	private boolean press;
 	
-	public ViewKeyPress(int keyCode, boolean press) {
-		this.keyCode = keyCode;
+	public ViewKeyPress(Keys key, boolean press) {
+		this.key = key;
 		this.press = press;
 	}
 
-	public int getKeyCode() {
-		return keyCode;
+	public Keys getKey() {
+		return key;
 	}
 	
 	public boolean isPress() {

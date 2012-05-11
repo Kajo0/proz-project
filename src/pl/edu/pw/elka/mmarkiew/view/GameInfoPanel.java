@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress.Keys;
+
 /**
  * Game panel with informations about game
  * @author Acer
@@ -72,20 +74,21 @@ public class GameInfoPanel extends JPanel {
 		newGameButton.setBounds(25, 500, 150, 50);
 		newGameButton.setText("New Game");
 		newGameButton.setFocusable(false);
-		newGameButton.setActionCommand("NEW_GAME");
+		newGameButton.setActionCommand(Keys.NEW_GAME.toString());
 		
-		newGameButton.addActionListener(new ClickingListener());
+		ClickingListener actionListener = new ClickingListener();
+		newGameButton.addActionListener(actionListener);
 		
 		/* Sound buttons */
 		backgroundMusicToogleButton.setBounds(50, 440, 40, 40);
 		backgroundMusicToogleButton.setFocusable(false);
-		backgroundMusicToogleButton.setActionCommand("SWITCH_BACKGROUND_MUSIC");
+		backgroundMusicToogleButton.setActionCommand(Keys.BACKGROUND_MUSIC.toString());
 		soundEffectsToogleButton.setBounds(110, 440, 40, 40);
 		soundEffectsToogleButton.setFocusable(false);
-		soundEffectsToogleButton.setActionCommand("SWITCH_SOUND_EFFECTS");
+		soundEffectsToogleButton.setActionCommand(Keys.SOUND_EFFECTS.toString());
 
-		backgroundMusicToogleButton.addActionListener(new ClickingListener());
-		soundEffectsToogleButton.addActionListener(new ClickingListener());
+		backgroundMusicToogleButton.addActionListener(actionListener);
+		soundEffectsToogleButton.addActionListener(actionListener);
 		
 		/* Adding */
 		add(timerLabel);

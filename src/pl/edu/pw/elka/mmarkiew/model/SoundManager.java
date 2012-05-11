@@ -3,7 +3,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 import java.applet.Applet;
 import java.applet.AudioClip;
 
-public class SoundManager implements Runnable {
+public class SoundManager {// implements Runnable {
 	private static AudioClip backgroundMusic;
 	private static AudioClip explosionSound;
 	private static AudioClip exitSound;
@@ -31,7 +31,7 @@ public class SoundManager implements Runnable {
 			soundEffectOn = true;
 			backgroundOn = true;
 			soundsOn = true;
-
+			
 		} catch (Exception e) {
 			backgroundOn = false;
 			soundEffectOn = false;
@@ -47,7 +47,7 @@ public class SoundManager implements Runnable {
 	 * BONUS = 2<br>
 	 * KILL = 3
 	 */
-	public static void playSound(int sound) {
+	public void playSound(int sound) {
 		/*
 		 * If sounds off, do nothing
 		 */
@@ -70,7 +70,7 @@ public class SoundManager implements Runnable {
 	/**
 	 * Plays bomb explosion sound
 	 */
-	private static void playExplosion() {
+	private void playExplosion() {
 		explosionSound.stop();
 		explosionSound.play();
 	}
@@ -78,7 +78,7 @@ public class SoundManager implements Runnable {
 	/**
 	 * Plays level up sound
 	 */
-	private static void playExit() {
+	private void playExit() {
 		exitSound.stop();
 		exitSound.play();
 	}
@@ -86,7 +86,7 @@ public class SoundManager implements Runnable {
 	/**
 	 * Plays bonus catch sound
 	 */
-	private static void playBonus() {
+	private void playBonus() {
 		bonusSound.stop();
 		bonusSound.play();
 	}
@@ -94,7 +94,7 @@ public class SoundManager implements Runnable {
 	/**
 	 * Plays kill sound
 	 */
-	private static void playKill() {
+	private void playKill() {
 		killSound.stop();
 		killSound.play();
 	}
@@ -102,7 +102,7 @@ public class SoundManager implements Runnable {
 	/**
 	 * Switch background loop music on / off
 	 */
-	public static void switchBackgroundMusicEnable() {
+	public void switchBackgroundMusicEnable() {
 		
 		backgroundOn = backgroundOn ? false : true;
 		
@@ -120,24 +120,24 @@ public class SoundManager implements Runnable {
 	/**
 	 * Switch sound effects on / off
 	 */
-	public static void switchSoundEffectsEnable() {
+	public void switchSoundEffectsEnable() {
 		soundEffectOn = soundEffectOn ? false : true;
 	}
 
-	@Override
-	public void run() {
-		try {
-			backgroundMusic.loop();
-		} catch (Exception e) {
-			backgroundOn = false;
-		}
-	}
+//	@Override
+//	public void run() {
+//		try {
+//			backgroundMusic.loop();
+//		} catch (Exception e) {
+//			backgroundOn = false;
+//		}
+//	}
 	
-	public static boolean isBackgroundOn() {
+	public boolean isBackgroundOn() {
 		return backgroundOn;
 	}
 	
-	public static boolean isSoundEffectOn() {
+	public boolean isSoundEffectOn() {
 		return soundEffectOn;
 	}
 }

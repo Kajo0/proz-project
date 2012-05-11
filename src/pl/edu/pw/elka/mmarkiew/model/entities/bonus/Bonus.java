@@ -1,6 +1,5 @@
 package pl.edu.pw.elka.mmarkiew.model.entities.bonus;
 
-import pl.edu.pw.elka.mmarkiew.model.SoundManager;
 import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 import pl.edu.pw.elka.mmarkiew.model.entities.Player;
@@ -31,7 +30,5 @@ public abstract class Bonus extends Entity {
 	 * Update player by giving him appropriate bonus
 	 * @param player - Player
 	 */
-	public void bonusideEntity(Player player) {
-		SoundManager.playSound(SoundManager.BONUS);
-	}
+	public void bonusideEntity(Player player) {}
 }

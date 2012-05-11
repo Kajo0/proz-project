@@ -220,6 +220,9 @@ public class MapToDraw {
 			GameEntities entity;
 			
 			for (Entity e : entities) {
+				/*
+				 * It could be exported into entities but done in the exact same way
+				 */
 				if (e instanceof Player)						entity = GameEntities.PLAYER;
 				else if (e instanceof Bomb)						entity = GameEntities.BOMB;
 				else if (e instanceof ExplosionEntity)			entity = GameEntities.EXPLOSION;

@@ -51,9 +51,7 @@ public class BombCalculator {
 		for (Bomb b : toRemove) {
 			map.removeBomb(b);
 			explodeBomb(b);
-			
-			SoundManager.playSound(SoundManager.EXPLOSION);
-			
+			Model.sound.playSound(SoundManager.EXPLOSION);
 			map.getPlayer().bombExploded();
 		}
 	}
