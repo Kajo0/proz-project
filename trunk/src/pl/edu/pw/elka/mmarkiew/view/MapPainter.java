@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw.SimpleEntity;
+import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
 /**
  * Class responsible for painting images on game canv
@@ -182,8 +183,8 @@ public class MapPainter {
 		
 		for (SimpleEntity b : map.getBonuses()) {
 			img = EntitiesResource.getEntityImage(b.getEntity(), b.getAnimFrame());
-			
-			if (!map.isEmptyBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize))) {
+
+			if (map.getBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize)) != GameBlock.EMPTY ) {
 				img = BlocksResource.getBlockImage(map.getHiderBlock());
 			
 				g.drawImage(img, (int) b.getX() - img.getWidth(panel) / 2 + dx,

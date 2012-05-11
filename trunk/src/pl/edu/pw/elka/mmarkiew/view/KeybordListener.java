@@ -11,7 +11,7 @@ import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress.Keys;
  * @author Acer
  *
  */
-public class MovementListener implements KeyListener {
+public class KeybordListener implements KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {

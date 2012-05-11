@@ -10,9 +10,7 @@ public class StoneBlock extends BlockElement {
 	
 	/**
 	 * Creates stone block, which can't be destroyed
-	 * @param image - Block enum
 	 */
-	public StoneBlock(final GameBlock block) {
-		super(block);
+	public StoneBlock() {
 	}
 }
