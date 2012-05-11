@@ -15,6 +15,8 @@ public class ModelStatistics {
 	private int bombArea;
 	private long bombTimer;
 	private boolean bouncingBomb;
+	private boolean backgroundOn;
+	private boolean soundsOn;
 	
 	/**
 	 * Creates null model => Everything is 0
@@ -27,6 +29,8 @@ public class ModelStatistics {
 		this.bombArea = 0;
 		this.bombTimer = 0;
 		this.bouncingBomb = false;
+		this.backgroundOn = false;
+		this.soundsOn = false;
 	}
 
 	/**
@@ -43,6 +47,8 @@ public class ModelStatistics {
 		this.bombArea = player.getBombArea();
 		this.bombTimer = player.getBombTimer();
 		this.bouncingBomb = player.isBouncingBomb();
+		this.backgroundOn = Model.sound.isBackgroundOn();
+		this.soundsOn = Model.sound.isSoundEffectOn();
 	}
 
 	public long getTimer() {
@@ -71,6 +77,14 @@ public class ModelStatistics {
 	
 	public boolean isBouncingBomb() {
 		return bouncingBomb;
+	}
+
+	public boolean isBackgroundOn() {
+		return backgroundOn;
+	}
+
+	public boolean isSoundEffectOn() {
+		return soundsOn;
 	}
 
 }

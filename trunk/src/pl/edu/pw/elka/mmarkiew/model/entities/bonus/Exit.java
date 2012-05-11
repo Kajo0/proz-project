@@ -15,9 +15,7 @@ public class Exit extends Bonus {
 		this.setAlive(false);
 	}
 	
-	public void setDead() {
-	}
+	public void setDead() {}
 	
-	public void bonusideEntity(final Player e) {
-	}
+	public void bonusideEntity(final Player e) {}
 }

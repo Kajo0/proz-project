@@ -21,15 +21,15 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
  * @author Acer
  *
  */
-public class ResourceManager {
+public class MapLoader {
 	private Player playerEntity;
 	private int level;
-	private final int maxLevel = 30;
+	private final int maxLevel = 3;
 	
 	/**
 	 * Creates player and set him on 0 level
 	 */
-	public ResourceManager() {
+	public MapLoader() {
 		this.level = 0;
 		this.playerEntity = (Player) EntityFactory.createEntity(GameEntities.PLAYER);
 	}

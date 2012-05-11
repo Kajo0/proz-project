@@ -183,16 +183,14 @@ public class MapPainter {
 		for (SimpleEntity b : map.getBonuses()) {
 			img = EntitiesResource.getEntityImage(b.getEntity(), b.getAnimFrame());
 			
-			g.drawImage(img, ((int) b.getX()) - img.getWidth(panel) / 2 + dx,
-								((int) b.getY()) - img.getHeight(panel) / 2 + dy, panel);
-			
-			
 			if (!map.isEmptyBlock((int) (b.getX() / blockSize), (int) (b.getY() / blockSize))) {
 				img = BlocksResource.getBlockImage(map.getHiderBlock());
 			
 				g.drawImage(img, (int) b.getX() - img.getWidth(panel) / 2 + dx,
 									(int) b.getY() - img.getHeight(panel) / 2 + dy, panel);
-			}
+			} else
+				g.drawImage(img, ((int) b.getX()) - img.getWidth(panel) / 2 + dx,
+									((int) b.getY()) - img.getHeight(panel) / 2 + dy, panel);
 		}
 	}
 	

@@ -15,7 +15,6 @@ public class IncreaseBombAreaBonus extends Bonus {
 	}
 	
 	public void bonusideEntity(final Player player) {
-		super.bonusideEntity(player);
 		player.setBombArea(player.getBombArea() + 1);
 	}
 }

@@ -259,7 +259,7 @@ public class CollisionDetector {
 				 */
 				if (e instanceof Enemy || e instanceof ExplosionEntity) {
 					player.setDead();
-					SoundManager.playSound(SoundManager.KILL);
+					Model.sound.playSound(SoundManager.KILL);
 					
 					return;
 				} 
@@ -404,6 +404,7 @@ public class CollisionDetector {
 		for (Bonus b : bonuses) {
 			if (b.isAlive() && isEntitiesCollision(player, b)) {
 				b.bonusideEntity(player);
+				Model.sound.playSound(SoundManager.BONUS);
 				b.setDead();
 			}
 		}

@@ -5,7 +5,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
- * Enum defines posibble entities in game<br>
+ * Enum defines possible entities in game<br>
  * And contain them Animation to clone them
  * @author Acer
  *

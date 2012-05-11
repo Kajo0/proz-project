@@ -12,50 +12,49 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Explosion;
  * @author Acer
  *
  */
-public class Model implements Runnable {
+public class Model {
 	private long startTime;
+	private long lastUpdateTime;
 	private long gamePlayTime;
 	private boolean paused;
 	private boolean win;
 	private boolean over;
 	private GameMap map;
-	private ResourceManager resource;
+	private MapLoader mapLoader;
 	private CollisionDetector collisionDetector;
 	private BombCalculator bombCalculator;
+	static SoundManager sound;
 
 	/**
 	 * Creates model with defaults parameters
 	 */
-	public Model() {
+	public Model(SoundManager sound) {
 		this.startTime = -1;
+		this.lastUpdateTime = -1;
 		this.gamePlayTime = 0;
 		this.paused = false;
 		this.win = false;
 		this.over = false;
 		this.map = null;
-		this.resource = new ResourceManager();
+		this.mapLoader = new MapLoader();
 		this.collisionDetector = new CollisionDetector(map);
 		this.bombCalculator = new BombCalculator(map);
-	}
-
-	/**
-	 * Invoke initialization and starts game loop
-	 */
-	@Override
-	public void run() {
-		gameLoop();
+		Model.sound = sound;
+		
+		init();
 	}
 
 	/**
 	 * Sets new game parameters
 	 */
 	public void newGame() {
-		resource.reset();
+		mapLoader.reset();
 		
 		this.gamePlayTime = 0;
 		this.paused = false;
 		this.win = false;
 		this.over = false;
+		this.startTime = System.currentTimeMillis();
 		
 		init();
 	}
@@ -65,7 +64,7 @@ public class Model implements Runnable {
 	 */
 	private void init() {
 		/* Next map in initialization is first map */
-		this.startTime = System.currentTimeMillis();
+		this.lastUpdateTime = this.startTime;
 		
 		/* Load first map, first level = 0 */
 		nextMap();
@@ -74,54 +73,31 @@ public class Model implements Runnable {
 	/**
 	 * Main game loop
 	 */
-	private void gameLoop() {
-		long currentTime = this.startTime;
+	public void nextGameLoop() {
 		long elapsedTime;
 		
-		while (true) {
-
-            synchronized (this) {
-				elapsedTime = System.currentTimeMillis() - currentTime;
-	            currentTime += elapsedTime;
-			
-	            try {
-		            /*
-		             * If there is no pause, game is started
-		             * and player is alive, update game
-		             * 
-		             * elapsedTime it refers to my processor delays
-		             * too big elapsedTime = no collision detected ->
-		             * everyone is like a ghost
-		             */
-		            if (!paused && isStarted() && getPlayer().isAlive() && elapsedTime < 50) {
-		            	update(elapsedTime);
-		            	gamePlayTime += elapsedTime;
-		            }
-		            
-		            /*
-		             * If player is dead show animation
-		             * and delete all bombs and explosions
-		             */
-		            if (!getPlayer().isAlive())
-		            	playerDyingAnim();
-		            
-	            } catch (NullPointerException e) {
-	            	try {
-						wait(5);
-					} catch (InterruptedException e1) {}
-	            }
-	            
-	            /*
-	             * Little delay
-	             */
-	            try {
-					notify();
-					wait(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-            }
-		}
+		elapsedTime = System.currentTimeMillis() - lastUpdateTime;
+        lastUpdateTime += elapsedTime;
+	
+        /*
+         * If there is no pause, game is started
+         * and player is alive, update game
+         * 
+         * elapsedTime it refers to my processor delays
+         * too big elapsedTime = no collision detected ->
+         * everyone is like a ghost
+         */
+        if (!paused && isStarted() && getPlayer().isAlive() && elapsedTime < 50) {
+        	update(elapsedTime);
+        	gamePlayTime += elapsedTime;
+        }
+        
+        /*
+         * If player is dead show animation
+         * and delete all bombs and explosions
+         */
+        if (!getPlayer().isAlive())
+        	playerDyingAnim();
 	}
 
 	/**
@@ -146,19 +122,17 @@ public class Model implements Runnable {
 			getPlayer().setY((float) map.getPlayerStartPosition().getY());
 			
 			map.removeExplosions();
-
-			/*
-			 * If he has no lifes, set game over
-			 */
+			
+			//If he has no lifes, set game over
 			if (getPlayer().getLifes() < 1) {
-				startTime = -2;
+				startTime = -1;
 				over = true;
 				win = false;
 			}
-		} else {
-			/*
-			 * Fall him down
-			 */
+		} 
+		else 
+		{
+			 // Fall him down
 			getPlayer().setY(getPlayer().getY() + 5);
 			getPlayer().update(25);
 		}
@@ -262,7 +236,6 @@ public class Model implements Runnable {
 	/**
 	 * Loads next map
 	 */
-	@SuppressWarnings("static-access")
 	private synchronized void nextMap() {
 		/*
 		 * Next map -> players bonuses reset :(
@@ -274,26 +247,25 @@ public class Model implements Runnable {
 		 * If there is no next map (level > maxLevel) set win :D
 		 */
 		try {
-			SoundManager.playSound(SoundManager.EXIT);
-			Thread.currentThread().sleep(50);
+			Model.sound.playSound(SoundManager.EXIT);
+//			Thread.sleep(50);
 			
-			map = resource.loadNextMap();
+			map = mapLoader.loadNextMap();
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
 			System.gc();
 			
 		} catch (WinGameException e) {
 			/* Player win game, stop it */
-			map = null;
 			collisionDetector.setMap(map);
 			bombCalculator.setMap(map);
 			startTime = -1;
 			win = true;
 			over = false;
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
+//		catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/**
@@ -302,7 +274,6 @@ public class Model implements Runnable {
 	 * @return Map ready to paint
 	 */
 	public synchronized MapToDraw getMapToDraw() {
-		if (map != null) {
 			LinkedList<Entity> entities = new LinkedList<Entity>();
 
 			entities.addAll(map.getEnemies());
@@ -312,31 +283,35 @@ public class Model implements Runnable {
 			LinkedList<Entity> bonuses = new LinkedList<Entity>(map.getBonuses());
 			bonuses.addAll(map.getExits());
 			
-			return new MapToDraw(map.getBlockHolder(), entities, bonuses, map.getWidthBlocks(), map.getHeightBlocks(),
-																				paused, isStarted(), win, over);
-		}
-		return new MapToDraw(false, win, over);
+			return new MapToDraw(map.getBlockHolder(), entities, bonuses,
+					map.getWidthBlocks(), map.getHeightBlocks(), paused, isStarted(), win, over);
 	}
 
 	/**
 	 * Generate new ModelStatistics object dependent on game play situation
 	 * @return Player statistics
 	 */
-	public synchronized ModelStatistics getStatistics() {
-		if (getPlayer() != null)
-			return new ModelStatistics(getPlayer(), gamePlayTime, resource.getLevel());
-		else return new ModelStatistics();
+	public synchronized ModelStatistics getStatistics()
+	{
+		return new ModelStatistics(getPlayer(), gamePlayTime, mapLoader.getLevel());
 	}
 
-	public synchronized void plantBomb() {
+	/**
+	 * Plants bomb if it's possible, calls inside method
+	 */
+	public synchronized void plantBomb() 
+	{
 		if (getPlayer().isAlive() && !paused && isStarted())
+		{
 			bombCalculator.plantBomb(getPlayer().getBombTimer());
+		}
 	}
 	
 	/**
 	 * (Un)set game paused
 	 */
-	public synchronized void switchPause() {
+	public synchronized void switchPause()
+	{
 		if (isStarted())
 			this.paused = !this.paused;
 	}
@@ -346,14 +321,12 @@ public class Model implements Runnable {
 	 * @return Current player if exists, null otherwise
 	 */
 	public Player getPlayer() {
-		if (resource != null)
-			return resource.getPlayer();
-		else return null;
+		return mapLoader.getPlayer();
 	}
 	
 	/**
 	 * Has game been started?
-	 * @return true if game is running, false othrewise
+	 * @return true if game is running, false otherwise
 	 */
 	public boolean isStarted() {
 		return startTime > 0;

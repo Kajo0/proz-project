@@ -5,13 +5,13 @@ import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.util.concurrent.BlockingQueue;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import pl.edu.pw.elka.mmarkiew.controller.Controller;
+import pl.edu.pw.elka.mmarkiew.controller.queueevents.QueueEvent;
 import pl.edu.pw.elka.mmarkiew.model.MapToDraw;
 import pl.edu.pw.elka.mmarkiew.model.ModelStatistics;
-import pl.edu.pw.elka.mmarkiew.model.SoundManager;
 
 /**
  * Game view
@@ -19,26 +19,35 @@ import pl.edu.pw.elka.mmarkiew.model.SoundManager;
  *
  */
 @SuppressWarnings("serial")
-public class View extends JFrame implements Runnable {
-	private int width;
-	private int height;
+public class View extends JFrame {
+	public static final int GAME_X_SIZE;
+	public static final int GAME_Y_SIZE;
+	public static final int VIEW_WIDTH;
+	public static final int VIEW_HEIGHT;
+
+	static {
+		GAME_X_SIZE = GAME_Y_SIZE = 600;
+		VIEW_WIDTH = (int) (GAME_X_SIZE * 4/3);
+		VIEW_HEIGHT = GAME_Y_SIZE;
+	}
+	
 	private Canvas gamePanel;
 	private RightPanel rightPanel;
 	private MapPainter mapPainter;
+	static BlockingQueue<QueueEvent> blockingQueue;
 
 	/**
 	 * Creates new View
+	 * @param blockingQueue - Event queue
 	 * @param width - Frame width
 	 * @param height - Frame height
 	 */
-	public View(int width, int height) {
+	public View(BlockingQueue<QueueEvent> blockingQueue) {
 		super("Bomberman version 0.3");
-
-		this.width = width;
-		this.height = height;
 		
 		this.gamePanel = new Canvas();
 		this.rightPanel = new RightPanel();
+		View.blockingQueue = blockingQueue;
 		
 		this.mapPainter = new MapPainter(gamePanel, null);
 		
@@ -53,9 +62,9 @@ public class View extends JFrame implements Runnable {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
 		} catch (Exception e) {}
 		
-		setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - width) / 2,
-					(Toolkit.getDefaultToolkit().getScreenSize().height - height) / 2,
-					width, height);
+		setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - VIEW_WIDTH) / 2,
+					(Toolkit.getDefaultToolkit().getScreenSize().height - VIEW_HEIGHT) / 2,
+					VIEW_WIDTH, VIEW_HEIGHT);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -63,7 +72,7 @@ public class View extends JFrame implements Runnable {
 		setLayout(null);
 		setVisible(true);
 		
-		gamePanel.setBounds(0, 0, Controller.GAME_X_SIZE, Controller.GAME_Y_SIZE);
+		gamePanel.setBounds(0, 0, View.GAME_X_SIZE, View.GAME_Y_SIZE);
 		gamePanel.setBackground(Color.LIGHT_GRAY);
 
 		add(gamePanel);
@@ -77,16 +86,17 @@ public class View extends JFrame implements Runnable {
 		 * Add focus into game
 		 */
 		gamePanel.requestFocus();
+		
+		run();
 	}
 
 	/**
 	 * Resize window to show whole panes by adding insets<br>
 	 * Add request listener
 	 */
-	@Override
 	public void run() {
 		Insets insets = Window.getWindows()[0].getInsets();
-		this.setSize(width + insets.left + insets.right, height + insets.top + insets.bottom);
+		this.setSize(VIEW_WIDTH + insets.left + insets.right, VIEW_HEIGHT + insets.top + insets.bottom);
 		
 		gamePanel.addKeyListener(new MovementListener());
 	}
@@ -138,9 +148,8 @@ public class View extends JFrame implements Runnable {
 		rightPanel.getGameInfo().setBombAreaLabel(statistics.getBombArea());
 		rightPanel.getGameInfo().setBombTimerLabel(statistics.getBombTimer());
 		rightPanel.getGameInfo().setBouncingBombLabel(statistics.isBouncingBomb());
-
-		rightPanel.getGameInfo().setBackgroundMusicButtonIcon(SoundManager.isBackgroundOn());
-		rightPanel.getGameInfo().setSoundEffectsButtonIcon(SoundManager.isSoundEffectOn());
+		rightPanel.getGameInfo().setBackgroundMusicButtonIcon(statistics.isBackgroundOn());
+		rightPanel.getGameInfo().setSoundEffectsButtonIcon(statistics.isSoundEffectOn());
 	}
 
 }
