@@ -10,9 +10,7 @@ public class EmptyBlock extends BlockElement{
 	
 	/**
 	 * Creates empty block
-	 * @param image - Block enum
 	 */
-	public EmptyBlock(final GameBlock block) {
-		super(block);
+	public EmptyBlock() {
 	}
 }

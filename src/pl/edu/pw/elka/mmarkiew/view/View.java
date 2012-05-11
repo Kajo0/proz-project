@@ -98,7 +98,7 @@ public class View extends JFrame {
 		Insets insets = Window.getWindows()[0].getInsets();
 		this.setSize(VIEW_WIDTH + insets.left + insets.right, VIEW_HEIGHT + insets.top + insets.bottom);
 		
-		gamePanel.addKeyListener(new MovementListener());
+		gamePanel.addKeyListener(new KeybordListener());
 	}
 
 	/**

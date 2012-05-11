@@ -10,9 +10,7 @@ public class BrickBlock extends BlockElement {
 	
 	/**
 	 * Creates block made of bricks, which can be destroyed
-	 * @param block - Block enum
 	 */
-	public BrickBlock(final GameBlock block) {
-		super(block);
+	public BrickBlock() {
 	}
 }

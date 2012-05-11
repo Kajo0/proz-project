@@ -15,10 +15,10 @@ public abstract class BlockFactory {
 	 */
 	public static BlockElement createElement(final GameBlock block) {
 		switch (block) {
-			case STONE: return new StoneBlock(block);
-			case BRICK: return new BrickBlock(block);
-			case EMPTY: return new EmptyBlock(block);
-			default:	return new EmptyBlock(block);
+			case STONE: return new StoneBlock();
+			case BRICK: return new BrickBlock();
+			case EMPTY: return new EmptyBlock();
+			default:	return new EmptyBlock();
 		}
 	}
 }

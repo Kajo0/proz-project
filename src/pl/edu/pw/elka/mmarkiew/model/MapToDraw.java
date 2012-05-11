@@ -16,8 +16,9 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.DestroyingBrick;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.ExplosionEntity;
 import pl.edu.pw.elka.mmarkiew.model.entities.enemies.HeliumEnemy;
 import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
-import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
+import pl.edu.pw.elka.mmarkiew.model.map.BrickBlock;
 import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
+import pl.edu.pw.elka.mmarkiew.model.map.StoneBlock;
 
 /**
  * Contains information about game map<br>
@@ -80,16 +81,6 @@ public class MapToDraw {
 	}
 
 	/**
-	 * Check is on xBlock, yBlock tile position is EmptyBlock
-	 * @param x - Position
-	 * @param y - Position
-	 * @return true if there is EmptyBlock, false otherwise
-	 */
-	public boolean isEmptyBlock(int x, int y) {
-		return blocks.isEmptyBlock(x, y);
-	}
-
-	/**
 	 * Returns block which is hiding bonuses
 	 * @return image of block hiding bonuses
 	 */
@@ -136,7 +127,6 @@ public class MapToDraw {
 	 */
 	private final class BlockInformation {
 		GameBlock[][] blocks;
-		boolean[][] isEmpty;
 		GameBlock hiderBlock;
 		
 		/**
@@ -147,7 +137,6 @@ public class MapToDraw {
 		 */
 		BlockInformation(final BlockHolder blocks, int width, int height) {
 			this.blocks = new GameBlock[width][height];
-			this.isEmpty = new boolean[width][height];
 			this.hiderBlock = GameBlock.BRICK;
 			
 			if (blocks != null)
@@ -162,12 +151,10 @@ public class MapToDraw {
 			
 			for (int i = 0; i < MapToDraw.this.widthBlocks; ++i)
 				for (int j = 0; j < MapToDraw.this.heightBlocks; ++j) {
-					
-					this.blocks[i][j] = blocks.getBlock(i, j).getBlock();
-					
-					if (blocks.getBlock(i, j) instanceof EmptyBlock)
-						this.isEmpty[i][j] = true;
-					else this.isEmpty[i][j] = false;
+
+					if (blocks.getBlock(i, j) instanceof StoneBlock)		this.blocks[i][j] = GameBlock.STONE;
+					else if (blocks.getBlock(i, j) instanceof BrickBlock)	this.blocks[i][j] = GameBlock.BRICK;
+					else													this.blocks[i][j] = GameBlock.EMPTY;
 				}
 		}
 		
@@ -175,17 +162,13 @@ public class MapToDraw {
 		 * 
 		 * @param x - Position
 		 * @param y - Position
-		 * @return Image of block, null if out of bounds
+		 * @return Enum of block, null if out of bounds
 		 */
 		public GameBlock getBlock(int x, int y) {
 			if (x < 0 || x > MapToDraw.this.widthBlocks - 1 ||
 					y < 0 || y > MapToDraw.this.heightBlocks - 1)
 				return null;
 			else return blocks[x][y];
-		}
-		
-		public boolean isEmptyBlock(int x, int y) {
-			return isEmpty[x][y];
 		}
 		
 		public GameBlock getHiderBlock() {
