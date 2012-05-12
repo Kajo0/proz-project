@@ -21,7 +21,8 @@ public class RightPanel extends JPanel {
 	/**
 	 * Creates right panel
 	 */
-	public RightPanel() {
+	public RightPanel()
+	{
 		super();
 		
 		setBounds(View.GAME_X_SIZE, 0, View.VIEW_WIDTH - View.GAME_X_SIZE, View.GAME_Y_SIZE);
@@ -38,7 +39,8 @@ public class RightPanel extends JPanel {
 	/**
 	 * Initialization of right panel
 	 */
-	private void init() {
+	private void init()
+	{
 		tabs.setFocusable(false);
 		tabs.addTab("Game", gameInfo);
 		tabs.addTab("Keys", gameOptions);
@@ -46,11 +48,13 @@ public class RightPanel extends JPanel {
 		add(tabs, BorderLayout.CENTER);
 	}
 	
-	public GameInfoPanel getGameInfo() {
+	public GameInfoPanel getGameInfo()
+	{
 		return gameInfo;
 	}
 	
-	public GameOptionsPanel getGameOptions() {
+	public GameOptionsPanel getGameOptions()
+	{
 		return gameOptions;
 	}
 }

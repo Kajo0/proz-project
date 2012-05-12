@@ -8,13 +8,15 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
  * @author Acer
  *
  */
-public class BouncingBomb extends Bonus{
+public class BouncingBomb extends Bonus {
 
-	public BouncingBomb(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y) {
+	public BouncingBomb(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y)
+	{
 		super(anim, dyingAnim, width, height, x, y);
 	}
 	
-	public void bonusideEntity(final Player player) {
+	public void bonusideEntity(final Player player)
+	{
 		player.setBouncingBomb(true);
 	}
 }

@@ -9,7 +9,8 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
  */
 public class BaloonEnemy extends Enemy {
 	
-	public BaloonEnemy(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y) {
+	public BaloonEnemy(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y)
+	{
 		super(anim, dyingAnim, width, height, x, y);
 		this.setXVelocity(0.06f);
 		this.setYVelocity(0.05f);

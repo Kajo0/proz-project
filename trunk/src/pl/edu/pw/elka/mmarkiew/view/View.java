@@ -42,8 +42,9 @@ public class View extends JFrame {
 	 * @param width - Frame width
 	 * @param height - Frame height
 	 */
-	public View(BlockingQueue<QueueEvent> blockingQueue) {
-		super("Bomberman version 0.3");
+	public View(final BlockingQueue<QueueEvent> blockingQueue)
+	{
+		super("Bomberman version 0.5");
 		
 		this.gamePanel = new Canvas();
 		this.rightPanel = new RightPanel();
@@ -57,14 +58,16 @@ public class View extends JFrame {
 	/**
 	 * Initialize frame
 	 */
-	private void init() {
-		try {
+	private void init()
+	{
+		try
+		{
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-		} catch (Exception e) {}
+		}
+		catch (Exception e) {}
 		
 		setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - VIEW_WIDTH) / 2,
-					(Toolkit.getDefaultToolkit().getScreenSize().height - VIEW_HEIGHT) / 2,
-					VIEW_WIDTH, VIEW_HEIGHT);
+					(Toolkit.getDefaultToolkit().getScreenSize().height - VIEW_HEIGHT) / 2, VIEW_WIDTH, VIEW_HEIGHT);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -76,15 +79,11 @@ public class View extends JFrame {
 		gamePanel.setBackground(Color.LIGHT_GRAY);
 
 		add(gamePanel);
-		/*
-		 * Set it double buffered by buffer strategy
-		 */
+		// Set it double buffered by buffer strategy
 		gamePanel.createBufferStrategy(2);
 		
 		add(rightPanel);
-		/*
-		 * Add focus into game
-		 */
+		// Add focus into game
 		gamePanel.requestFocus();
 		
 		run();
@@ -94,7 +93,8 @@ public class View extends JFrame {
 	 * Resize window to show whole panes by adding insets<br>
 	 * Add request listener
 	 */
-	public void run() {
+	public void run()
+	{
 		Insets insets = Window.getWindows()[0].getInsets();
 		this.setSize(VIEW_WIDTH + insets.left + insets.right, VIEW_HEIGHT + insets.top + insets.bottom);
 		
@@ -105,20 +105,25 @@ public class View extends JFrame {
 	 * Invoke swing painter method to paint map
 	 * @param map - Informations necessary to paint map
 	 */
-	public void sendMapModel(final MapToDraw map) {
-		SwingUtilities.invokeLater(new Runnable() {
+	public void sendMapModel(final MapToDraw map)
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
 			@Override
-			public void run() {
+			public void run()
+			{
 				mapPainter.setMap(map);
 				mapPainter.paint();
 				
-				/*
-				 * Enabling new game button after end game
-				 */
+				// Enabling new game button after end game
 				if (map.isOver() || !map.isStarted())
+				{
 					rightPanel.getGameInfo().setNewGameButtonEnable(true);
+				}
 				else
+				{
 					rightPanel.getGameInfo().setNewGameButtonEnable(false);
+				}
 			}
 		});
 	}
@@ -127,10 +132,13 @@ public class View extends JFrame {
 	 * Invoke update of player statistics
 	 * @param statistics - Informations about player
 	 */
-	public void sendStatistics(final ModelStatistics statistics) {
-		SwingUtilities.invokeLater(new Runnable() {
+	public void sendStatistics(final ModelStatistics statistics)
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
 			@Override
-			public void run() {
+			public void run()
+			{
 				updateStatistics(statistics);
 			}
 		});
@@ -140,7 +148,8 @@ public class View extends JFrame {
 	 * Sets new text into labels
 	 * @param statistics - Player statistics
 	 */
-	private void updateStatistics(ModelStatistics statistics) {
+	private void updateStatistics(final ModelStatistics statistics)
+	{
 		rightPanel.getGameInfo().setTimerLabel(statistics.getTimer() / 1000);
 		rightPanel.getGameInfo().setLevelLabel(statistics.getLevel());
 		rightPanel.getGameInfo().setLifeLabel(statistics.getLifes());
@@ -151,5 +160,4 @@ public class View extends JFrame {
 		rightPanel.getGameInfo().setBackgroundMusicButtonIcon(statistics.isBackgroundOn());
 		rightPanel.getGameInfo().setSoundEffectsButtonIcon(statistics.isSoundEffectOn());
 	}
-
 }

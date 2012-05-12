@@ -18,12 +18,11 @@ public class DestroyingBrick extends Entity implements Explosion {
 	 * @param x - Position
 	 * @param y - Position
 	 */
-	public DestroyingBrick(final Animation anim, int x, int y) {
+	public DestroyingBrick(final Animation anim, int x, int y)
+	{
 		super(anim, anim, GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE);
 		this.setX(GameMap.getPositionCenterFromTile(x));
 		this.setY(GameMap.getPositionCenterFromTile(y));
-//		this.setWidth(GameMap.BLOCK_SIZE);
-//		this.setHeight(GameMap.BLOCK_SIZE);
 		this.setDyingTime(500);
 		setDead();
 	}
@@ -31,7 +30,8 @@ public class DestroyingBrick extends Entity implements Explosion {
 	/**
 	 * Set it alive after dead to enable collisions
 	 */
-	public void setDead() {
+	public void setDead()
+	{
 		super.setDead();
 		this.setAlive(true);
 	}

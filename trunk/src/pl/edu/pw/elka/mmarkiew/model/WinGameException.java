@@ -7,7 +7,9 @@ package pl.edu.pw.elka.mmarkiew.model;
  */
 @SuppressWarnings("serial")
 public class WinGameException extends Exception {
-	public WinGameException() {
+	
+	public WinGameException()
+	{
 		super();
 	}
 }

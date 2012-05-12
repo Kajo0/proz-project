@@ -11,6 +11,5 @@ public class EmptyBlock extends BlockElement{
 	/**
 	 * Creates empty block
 	 */
-	public EmptyBlock() {
-	}
+	public EmptyBlock() {}
 }

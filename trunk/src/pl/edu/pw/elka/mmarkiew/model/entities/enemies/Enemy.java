@@ -11,11 +11,9 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
  */
 public abstract class Enemy extends Entity {
 	
-	public Enemy(Animation anim, Animation dyingAnim, int width, int height) {
+	public Enemy(Animation anim, Animation dyingAnim, int width, int height)
+	{
 		super(anim, dyingAnim, width, height);
-		/* If they should not to bounce a lot - uncomment that */
-//		this.setWidth(GameMap.BLOCK_SIZE);
-//		this.setHeight(GameMap.BLOCK_SIZE);
 	}
 	
 	/**
@@ -27,7 +25,8 @@ public abstract class Enemy extends Entity {
 	 * @param x - Position
 	 * @param y - Position
 	 */
-	public Enemy(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y) {
+	public Enemy(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y)
+	{
 		this(anim, dyingAnim, width, height);
 		this.setX(x);
 		this.setY(y);
@@ -36,14 +35,16 @@ public abstract class Enemy extends Entity {
 	/**
 	 * When horizontal collision, turn it back
 	 */
-	public void collisionX() {
+	public void collisionX()
+	{
 		this.setXVelocity(-this.getXVelocity());
 	}
 
 	/**
 	 * When vertical collision, turn it back
 	 */
-	public void collisionY() {
+	public void collisionY()
+	{
 		this.setYVelocity(-this.getYVelocity());
 	}
 }

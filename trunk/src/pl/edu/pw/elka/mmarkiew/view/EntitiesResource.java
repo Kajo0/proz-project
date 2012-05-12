@@ -35,40 +35,46 @@ public enum EntitiesResource {
 	/**
 	 * Creates and load images of entity
 	 * @param entity - Enum representing entity
-	 * @param anim - Part of path to alive entity image
+	 * @param anim - Significant part of path to alive entity image
 	 * @param dyingAnim - Part of path to dead entity image
 	 */
-	private EntitiesResource(GameEntities entity, String anim, String dyingAnim) {
+	private EntitiesResource(GameEntities entity, String anim, String dyingAnim)
+	{
 		this.entity = entity;
 		this.images = new LinkedList<Image>();
 		
 		fillImages(anim);
+		
+		// If there is no dead images don't add them
 		if (!dyingAnim.equals(""))
+		{
 			fillImages(dyingAnim);
+		}
 	}
 	
 	/**
 	 * Fills list by images of entity
 	 * @param anim - Part of path to entity image
 	 */
-	private void fillImages(String anim) {
-		
+	private void fillImages(String anim)
+	{
 		anim = "/" + anim;
-		if (getClass().getResource(anim + "0.png") != null) {
+		if (getClass().getResource(anim + "0.png") != null)
+		{
 			this.images.add(new ImageIcon(getClass().getResource(anim + "0.png")).getImage());
 
 			int i = 1;
-			while (getClass().getResource(anim + i + ".png") != null) {
+			while (getClass().getResource(anim + i + ".png") != null)
+			{
 				this.images.add(new ImageIcon(getClass().getResource(anim + i + ".png")).getImage());
 				++i;
 			}
 		}
-		else {
-			/*
-			 * Create blank square image
-			 */
+		else
+		{
+			// Create blank square image
 			BufferedImage bufImg = new BufferedImage(MapToDraw.blockSize, MapToDraw.blockSize,
-																				BufferedImage.TYPE_INT_ARGB);
+																						BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bufImg.getGraphics();
 			g.fillRect(10, 10, 20, 20);
 			g.dispose();
@@ -85,23 +91,29 @@ public enum EntitiesResource {
 	 * @return Image representing given entity or<br>
 	 * 			undefined 1x1px image instead
 	 */
-	public static Image getEntityImage(GameEntities entity, int frame) {
-		
-		for (EntitiesResource g : values()) {
-			if (g.entity.equals(entity)) {
-				
-				try {
+	public static Image getEntityImage(GameEntities entity, int frame)
+	{
+		for (EntitiesResource g : values())
+		{
+			if (g.entity.equals(entity))
+			{
+				try
+				{
 					if (frame < 0)
+					{
 						frame = g.images.size() + frame;
+					}
 					
 					return g.images.get(frame);
-					
-				} catch(ArrayIndexOutOfBoundsException e) {
+				}
+				catch(ArrayIndexOutOfBoundsException e)
+				{
+					// There is always one element
 					return g.images.get(0);
 				}
 			}
 		}
+		
 		return UNDEFINED.images.get(0);
 	}
-	
 }
