@@ -11,6 +11,5 @@ public class BrickBlock extends BlockElement {
 	/**
 	 * Creates block made of bricks, which can be destroyed
 	 */
-	public BrickBlock() {
-	}
+	public BrickBlock() {}
 }

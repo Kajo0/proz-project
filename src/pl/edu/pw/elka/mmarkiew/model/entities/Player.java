@@ -17,14 +17,13 @@ public class Player extends Entity {
 	private long bombTimer;
 	/** If bomb can be pushed */
 	private boolean bouncingBomb;
-	/** Tells is player after bomb planting
-	 * and still on it, to do not checking collisions
-	 * with bombs */
+	/** Tells is player after bomb planting and still on it, to do not checking collisions with bombs */
 	private boolean onBomb;
 	/** If player is immortal */
 	private boolean immoritality;
 	
-	public Player(final Animation anim, final Animation dyingAnim, int width, int height) {
+	public Player(final Animation anim, final Animation dyingAnim, int width, int height)
+	{
 		super(anim, dyingAnim, width, height);
 		this.setMaxVelocity(0.15f);
 		this.setLifes(3);
@@ -42,76 +41,97 @@ public class Player extends Entity {
 	/**
 	 * Increment planted bomb counter
 	 */
-	public void plantBomb() {
+	public void plantBomb()
+	{
 		if (plantedBombs < possibleBombs)
+		{
 			++plantedBombs;
+		}
 	}
 	
 	/**
 	 * Decrement planted bomb counter
 	 */
-	public void bombExploded() {
+	public void bombExploded()
+	{
 		if (plantedBombs > 0)
+		{
 			plantedBombs--;
+		}
 	}
 	
-	public boolean canPlantBomb() {
+	public boolean canPlantBomb()
+	{
 		return (plantedBombs < possibleBombs);
 	}
 
-	public int getLifes() {
+	public int getLifes()
+	{
 		return lifes;
 	}
 
-	public void setLifes(int lifes) {
+	public void setLifes(int lifes)
+	{
 		this.lifes = lifes;
 	}
 
-	public int getBombArea() {
+	public int getBombArea()
+	{
 		return bombArea;
 	}
 
-	public void setBombArea(int bombArea) {
+	public void setBombArea(int bombArea)
+	{
 		this.bombArea = bombArea;
 	}
 	
-	public int getPossibleBombs() {
+	public int getPossibleBombs()
+	{
 		return this.possibleBombs;
 	}
 	
-	public void setPossibleBombs(int amount) {
+	public void setPossibleBombs(int amount)
+	{
 		this.possibleBombs = amount;
 	}
 	
-	public boolean isBouncingBomb() {
+	public boolean isBouncingBomb()
+	{
 		return this.bouncingBomb;
 	}
 	
-	public void setBouncingBomb(boolean bouncing) {
+	public void setBouncingBomb(boolean bouncing)
+	{
 		this.bouncingBomb = bouncing;
 	}
 	
-	public long getBombTimer() {
+	public long getBombTimer()
+	{
 		return this.bombTimer;
 	}
 	
-	public void setBombTimer(long timer) {
+	public void setBombTimer(long timer)
+	{
 		this.bombTimer = timer;
 	}
 	
-	public boolean isOnBomb() {
+	public boolean isOnBomb()
+	{
 		return onBomb;
 	}
 	
-	public void setOnBomb(boolean onBomb) {
+	public void setOnBomb(boolean onBomb)
+	{
 		this.onBomb = onBomb;
 	}
 	
-	public boolean isImmortal() {
+	public boolean isImmortal()
+	{
 		return immoritality;
 	}
 	
-	public void setImmortality(boolean immortality) {
+	public void setImmortality(boolean immortality)
+	{
 		this.immoritality = immortality;
 	}
 	
@@ -119,7 +139,8 @@ public class Player extends Entity {
 	 * Set player dead, decrement life counter
 	 * and clear bomb planted counter
 	 */
-	public void setDead() {
+	public void setDead()
+	{
 		super.setDead();
 		this.lifes--;
 		this.plantedBombs = 0;
@@ -129,7 +150,8 @@ public class Player extends Entity {
 	 * Reset player state into defaults
 	 * without touching lifes counter
 	 */
-	public void reset() {
+	public void reset()
+	{
 		this.bombArea = 1;
 		this.possibleBombs = 1;
 		this.plantedBombs = 0;

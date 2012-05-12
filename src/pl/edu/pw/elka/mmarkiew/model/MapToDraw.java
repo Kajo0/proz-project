@@ -28,8 +28,9 @@ import pl.edu.pw.elka.mmarkiew.model.map.StoneBlock;
  */
 public class MapToDraw {
 	public final static int blockSize = GameMap.BLOCK_SIZE;
-	private int widthBlocks;
-	private int heightBlocks;
+	
+	private int widthInBlocks;
+	private int heightInBlocks;
 	private boolean paused;
 	private boolean started;
 	private boolean win;
@@ -52,9 +53,10 @@ public class MapToDraw {
 	 */
 	public MapToDraw(final BlockHolder blockHolder, final LinkedList<Entity> entities,
 										final LinkedList<Entity> bonuses, int widthBlocks, int heightBlocks,
-											boolean paused, boolean running, boolean win, boolean over) {
-		this.widthBlocks = widthBlocks;
-		this.heightBlocks = heightBlocks;
+											boolean paused, boolean running, boolean win, boolean over)
+	{
+		this.widthInBlocks = widthBlocks;
+		this.heightInBlocks = heightBlocks;
 		this.paused = paused;
 		this.started = running;
 		this.win = win;
@@ -63,7 +65,6 @@ public class MapToDraw {
 		this.blocks = new BlockInformation(blockHolder, widthBlocks, heightBlocks);
 		this.entities = new EntityInformation(entities);
 		this.bonuses = new EntityInformation(bonuses);
-		
 	}
 	
 	/**
@@ -72,51 +73,62 @@ public class MapToDraw {
 	 * @param win - Is Win End game
 	 * @param over -  Is Game Over
 	 */
-	public MapToDraw(boolean started, boolean win, boolean over) {
+	public MapToDraw(boolean started, boolean win, boolean over)
+	{
 		this(null, null, null, 0, 0, false, started, win, over);
 	}
 
-	public GameBlock getBlock(int x, int y) {
+	public GameBlock getBlock(int x, int y)
+	{
 		return blocks.getBlock(x, y);
 	}
 
 	/**
 	 * Returns block which is hiding bonuses
-	 * @return image of block hiding bonuses
+	 * @return image enum of block hiding bonuses
 	 */
-	public GameBlock getHiderBlock() {
+	public GameBlock getHiderBlock()
+	{
 		return blocks.getHiderBlock();
 	}
 	
-	public LinkedList<SimpleEntity> getEntities() {
+	public LinkedList<SimpleEntity> getEntities()
+	{
 		return entities.getEntities();
 	}
 	
-	public LinkedList<SimpleEntity> getBonuses() {
+	public LinkedList<SimpleEntity> getBonuses()
+	{
 		return bonuses.getEntities();
 	}
 	
-	public int getWidthBlocks() {
-		return widthBlocks;
+	public int getWidthBlocks()
+	{
+		return widthInBlocks;
 	}
 
-	public int getHeightBlocks() {
-		return heightBlocks;
+	public int getHeightBlocks()
+	{
+		return heightInBlocks;
 	}
 
-	public boolean isPaused() {
+	public boolean isPaused()
+	{
 		return paused;
 	}
 
-	public boolean isStarted() {
+	public boolean isStarted()
+	{
 		return started;
 	}
 	
-	public boolean isWin() {
+	public boolean isWin()
+	{
 		return win;
 	}
 	
-	public boolean isOver() {
+	public boolean isOver()
+	{
 		return over;
 	}
 	
@@ -135,27 +147,41 @@ public class MapToDraw {
 		 * @param width - width in block tiles
 		 * @param height - height in block tiles
 		 */
-		BlockInformation(final BlockHolder blocks, int width, int height) {
+		BlockInformation(final BlockHolder blocks, int width, int height)
+		{
 			this.blocks = new GameBlock[width][height];
 			this.hiderBlock = GameBlock.BRICK;
 			
 			if (blocks != null)
+			{
 				fillBlocks(blocks);
+			}
 		}
 
 		/**
 		 * Fills image matrix and sets if there is specified EmptyBlock
 		 * @param blocks - BlockHolder
 		 */
-		private void fillBlocks(final BlockHolder blocks) {
-			
-			for (int i = 0; i < MapToDraw.this.widthBlocks; ++i)
-				for (int j = 0; j < MapToDraw.this.heightBlocks; ++j) {
-
-					if (blocks.getBlock(i, j) instanceof StoneBlock)		this.blocks[i][j] = GameBlock.STONE;
-					else if (blocks.getBlock(i, j) instanceof BrickBlock)	this.blocks[i][j] = GameBlock.BRICK;
-					else													this.blocks[i][j] = GameBlock.EMPTY;
+		private void fillBlocks(final BlockHolder blocks)
+		{
+			for (int i = 0; i < MapToDraw.this.widthInBlocks; ++i)
+			{
+				for (int j = 0; j < MapToDraw.this.heightInBlocks; ++j)
+				{
+					if (blocks.getBlock(i, j) instanceof StoneBlock)
+					{
+						this.blocks[i][j] = GameBlock.STONE;
+					}
+					else if (blocks.getBlock(i, j) instanceof BrickBlock)
+					{
+						this.blocks[i][j] = GameBlock.BRICK;
+					}
+					else
+					{
+						this.blocks[i][j] = GameBlock.EMPTY;
+					}
 				}
+			}
 		}
 		
 		/**
@@ -164,14 +190,20 @@ public class MapToDraw {
 		 * @param y - Position
 		 * @return Enum of block, null if out of bounds
 		 */
-		public GameBlock getBlock(int x, int y) {
-			if (x < 0 || x > MapToDraw.this.widthBlocks - 1 ||
-					y < 0 || y > MapToDraw.this.heightBlocks - 1)
+		public GameBlock getBlock(int x, int y)
+		{
+			if (x < 0 || x > MapToDraw.this.widthInBlocks - 1 || y < 0 || y > MapToDraw.this.heightInBlocks - 1)
+			{
 				return null;
-			else return blocks[x][y];
+			}
+			else
+			{
+				return blocks[x][y];
+			}
 		}
 		
-		public GameBlock getHiderBlock() {
+		public GameBlock getHiderBlock()
+		{
 			return hiderBlock;
 		}
 	}
@@ -181,31 +213,35 @@ public class MapToDraw {
 	 * @author Acer
 	 *
 	 */
-	private final class EntityInformation {
+	private final class EntityInformation
+	{
 		private LinkedList<SimpleEntity> entities;
 		
 		/**
 		 * Gather information about entities
 		 * @param entities - List of entities
 		 */
-		EntityInformation(final LinkedList<Entity> entities) {
+		EntityInformation(final LinkedList<Entity> entities)
+		{
 			this.entities = new LinkedList<MapToDraw.SimpleEntity>();
 			
 			if (entities != null)
+			{
 				fillEntities(entities);
+			}
 		}
 
 		/**
 		 * Fills list of entities
 		 * @param entities - List of entities
 		 */
-		private void fillEntities(final LinkedList<Entity> entities) {
+		private void fillEntities(final LinkedList<Entity> entities)
+		{
 			GameEntities entity;
 			
-			for (Entity e : entities) {
-				/*
-				 * It could be exported into entities but done in the exact same way
-				 */
+			for (Entity e : entities)
+			{
+				// It could be exported into entities but done in the exact same way
 				if (e instanceof Player)						entity = GameEntities.PLAYER;
 				else if (e instanceof Bomb)						entity = GameEntities.BOMB;
 				else if (e instanceof ExplosionEntity)			entity = GameEntities.EXPLOSION;
@@ -224,7 +260,8 @@ public class MapToDraw {
 			}
 		}
 		
-		public LinkedList<SimpleEntity> getEntities() {
+		public LinkedList<SimpleEntity> getEntities()
+		{
 			return entities;
 		}
 	}
@@ -242,31 +279,37 @@ public class MapToDraw {
 		private float y;
 		
 		/**
-		 * Create SimpleEntity
-		 * @param image - Image of entity
+		 * 
+		 * @param entity - Entity enum
+		 * @param animFrame - Actual animation frame
 		 * @param x - Position
 		 * @param y - Position
 		 */
-		public SimpleEntity(GameEntities entity, int animFrame, float x, float y) {
+		public SimpleEntity(GameEntities entity, int animFrame, float x, float y)
+		{
 			this.entity = entity;
 			this.animFrame = animFrame;
 			this.x = x;
 			this.y = y;
 		}
 		
-		public GameEntities getEntity() {
+		public GameEntities getEntity()
+		{
 			return entity;
 		}
 		
-		public int getAnimFrame() {
+		public int getAnimFrame()
+		{
 			return animFrame;
 		}
 		
-		public float getX() {
+		public float getX()
+		{
 			return x;
 		}
 		
-		public float getY() {
+		public float getY()
+		{
 			return y;
 		}
 	}

@@ -30,7 +30,8 @@ public abstract class Entity {
 	 * @param width - Object width
 	 * @param height - Object height
 	 */
-	public Entity(final Animation anim, final Animation dyingAnim, int width, int height) {
+	public Entity(final Animation anim, final Animation dyingAnim, int width, int height)
+	{
 		this.anim = anim;
 		this.dyingAnim = dyingAnim;
 		this.width = Math.min(width, GameMap.BLOCK_SIZE);
@@ -49,25 +50,33 @@ public abstract class Entity {
 	 * Update state of entity
 	 * @param elapsedTime
 	 */
-	public void update(final long elapsedTime) {
-		if (alive) {
+	public void update(long elapsedTime)
+	{
+		if (alive)
+		{
 			this.x += xVelocity * elapsedTime;
 			this.y += yVelocity * elapsedTime;
 			anim.update(elapsedTime);
-		} else dyingAnim.update(elapsedTime);
+		}
+		else
+		{
+			dyingAnim.update(elapsedTime);
+		}
 	}
 	
 	/**
 	 * It happens when is horizontal collision
 	 */
-	public void collisionX() {
+	public void collisionX()
+	{
 		this.xVelocity = 0f;
 	}
 	
 	/**
 	 * It happens when is vertical collision
 	 */
-	public void collisionY() {
+	public void collisionY()
+	{
 		this.yVelocity = 0f;
 	}
 
@@ -75,110 +84,141 @@ public abstract class Entity {
 	 * Return actual animation animFrame
 	 * @return Actual animFrame, if dead -animFrame
 	 */
-	public int getAnimFrame() {
+	public int getAnimFrame()
+	{
 		if (isAlive())
+		{
 			return this.anim.getAnimFrame();
-		else {
+		}
+		else
+		{
 			if (this.anim == this.dyingAnim)
+			{
 				return this.dyingAnim.getAnimFrame();
+			}
 			else
+			{
 				return -(this.dyingAnim.getFrameCount() - this.dyingAnim.getAnimFrame());
+			}
 		}
 	}
 
-	public void setAnim(Animation anim) {
+	public void setAnim(final Animation anim)
+	{
 		this.anim = anim;
 	}
 
-	public void setDyingAnim(Animation anim) {
+	public void setDyingAnim(final Animation anim)
+	{
 		this.dyingAnim = anim;
 	}
 
-	public float getX() {
+	public float getX()
+	{
 		return x;
 	}
 
-	public void setX(float x) {
+	public void setX(float x)
+	{
 		this.x = x;
 	}
 
-	public float getY() {
+	public float getY()
+	{
 		return y;
 	}
 
-	public void setY(float y) {
+	public void setY(float y)
+	{
 		this.y = y;
 	}
 
-	public float getXVelocity() {
+	public float getXVelocity()
+	{
 		return xVelocity;
 	}
 
-	public void setXVelocity(float xVelocity) {
+	public void setXVelocity(float xVelocity)
+	{
 		this.xVelocity = xVelocity;
 	}
 
-	public float getYVelocity() {
+	public float getYVelocity()
+	{
 		return yVelocity;
 	}
 
-	public void setYVelocity(float yVelocity) {
+	public void setYVelocity(float yVelocity)
+	{
 		this.yVelocity = yVelocity;
 	}
 	
-	public float getMaxVelocity() {
+	public float getMaxVelocity()
+	{
 		return maxVelocity;
 	}
 	
-	public void setMaxVelocity(float maxVelocity) {
+	public void setMaxVelocity(float maxVelocity)
+	{
 		this.maxVelocity = maxVelocity;
 	}
 	
-	public float getWidth() {
+	public float getWidth()
+	{
 		return width;
 	}
 	
-	public void setWidth(float width) {
+	public void setWidth(float width)
+	{
 		this.width = width;
 	}
 	
-	public float getHeight() {
+	public float getHeight()
+	{
 		return height;
 	}
 	
-	public void setHeight(float height) {
+	public void setHeight(float height)
+	{
 		this.height = height;
 	}
 	
-	public boolean isAlive() {
+	public boolean isAlive()
+	{
 		return this.alive;
 	}
 
-	public void setAlive(boolean alive) {
+	public void setAlive(boolean alive)
+	{
 		this.alive = alive;
 	}
 
 	/**
 	 * Sets time when entity die and sets it dead
 	 */
-	public void setDead() {
+	public void setDead()
+	{
 		this.alive = false;
 		this.dieTime = System.currentTimeMillis();
 	}
 
-	public long getDieTime() {
+	public long getDieTime()
+	{
 		return dieTime;
 	}
 
-	public void setDieTime(long dieTime) {
+	public void setDieTime(long dieTime)
+	{
 		this.dieTime = dieTime;
 	}
 
-	public int getDyingTime() {
+	public int getDyingTime()
+	{
 		return this.dyingTime;
 	}
 	
-	public void setDyingTime(int dyingTime) {
+	public void setDyingTime(int dyingTime)
+	{
 		this.dyingTime = dyingTime;
 	}
 }

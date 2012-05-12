@@ -27,7 +27,8 @@ public class Bomb extends Entity {
 	 * @param timer - Time after which bomb explodes
 	 * @param area - Area which is reachable during explosion
 	 */
-	public Bomb(final Animation anim, int width, int height, float x, float y, long plantTime, long timer, int area) {
+	public Bomb(final Animation anim, int width, int height, float x, float y, long plantTime, long timer, int area)
+	{
 		super(anim, anim, width, height);
 		this.setX(GameMap.getTileCenterFromPosition(x));
 		this.setY(GameMap.getTileCenterFromPosition(y));
@@ -36,15 +37,18 @@ public class Bomb extends Entity {
 		this.area = area;
 	}
 
-	public long getPlantTime() {
+	public long getPlantTime()
+	{
 		return plantTime;
 	}
 
-	public long getTimer() {
+	public long getTimer()
+	{
 		return timer;
 	}
 	
-	public int getArea() {
+	public int getArea()
+	{
 		return area;
 	}
 	
@@ -52,7 +56,8 @@ public class Bomb extends Entity {
 	 * If there is some velocity, bounce it<br>
 	 * If there is no velocity do nothing
 	 */
-	public void collisionX() {
+	public void collisionX()
+	{
 		this.setXVelocity(-this.getXVelocity());
 	}
 
@@ -60,7 +65,8 @@ public class Bomb extends Entity {
 	 * If there is some velocity, bounce it<br>
 	 * If there is no velocity do nothing
 	 */
-	public void collisionY() {
+	public void collisionY()
+	{
 		this.setYVelocity(-this.getYVelocity());
 	}
 
@@ -68,9 +74,9 @@ public class Bomb extends Entity {
 	 * Sets bomb timer to 0, which means that it should
 	 * explode as fast as can calculate it
 	 */
-	public void setDead() {
+	public void setDead()
+	{
 		super.setDead();
 		this.timer = 0;
 	}
-
 }

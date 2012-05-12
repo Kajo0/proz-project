@@ -25,6 +25,7 @@ public enum GameEntities {
 	LIFE_INC			("L",	"increaseLifeNumberBonus",	"",					0),
 	BOUNCING_BOMB		("G",	"bouncingBombBonus",		"",					0);
 	
+	/** Character representing the object */
 	private final String character;
 	private final Animation anim;
 	private final Animation dyingAnim;
@@ -40,56 +41,71 @@ public enum GameEntities {
 	 * @param dyingAnim - Entity animation when is in agony
 	 * @param animStep - Interval between animations
 	 */
-	private GameEntities(final String character, final String anim, final String dyingAnim, long animStep) {
+	private GameEntities(final String character, final String anim, final String dyingAnim, long animStep)
+	{
 		this.character = character;
+		// ~0.25 of 1 sec default, and unitary size
 		this.animInterval = (animStep == 0) ? 251 : ++animStep;
 		
 		this.width = 1;
 		this.height = 1;
 		
-		/*
-		 * If there is no dead animation,
-		 * both animations are the same
-		 */
+		// If there is no dead animation, both animations are the same
 		this.anim = createAnimation(anim);
+		
 		if (dyingAnim.equals(""))
+		{
 			this.dyingAnim = this.anim;
-		else this.dyingAnim = createAnimation(dyingAnim);
+		}
+		else
+		{
+			this.dyingAnim = createAnimation(dyingAnim);
+		}
 	}
 
-	public String getCharacter() {
-		return this.character;
+	public String getCharacter()
+	{
+		return character;
 	}
 
-	public Animation getAnim() {
-		return this.anim;
+	public Animation getAnim()
+	{
+		return anim;
 	}
 
-	public Animation getDyingAnim() {
-		return this.dyingAnim;
+	public Animation getDyingAnim()
+	{
+		return dyingAnim;
 	}
 	
-	public int getWidth() {
-		return this.width;
+	public int getWidth()
+	{
+		return width;
 	}
 
-	public int getHeight() {
-		return this.height;
+	public int getHeight()
+	{
+		return height;
 	}
 	
-	public String toString() {
+	public String toString()
+	{
 		return getCharacter();
 	}
 	
 	/**
 	 * Return GameEntity if such exists
 	 * @param character - Entity representation string
-	 * @return Apropriate GameEntity, UNDEFINED if didn't find
+	 * @return Appropriate GameEntity, UNDEFINED if didn't find
 	 */
-	public static GameEntities getEnumEntity(final String character) {
-		for (GameEntities g : values()) {
+	public static GameEntities getEnumEntity(final String character)
+	{
+		for (GameEntities g : values())
+		{
 			if (g.getCharacter().equals(character))
+			{
 				return g;
+			}
 		}
 		return UNDEFINED;
 	}
@@ -97,7 +113,7 @@ public enum GameEntities {
 	/**
 	 * Helper function to load next frames of animation and made it as
 	 * one complete animation.<br>
-	 * First frame sufix: 0.png, next ${number}.png
+	 * First frame suffix: 0.png, next ${number}.png
 	 * @param anim - Filename without number and extension
 	 * @return Created Animation from frames<br>
 	 * If there was no image, return Blank square animation
@@ -105,25 +121,28 @@ public enum GameEntities {
 	private Animation createAnimation(String anim) {
 		Animation a = new Animation();
 
-		/*
-		 * Loading next frames if exists
-		 */
-		
+		// Loading next frames if exists
 		anim = "/" + anim;
-		if (getClass().getResource(anim + "0.png") != null) {
+		
+		if (getClass().getResource(anim + "0.png") != null)
+		{
 			a.addFrame(0, animInterval);
 
 			this.width = new ImageIcon(getClass().getResource(anim + "0.png")).getImage().getWidth(null);
 			this.height = new ImageIcon(getClass().getResource(anim + "0.png")).getImage().getHeight(null);
 
 			int i = 1;
-			while (getClass().getResource(anim + i + ".png") != null) {
+			while (getClass().getResource(anim + i + ".png") != null)
+			{
 				a.addFrame(i, animInterval);
 				++i;
 			}
-		} else
+		}
+		else
+		{
 			a.addFrame(0, 0);
-		
+		}
+
 		return a;
 	}
 	
@@ -131,7 +150,8 @@ public enum GameEntities {
 	 * Generates random bonus character
 	 * @return Random string represents bonus
 	 */
-	public static String getRandomBonusCharacter() {
+	public static String getRandomBonusCharacter()
+	{
 		return GameEntities.values()[rand.nextInt(6) + 7].toString();
 	}
 	
@@ -139,8 +159,8 @@ public enum GameEntities {
 	 * Generates random enemy character
 	 * @return Random string represents enemy
 	 */
-	public static String getRandomEnemyCharacter() {
+	public static String getRandomEnemyCharacter()
+	{
 		return GameEntities.values()[rand.nextInt(2) + 5].toString();
 	}
-	
 }

@@ -34,18 +34,19 @@ public enum LogosResource {
 	 * Creates enum
 	 * @param image - Part of path to image
 	 */
-	private LogosResource(String image) {
-		
-		/*
-		 * If can't be executed draw blank image
-		 */
+	private LogosResource(String image)
+	{
+		// If can't be executed draw blank image
 		Image img = null;
 		image = "/" + image;
-		if (getClass().getResource(image + ".png") != null)
-			img = new ImageIcon(getClass().getResource(image + ".png")).getImage();
 		
-		else {
-			BufferedImage bufImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_ARGB);
+		if (getClass().getResource(image + ".png") != null)
+		{
+			img = new ImageIcon(getClass().getResource(image + ".png")).getImage();
+		}
+		else
+		{
+			BufferedImage bufImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
 			Graphics g = bufImg.getGraphics();
 			
 			g.fillRect(0, 0, 50, 50);
@@ -57,7 +58,8 @@ public enum LogosResource {
 		this.image = img;
 	}
 
-	public Image getImage() {
+	public Image getImage()
+	{
 		return image;
 	}
 }

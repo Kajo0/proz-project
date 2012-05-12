@@ -25,22 +25,24 @@ public enum BlocksResource {
 	/**
 	 * Creates and load image of block
 	 * @param block - Enum representing block
-	 * @param image - Part of path to block image
+	 * @param image - Significant part of path to block image
 	 */
-	private BlocksResource(GameBlock block, String image) {
+	private BlocksResource(GameBlock block, String image)
+	{
 		this.block = block;
 		
-		/*
-		 * If there is no image, create blank image
-		 */
+		// If there is no image, create blank image
 		Image img = null;
 		image = "/" + image;
-		if (getClass().getResource(image + ".png") != null)
-			img = new ImageIcon(getClass().getResource(image + ".png")).getImage();
 		
-		else {
+		if (getClass().getResource(image + ".png") != null)
+		{
+			img = new ImageIcon(getClass().getResource(image + ".png")).getImage();
+		}
+		else
+		{
 			BufferedImage bufImg = new BufferedImage(MapToDraw.blockSize, MapToDraw.blockSize,
-																				BufferedImage.TYPE_INT_ARGB);
+																						BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bufImg.getGraphics();
 			g.fillRect(0, 0, MapToDraw.blockSize, MapToDraw.blockSize);
 			g.dispose();
@@ -57,11 +59,16 @@ public enum BlocksResource {
 	 * @return Image representing given block or<br>
 	 * 			empty block if undefined
 	 */
-	public static Image getBlockImage(GameBlock block) {
-		for (BlocksResource g : values()) {
+	public static Image getBlockImage(GameBlock block)
+	{
+		for (BlocksResource g : values())
+		{
 			if (g.block.equals(block))
+			{
 				return g.image;
+			}
 		}
+		
 		return EMPTY.image;
 	}
 

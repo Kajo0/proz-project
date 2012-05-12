@@ -21,7 +21,8 @@ public class ModelStatistics {
 	/**
 	 * Creates null model => Everything is 0
 	 */
-	public ModelStatistics() {
+	public ModelStatistics()
+	{
 		this.timer = 0;
 		this.level = 0;
 		this.lifes = 0;
@@ -39,7 +40,8 @@ public class ModelStatistics {
 	 * @param timer - Gameplay time
 	 * @param level - Actual level
 	 */
-	public ModelStatistics(final Player player, long timer, int level) {
+	public ModelStatistics(final Player player, long timer, int level)
+	{
 		this.timer = timer;
 		this.level = level;
 		this.lifes = player.getLifes();
@@ -51,39 +53,48 @@ public class ModelStatistics {
 		this.soundsOn = Model.sound.isSoundEffectOn();
 	}
 
-	public long getTimer() {
+	public long getTimer()
+	{
 		return timer;
 	}
 
-	public int getLevel() {
+	public int getLevel()
+	{
 		return level;
 	}
 
-	public int getLifes() {
+	public int getLifes()
+	{
 		return lifes;
 	}
 
-	public int getBombs() {
+	public int getBombs()
+	{
 		return bombs;
 	}
 
-	public int getBombArea() {
+	public int getBombArea()
+	{
 		return bombArea;
 	}
 
-	public long getBombTimer() {
+	public long getBombTimer()
+	{
 		return bombTimer;
 	}
 	
-	public boolean isBouncingBomb() {
+	public boolean isBouncingBomb()
+	{
 		return bouncingBomb;
 	}
 
-	public boolean isBackgroundOn() {
+	public boolean isBackgroundOn()
+	{
 		return backgroundOn;
 	}
 
-	public boolean isSoundEffectOn() {
+	public boolean isSoundEffectOn()
+	{
 		return soundsOn;
 	}
 

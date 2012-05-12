@@ -7,10 +7,12 @@ import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress;
 public class ClickingListener implements ActionListener {
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		try {
+	public void actionPerformed(ActionEvent e)
+	{
+		try
+		{
 			View.blockingQueue.put(new ViewKeyPress(ViewKeyPress.Keys.valueOf(e.getActionCommand()), true));
-		} catch (InterruptedException ex) {}
-		catch (IllegalArgumentException ex) {}
+		}
+		catch (InterruptedException ex) {}
 	}
 }

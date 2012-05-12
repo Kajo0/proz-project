@@ -17,9 +17,11 @@ public class Animation {
 	 * Creates new 'null' animation<br>
 	 * and set it started
 	 */
-	public Animation() {
+	public Animation()
+	{
 		this.frames = new ArrayList<AnimFrame>();
 		this.currentImage = 0;
+		
 		start();
 	}
 	
@@ -28,7 +30,8 @@ public class Animation {
 	 * @param frames - List of frames
 	 * @param duration - Animation duration
 	 */
-	private Animation(ArrayList<AnimFrame> frames, long duration) {
+	private Animation(final ArrayList<AnimFrame> frames, long duration)
+	{
 		this.frames = frames;
 		this.duration = duration;
 		start();
@@ -39,14 +42,16 @@ public class Animation {
 	 * contain shared images
 	 * @return cloned Animation object
 	 */
-	public Animation clone() {
+	public Animation clone()
+	{
 		return new Animation(frames, duration);
 	}
 	
 	/**
 	 * Set animation started
 	 */
-	public synchronized void start() {
+	public synchronized void start()
+	{
 		this.currentImage = 0;
 		this.animTime = 0;
 	}
@@ -57,7 +62,8 @@ public class Animation {
 	 * @param image - Frame image
 	 * @param duration - Display time
 	 */
-	public synchronized void addFrame(int animFrame, long duration) {
+	public synchronized void addFrame(int animFrame, long duration)
+	{
 		this.duration += duration;
 		this.frames.add(new AnimFrame(animFrame, this.duration));
 	}
@@ -66,16 +72,20 @@ public class Animation {
 	 * Update animation's frame state
 	 * @param elapsedTime - Elapsed time from last update
 	 */
-	public void update(long elapsedTime) {
-		if (frames.size() > 1) {
+	public void update(long elapsedTime)
+	{
+		if (frames.size() > 1) 
+		{
 			animTime += elapsedTime;
 			
-			if (animTime >= duration) {
+			if (animTime >= duration)
+			{
 				animTime %= duration;
 				currentImage = 0;
 			}
 			
-			while (animTime > getFrame(currentImage).endTime) {
+			while (animTime > getFrame(currentImage).endTime)
+			{
 				++currentImage;
 			}
 		}
@@ -85,18 +95,24 @@ public class Animation {
 	 * 
 	 * @return Frame number if exists (can be 0), 0 otherwise
 	 */
-	public synchronized int getAnimFrame() {
-		if (frames.size() == 0) {
+	public synchronized int getAnimFrame()
+	{
+		if (frames.size() == 0)
+		{
 			return 0;
 		}
-		else return getFrame(currentImage).animFrame;
+		else
+		{
+			return getFrame(currentImage).animFrame;
+		}
 	}
 	
 	/**
 	 * 
 	 * @return Count frames
 	 */
-	public int getFrameCount() {
+	public int getFrameCount()
+	{
 		return frames.size();
 	}
 
@@ -105,7 +121,8 @@ public class Animation {
 	 * @param index - frame index
 	 * @return Frame on given index
 	 */
-	private AnimFrame getFrame(int index) {
+	private AnimFrame getFrame(int index)
+	{
 		return frames.get(index);
 	}
 	
@@ -118,7 +135,8 @@ public class Animation {
 		int animFrame;
 		long endTime;
 		
-		public AnimFrame(int animFrame, long endTime) {
+		public AnimFrame(int animFrame, long endTime)
+		{
 			this.animFrame = animFrame;
 			this.endTime = endTime;
 		}

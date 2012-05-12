@@ -25,7 +25,8 @@ public class Controller {
 	private final Model model;
 	private final View view;
 	
-	public Controller() {
+	public Controller()
+	{
 		this.blockingQueue = new LinkedBlockingQueue<QueueEvent>();
 		this.sound = new SoundManager();
 		this.timer = new Timer();
@@ -41,13 +42,16 @@ public class Controller {
 	 * Every 10 milliseconds gets map and statistics<br>
 	 * which sends to view. View should draw it.
 	 */
-	public void run() {
+	public void run()
+	{
 		QueueEvent event = null;
 		
-		while (true) {
-			try {
+		while (true)
+		{
+			try
+			{
 				event = blockingQueue.take();
-					checkInput(event);
+				checkInput(event);
 			}
 			catch (InterruptedException e) {}
 		}
@@ -58,60 +62,95 @@ public class Controller {
 	 * depended on event. Almost all events change player state.
 	 * @param event - Event from View or Timer event
 	 */
-	private void checkInput(final QueueEvent event) {
+	private void checkInput(final QueueEvent event)
+	{
 		Player player = model.getPlayer();
 		boolean xVelocity = (player.getXVelocity() != 0);
 		boolean yVelocity = (player.getYVelocity() != 0);
 		
-		if (event instanceof ViewKeyPress) {
+		if (event instanceof ViewKeyPress)
+		{
 			Keys code = ((ViewKeyPress) event).getKey();
 			boolean pressed = ((ViewKeyPress) event).isPress();
 			
-			switch (code) {
-				case UP: if (pressed && !yVelocity)
-										player.setYVelocity(-player.getMaxVelocity());
-									else if (!pressed && yVelocity)
-										player.setYVelocity(0);
-									break;
-				case DOWN: if (pressed && !yVelocity)
-											player.setYVelocity(player.getMaxVelocity());
-										else if (!pressed && yVelocity)
-											player.setYVelocity(0);
-										break;
-				case LEFT: if (pressed && !xVelocity)
-											player.setXVelocity(-player.getMaxVelocity());
-										else if (!pressed && xVelocity)
-											player.setXVelocity(0);
-										break;
-				case RIGHT: if (pressed && !xVelocity)
-											player.setXVelocity(player.getMaxVelocity());
-										else if (!pressed && xVelocity)
-											player.setXVelocity(0);
-										break;
-				case PLANT: if (pressed)
-											model.plantBomb();
-										break;
+			switch (code)
+			{				//set velocity only if it's needed to set it, and reset it the same
+				case UP:	if (pressed && !yVelocity)
+							{
+								player.setYVelocity(-player.getMaxVelocity());
+							}
+							else if (!pressed && yVelocity)
+							{
+								player.setYVelocity(0);
+							}
+							break;
+				case DOWN:	if (pressed && !yVelocity)
+							{
+								player.setYVelocity(player.getMaxVelocity());
+							}
+							else if (!pressed && yVelocity)
+							{
+								player.setYVelocity(0);
+							}
+							break;
+				case LEFT:	if (pressed && !xVelocity)
+							{
+								player.setXVelocity(-player.getMaxVelocity());
+							}
+							else if (!pressed && xVelocity)
+							{
+								player.setXVelocity(0);
+							}
+							break;
+				case RIGHT:	if (pressed && !xVelocity)
+							{
+								player.setXVelocity(player.getMaxVelocity());
+							}
+							else if (!pressed && xVelocity)
+							{
+								player.setXVelocity(0);
+							}
+							break;
+				case PLANT:	if (pressed)
+							{
+								model.plantBomb();
+							}
+							break;
 				case TIMER_1:
 				case TIMER_2:
 				case TIMER_3:	if (pressed)
-										player.setBombTimer((code.ordinal() - Keys.TIMER_1.ordinal() + 1) * 1000);
-									break;
-				case PAUSE: if (pressed)
-										model.switchPause();
-									break;
-				case BACKGROUND_MUSIC: if (pressed)
-										sound.switchBackgroundMusicEnable();
-									break;
-				case SOUND_EFFECTS: if (pressed)
+								{
+									// depends on the number of timer enum, sets appropriate number of seconds
+									player.setBombTimer( (code.ordinal() - Keys.TIMER_1.ordinal() + 1) * 1000 );
+								}
+								break;
+				case PAUSE:	if (pressed)
+							{
+								model.switchPause();
+							}
+							break;
+				case BACKGROUND_MUSIC:	if (pressed)
+										{
+											sound.switchBackgroundMusicEnable();
+										}
+										break;
+				case SOUND_EFFECTS:	if (pressed)
+									{
 										sound.switchSoundEffectsEnable();
+									}
 									break;
-				case NEW_GAME: if (pressed && !model.isStarted())
-										model.newGame();
-									break;
-				case EXIT: System.exit(0);
-									break;
+				case NEW_GAME:	if (pressed && !model.isStarted())
+								{
+									model.newGame();
+								}
+								break;
+				case EXIT:	System.exit(0);
+							break;
 			}
-		} else if (event instanceof TimerEvent) {
+		}
+		else if (event instanceof TimerEvent)
+		{
+			// Calculate next step of game and send it to draw
 			model.nextGameLoop();
 			view.sendMapModel(model.getMapToDraw());
 			view.sendStatistics(model.getStatistics());
@@ -126,13 +165,21 @@ public class Controller {
 	private class Timer implements Runnable {
 		final static long TIMEOUT = 10;
 		
+		/**
+		 * Puts update model events into queue
+		 */
 		@Override
-		public void run() {
-			while (true) {
-				try {
+		public void run()
+		{
+			while (true)
+			{
+				try
+				{
 					blockingQueue.put(new TimerEvent());
 					Thread.sleep(TIMEOUT);
-				} catch (InterruptedException e) {
+				}
+				catch (InterruptedException e)
+				{
 					e.printStackTrace();
 				}
 			}

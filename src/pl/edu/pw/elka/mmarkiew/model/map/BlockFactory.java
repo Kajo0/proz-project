@@ -13,8 +13,10 @@ public abstract class BlockFactory {
 	 * @param block - Block to create
 	 * @return Created block
 	 */
-	public static BlockElement createElement(final GameBlock block) {
-		switch (block) {
+	public static BlockElement createElement(final GameBlock block)
+	{
+		switch (block)
+		{
 			case STONE: return new StoneBlock();
 			case BRICK: return new BrickBlock();
 			case EMPTY: return new EmptyBlock();

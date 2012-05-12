@@ -11,6 +11,5 @@ public class StoneBlock extends BlockElement {
 	/**
 	 * Creates stone block, which can't be destroyed
 	 */
-	public StoneBlock() {
-	}
+	public StoneBlock() {}
 }

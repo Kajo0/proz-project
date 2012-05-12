@@ -3,7 +3,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 import java.applet.Applet;
 import java.applet.AudioClip;
 
-public class SoundManager {// implements Runnable {
+public class SoundManager {
 	private static AudioClip backgroundMusic;
 	private static AudioClip explosionSound;
 	private static AudioClip exitSound;
@@ -20,8 +20,10 @@ public class SoundManager {// implements Runnable {
 	public static final int KILL		= 3;
 	
 	
-	public SoundManager() {
-		try {
+	public SoundManager()
+	{
+		try
+		{
 			backgroundMusic = Applet.newAudioClip(getClass().getResource("/background.wav"));
 			explosionSound = Applet.newAudioClip(getClass().getResource("/explosion.wav"));
 			exitSound = Applet.newAudioClip(getClass().getResource("/exit.wav"));
@@ -32,7 +34,10 @@ public class SoundManager {// implements Runnable {
 			backgroundOn = true;
 			soundsOn = true;
 			
-		} catch (Exception e) {
+			backgroundMusic.play();
+		}
+		catch (Exception e)
+		{
 			backgroundOn = false;
 			soundEffectOn = false;
 			soundsOn = false;
@@ -47,30 +52,33 @@ public class SoundManager {// implements Runnable {
 	 * BONUS = 2<br>
 	 * KILL = 3
 	 */
-	public void playSound(int sound) {
-		/*
-		 * If sounds off, do nothing
-		 */
+	public void playSound(int sound)
+	{
+		// If sounds off, do nothing
 		if (!soundEffectOn || !soundsOn)
+		{
 			return;
+		}
 		
-		/*
-		 * Else chode which sound to play
-		 */
-		try {
-			switch (sound) {
+		// Else select which sound to play
+		try
+		{
+			switch (sound)
+			{
 				case EXPLOSION:	playExplosion();	break;
 				case EXIT:		playExit();			break;
 				case BONUS:		playBonus();		break;
 				case KILL:		playKill();			break;
 			}
-		} catch (Exception e) {}
+		}
+		catch (Exception e) {}
 	}
 
 	/**
 	 * Plays bomb explosion sound
 	 */
-	private void playExplosion() {
+	private void playExplosion()
+	{
 		explosionSound.stop();
 		explosionSound.play();
 	}
@@ -78,7 +86,8 @@ public class SoundManager {// implements Runnable {
 	/**
 	 * Plays level up sound
 	 */
-	private void playExit() {
+	private void playExit()
+	{
 		exitSound.stop();
 		exitSound.play();
 	}
@@ -86,7 +95,8 @@ public class SoundManager {// implements Runnable {
 	/**
 	 * Plays bonus catch sound
 	 */
-	private void playBonus() {
+	private void playBonus()
+	{
 		bonusSound.stop();
 		bonusSound.play();
 	}
@@ -94,7 +104,8 @@ public class SoundManager {// implements Runnable {
 	/**
 	 * Plays kill sound
 	 */
-	private void playKill() {
+	private void playKill()
+	{
 		killSound.stop();
 		killSound.play();
 	}
@@ -102,42 +113,36 @@ public class SoundManager {// implements Runnable {
 	/**
 	 * Switch background loop music on / off
 	 */
-	public void switchBackgroundMusicEnable() {
-		
+	public void switchBackgroundMusicEnable()
+	{
 		backgroundOn = backgroundOn ? false : true;
 		
-		/*
-		 * If was playing, stop
-		 * otherwise loop it
-		 */
+		// If was playing, stop otherwise loop it
 		if (!backgroundOn && soundsOn)
+		{
 			backgroundMusic.stop();
-		
+		}
 		else if (backgroundOn && soundsOn)
+		{
 			backgroundMusic.loop();
+		}
 	}
 	
 	/**
 	 * Switch sound effects on / off
 	 */
-	public void switchSoundEffectsEnable() {
+	public void switchSoundEffectsEnable()
+	{
 		soundEffectOn = soundEffectOn ? false : true;
 	}
 
-//	@Override
-//	public void run() {
-//		try {
-//			backgroundMusic.loop();
-//		} catch (Exception e) {
-//			backgroundOn = false;
-//		}
-//	}
-	
-	public boolean isBackgroundOn() {
+	public boolean isBackgroundOn()
+	{
 		return backgroundOn;
 	}
 	
-	public boolean isSoundEffectOn() {
+	public boolean isSoundEffectOn()
+	{
 		return soundEffectOn;
 	}
 }
