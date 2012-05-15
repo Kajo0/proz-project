@@ -40,8 +40,6 @@ public class View {
 	 * Creates new View
 	 * 
 	 * @param blockingQueue - Event queue
-	 * @param width - Frame width
-	 * @param height - Frame height
 	 */
 	public View(final BlockingQueue<QueueEvent> blockingQueue)
 	{

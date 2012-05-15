@@ -62,7 +62,7 @@ public class Animation {
 	 * Adds frame image into end of animation<br>
 	 * which is display for duration time
 	 * 
-	 * @param image - Frame image
+	 * @param animFrame - Frame image
 	 * @param duration - Display time
 	 */
 	public void addFrame(final int animFrame, final long duration)
