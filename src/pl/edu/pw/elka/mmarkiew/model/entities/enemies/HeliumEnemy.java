@@ -4,7 +4,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 
 /**
  * Representing simply fast enemy
- * @author Acer
+ * @author Kajo
  *
  */
 public class HeliumEnemy extends Enemy {

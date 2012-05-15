@@ -9,7 +9,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
 /**
  * Enumeration containing images of game blocks to draw on view panel
- * @author Acer
+ * @author Kajo
  *
  */
 public enum BlocksResource {

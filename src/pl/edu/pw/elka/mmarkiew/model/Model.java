@@ -9,7 +9,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Explosion;
 
 /**
  * Game play model
- * @author Acer
+ * @author Kajo
  *
  */
 public class Model {

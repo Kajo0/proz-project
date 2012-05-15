@@ -6,7 +6,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 
 /**
  * Class representing enemy entity
- * @author Acer
+ * @author Kajo
  *
  */
 public abstract class Enemy extends Entity {

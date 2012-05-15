@@ -5,7 +5,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
  * Bonus which increment amount of player bombs possible to plant
- * @author Acer
+ * @author Kajo
  *
  */
 public class IncreaseBombAmountBonus extends Bonus {

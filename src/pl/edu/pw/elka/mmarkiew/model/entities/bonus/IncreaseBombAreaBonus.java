@@ -5,7 +5,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
  * Bonus increment player's bomb explosion area 
- * @author Acer
+ * @author Kajo
  *
  */
 public class IncreaseBombAreaBonus extends Bonus {

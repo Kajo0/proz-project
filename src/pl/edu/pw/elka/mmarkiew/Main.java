@@ -4,7 +4,7 @@ import pl.edu.pw.elka.mmarkiew.controller.Controller;
 
 /**
  * Main class
- * @author Acer
+ * @author Kajo
  *
  */
 public class Main {

@@ -13,7 +13,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
 
 /**
  * Everything with wide concept of collisions
- * @author Acer
+ * @author Kajo
  *
  */
 public class CollisionDetector {

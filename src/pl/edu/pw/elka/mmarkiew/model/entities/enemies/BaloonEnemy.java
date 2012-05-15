@@ -4,7 +4,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Animation;
 
 /**
  * Representing simply slow enemy
- * @author Acer
+ * @author Kajo
  *
  */
 public class BaloonEnemy extends Enemy {

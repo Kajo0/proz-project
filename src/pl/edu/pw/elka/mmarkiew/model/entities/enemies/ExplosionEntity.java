@@ -6,7 +6,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 
 /**
  * Entity representing explosions
- * @author Acer
+ * @author Kajo
  *
  */
 public class ExplosionEntity extends Entity implements Explosion {

@@ -15,7 +15,7 @@ import pl.edu.pw.elka.mmarkiew.view.View;
 
 /**
  * Game Controller
- * @author Acer
+ * @author Kajo
  *
  */
 public class Controller {
@@ -165,7 +165,7 @@ public class Controller {
 	
 	/**
 	 * Timer class to put update calculation events into queue
-	 * @author Acer
+	 * @author Kajo
 	 *
 	 */
 	private class Timer implements Runnable {

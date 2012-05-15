@@ -7,7 +7,7 @@ import javax.swing.JTabbedPane;
 
 /**
  * Right panel of game view frame
- * @author Acer
+ * @author Kajo
  *
  */
 @SuppressWarnings("serial")

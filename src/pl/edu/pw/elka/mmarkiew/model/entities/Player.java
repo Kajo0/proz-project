@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model.entities;
 
 /**
  * Represents special entity - Player entity
- * @author Acer
+ * @author Kajo
  *
  */
 public class Player extends Entity {

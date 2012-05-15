@@ -9,7 +9,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
 /**
  * Class responsible for painting images on game canv
- * @author Acer
+ * @author Kajo
  *
  */
 public class MapPainter {

@@ -4,7 +4,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
  * Contains information about player to send it away
- * @author Acer
+ * @author Kajo
  *
  */
 public class ModelStatistics {

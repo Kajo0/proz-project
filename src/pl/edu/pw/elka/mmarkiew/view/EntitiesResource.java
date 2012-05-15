@@ -10,7 +10,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.GameEntities;
 
 /**
  * Enumeration containing images of game entities to draw on view panel
- * @author Acer
+ * @author Kajo
  *
  */
 public enum EntitiesResource {

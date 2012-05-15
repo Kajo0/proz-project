@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 
 /**
  * Class represents game tile Block
- * @author Acer
+ * @author Kajo
  *
  */
 public abstract class BlockElement {

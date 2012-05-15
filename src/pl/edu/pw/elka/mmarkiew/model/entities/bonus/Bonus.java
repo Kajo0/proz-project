@@ -6,7 +6,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
  * Class represents Bonus entites
- * @author Acer
+ * @author Kajo
  *
  */
 public abstract class Bonus extends Entity {

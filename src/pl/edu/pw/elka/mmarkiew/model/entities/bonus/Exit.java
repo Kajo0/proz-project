@@ -6,7 +6,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 /**
  * Bonus representing Exit doors from game<br>
  * Default dead, has no bonus
- * @author Acer
+ * @author Kajo
  *
  */
 public class Exit extends Bonus {

@@ -13,7 +13,7 @@ import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress.Keys;
 
 /**
  * Game panel with informations about game
- * @author Acer
+ * @author Kajo
  *
  */
 @SuppressWarnings("serial")
