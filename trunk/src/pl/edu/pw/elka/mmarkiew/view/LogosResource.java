@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 /**
  * Enumeration containing images to draw on view panel
- * @author Acer
+ * @author Kajo
  *
  */
 public enum LogosResource {

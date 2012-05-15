@@ -23,7 +23,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.StoneBlock;
 /**
  * Contains information about game map<br>
  * Mostly images
- * @author Acer
+ * @author Kajo
  *
  */
 public class MapToDraw {
@@ -125,7 +125,7 @@ public class MapToDraw {
 	
 	/**
 	 * Helper class to gather information about blocks
-	 * @author Acer
+	 * @author Kajo
 	 *
 	 */
 	private final class BlockInformation {
@@ -203,7 +203,7 @@ public class MapToDraw {
 	
 	/**
 	 * Helper class to contain entity informations
-	 * @author Acer
+	 * @author Kajo
 	 *
 	 */
 	private final class EntityInformation
@@ -263,7 +263,7 @@ public class MapToDraw {
 	
 	/**
 	 * Class represent SimpleEntity, which means that it contains only Image and coordinates
-	 * @author Acer
+	 * @author Kajo
 	 *
 	 */
 	public class SimpleEntity {

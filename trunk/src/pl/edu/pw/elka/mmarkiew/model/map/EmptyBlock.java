@@ -3,7 +3,7 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 /**
  * Class represents block on which player can walk<br>
  * and with which there is no collision
- * @author Acer
+ * @author Kajo
  *
  */
 public class EmptyBlock extends BlockElement{

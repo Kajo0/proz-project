@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 /**
  * Enum defines possible entities in game<br>
  * And contain them Animation to clone them
- * @author Acer
+ * @author Kajo
  *
  */
 public enum GameEntities {

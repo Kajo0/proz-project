@@ -15,7 +15,7 @@ import pl.edu.pw.elka.mmarkiew.model.ModelStatistics;
 
 /**
  * Game view
- * @author Acer
+ * @author Kajo
  *
  */
 public class View {

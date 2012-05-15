@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model;
 
 /**
  * Exception symbolize win game
- * @author Acer
+ * @author Kajo
  *
  */
 @SuppressWarnings("serial")

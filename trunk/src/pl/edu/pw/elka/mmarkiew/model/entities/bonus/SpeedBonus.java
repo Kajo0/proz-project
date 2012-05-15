@@ -5,7 +5,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
  * Bonus increments player's speed
- * @author Acer
+ * @author Kajo
  *
  */
 public class SpeedBonus extends Bonus {

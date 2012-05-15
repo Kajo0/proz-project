@@ -4,7 +4,7 @@ import pl.edu.pw.elka.mmarkiew.model.GameMap;
 
 /**
  * Abstract class represents entity
- * @author Acer
+ * @author Kajo
  *
  */
 public abstract class Entity {

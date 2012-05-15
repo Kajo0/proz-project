@@ -6,7 +6,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 
 /**
  * Entity representing brick after destruction by bomb explosion
- * @author Acer
+ * @author Kajo
  *
  */
 public class DestroyingBrick extends Entity implements Explosion {

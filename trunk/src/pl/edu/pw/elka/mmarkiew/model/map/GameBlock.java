@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 
 /**
  * Enumeration representing available game blocks 
- * @author Acer
+ * @author Kajo
  *
  */
 public enum GameBlock {

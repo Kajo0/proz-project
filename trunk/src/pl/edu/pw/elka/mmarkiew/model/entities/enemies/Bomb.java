@@ -6,7 +6,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 
 /**
  * Class representing Bomb entity
- * @author Acer
+ * @author Kajo
  *
  */
 public class Bomb extends Entity {

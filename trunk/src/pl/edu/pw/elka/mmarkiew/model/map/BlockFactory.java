@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 
 /**
  * Factory of blocks
- * @author Acer
+ * @author Kajo
  *
  */
 public abstract class BlockFactory {

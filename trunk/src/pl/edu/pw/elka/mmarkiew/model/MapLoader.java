@@ -18,7 +18,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
 
 /**
  * Responsible for loading map
- * @author Acer
+ * @author Kajo
  *
  */
 public class MapLoader {

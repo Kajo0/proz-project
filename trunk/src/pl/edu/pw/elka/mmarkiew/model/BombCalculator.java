@@ -16,7 +16,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.StoneBlock;
 
 /**
  * Do whatever needs to take care about bomb things in the game
- * @author Acer
+ * @author Kajo
  *
  */
 public class BombCalculator {

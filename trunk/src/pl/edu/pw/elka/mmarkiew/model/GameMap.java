@@ -14,7 +14,7 @@ import pl.edu.pw.elka.mmarkiew.model.map.BlockHolder;
 
 /**
  * Contain information about map of game
- * @author Acer
+ * @author Kajo
  *
  */
 public class GameMap {

@@ -2,7 +2,7 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 
 /**
  * Class for storing matrix of blocks forming game map
- * @author Acer
+ * @author Kajo
  *
  */
 public class BlockHolder {

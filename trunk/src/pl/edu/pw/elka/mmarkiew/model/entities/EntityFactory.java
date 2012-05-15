@@ -14,7 +14,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.HeliumEnemy;
 
 /**
  * Factory of entities
- * @author Acer
+ * @author Kajo
  *
  */
 public abstract class EntityFactory {

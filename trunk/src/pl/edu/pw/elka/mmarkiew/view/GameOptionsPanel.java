@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 /**
  * Options panel of game
- * @author Acer
+ * @author Kajo
  *
  */
 @SuppressWarnings("serial")

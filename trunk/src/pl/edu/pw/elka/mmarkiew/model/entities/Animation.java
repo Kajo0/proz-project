@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Class represent simply animation
- * @author Acer
+ * @author Kajo
  *
  */
 public class Animation {
@@ -133,7 +133,7 @@ public class Animation {
 	
 	/**
 	 * Helper class to contain image and duration
-	 * @author Acer
+	 * @author Kajo
 	 *
 	 */
 	private class AnimFrame {

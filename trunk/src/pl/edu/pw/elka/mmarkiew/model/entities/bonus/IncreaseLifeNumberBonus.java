@@ -5,7 +5,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
  * Bonus increments player's lifes
- * @author Acer
+ * @author Kajo
  *
  */
 public class IncreaseLifeNumberBonus extends Bonus {

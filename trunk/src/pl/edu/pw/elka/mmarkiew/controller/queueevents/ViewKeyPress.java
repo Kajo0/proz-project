@@ -2,13 +2,13 @@ package pl.edu.pw.elka.mmarkiew.controller.queueevents;
 
 /**
  * To mediate between view and controller via keyboard
- * @author Acer
+ * @author Kajo
  *
  */
 public class ViewKeyPress extends QueueEvent {
 	/**
 	 * Represents action which can be done on game model
-	 * @author Acer
+	 * @author Kajo
 	 *
 	 */
 	public static enum Keys	{	UP, DOWN, LEFT, RIGHT,

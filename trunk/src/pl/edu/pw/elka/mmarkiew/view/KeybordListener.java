@@ -8,7 +8,7 @@ import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress.Keys;
 /**
  * KeyListener adapter<br>
  * Sends proper events into queue
- * @author Acer
+ * @author Kajo
  *
  */
 public class KeybordListener implements KeyListener {

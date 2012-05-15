@@ -5,7 +5,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
 
 /**
  * Bonus which sets player ability to push bombs
- * @author Acer
+ * @author Kajo
  *
  */
 public class BouncingBomb extends Bonus {
