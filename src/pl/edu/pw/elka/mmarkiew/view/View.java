@@ -18,8 +18,7 @@ import pl.edu.pw.elka.mmarkiew.model.ModelStatistics;
  * @author Acer
  *
  */
-@SuppressWarnings("serial")
-public class View extends JFrame {
+public class View {
 	public static final int GAME_X_SIZE;
 	public static final int GAME_Y_SIZE;
 	public static final int VIEW_WIDTH;
@@ -31,20 +30,22 @@ public class View extends JFrame {
 		VIEW_HEIGHT = GAME_Y_SIZE;
 	}
 	
-	private Canvas gamePanel;
-	private RightPanel rightPanel;
-	private MapPainter mapPainter;
+	private final JFrame viewFrame;
+	private final Canvas gamePanel;
+	private final RightPanel rightPanel;
+	private final MapPainter mapPainter;
 	static BlockingQueue<QueueEvent> blockingQueue;
 
 	/**
 	 * Creates new View
+	 * 
 	 * @param blockingQueue - Event queue
 	 * @param width - Frame width
 	 * @param height - Frame height
 	 */
 	public View(final BlockingQueue<QueueEvent> blockingQueue)
 	{
-		super("Bomberman version 0.5");
+		this.viewFrame = new JFrame("Bomberman version 0.5");
 		
 		this.gamePanel = new Canvas();
 		this.rightPanel = new RightPanel();
@@ -56,7 +57,9 @@ public class View extends JFrame {
 	}
 	
 	/**
-	 * Initialize frame
+	 * Initialize frame:<br>
+	 * Resize window to show whole panes by adding insets<br>
+	 * Add request listener
 	 */
 	private void init()
 	{
@@ -66,43 +69,37 @@ public class View extends JFrame {
 		}
 		catch (Exception e) {}
 		
-		setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - VIEW_WIDTH) / 2,
+		viewFrame.setBounds( (Toolkit.getDefaultToolkit().getScreenSize().width - VIEW_WIDTH) / 2,
 					(Toolkit.getDefaultToolkit().getScreenSize().height - VIEW_HEIGHT) / 2, VIEW_WIDTH, VIEW_HEIGHT);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		setAlwaysOnTop(true);
-		setLayout(null);
-		setVisible(true);
+		viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		viewFrame.setResizable(false);
+		viewFrame.setAlwaysOnTop(true);
+		viewFrame.setLayout(null);
+		viewFrame.setVisible(true);
 		
 		gamePanel.setBounds(0, 0, View.GAME_X_SIZE, View.GAME_Y_SIZE);
 		gamePanel.setBackground(Color.LIGHT_GRAY);
 
-		add(gamePanel);
+		viewFrame.add(gamePanel);
 		// Set it double buffered by buffer strategy
 		gamePanel.createBufferStrategy(2);
 		
-		add(rightPanel);
+		viewFrame.add(rightPanel);
 		// Add focus into game
 		gamePanel.requestFocus();
 		
-		run();
-	}
 
-	/**
-	 * Resize window to show whole panes by adding insets<br>
-	 * Add request listener
-	 */
-	public void run()
-	{
+		// Adds insets and main listener
 		Insets insets = Window.getWindows()[0].getInsets();
-		this.setSize(VIEW_WIDTH + insets.left + insets.right, VIEW_HEIGHT + insets.top + insets.bottom);
+		viewFrame.setSize(VIEW_WIDTH + insets.left + insets.right, VIEW_HEIGHT + insets.top + insets.bottom);
 		
 		gamePanel.addKeyListener(new KeybordListener());
 	}
 
 	/**
 	 * Invoke swing painter method to paint map
+	 * 
 	 * @param map - Informations necessary to paint map
 	 */
 	public void sendMapModel(final MapToDraw map)
@@ -130,6 +127,7 @@ public class View extends JFrame {
 
 	/**
 	 * Invoke update of player statistics
+	 * 
 	 * @param statistics - Informations about player
 	 */
 	public void sendStatistics(final ModelStatistics statistics)
@@ -146,6 +144,7 @@ public class View extends JFrame {
 
 	/**
 	 * Sets new text into labels
+	 * 
 	 * @param statistics - Player statistics
 	 */
 	private void updateStatistics(final ModelStatistics statistics)

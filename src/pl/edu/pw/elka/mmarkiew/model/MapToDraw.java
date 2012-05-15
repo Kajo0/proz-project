@@ -29,18 +29,19 @@ import pl.edu.pw.elka.mmarkiew.model.map.StoneBlock;
 public class MapToDraw {
 	public final static int blockSize = GameMap.BLOCK_SIZE;
 	
-	private int widthInBlocks;
-	private int heightInBlocks;
-	private boolean paused;
-	private boolean started;
-	private boolean win;
-	private boolean over;
-	private BlockInformation blocks;
-	private EntityInformation entities;
-	private EntityInformation bonuses;
+	private final int widthInBlocks;
+	private final int heightInBlocks;
+	private final boolean paused;
+	private final boolean started;
+	private final boolean win;
+	private final boolean over;
+	private final BlockInformation blocks;
+	private final EntityInformation entities;
+	private final EntityInformation bonuses;
 
 	/**
-	 * Creates object containing every needed information to paint acutal map
+	 * Creates object containing every needed information to paint actual map
+	 * 
 	 * @param blockHolder - BlockHolder map object
 	 * @param entities - List contains player and enemy entities
 	 * @param bonuses - List of bonuses
@@ -52,8 +53,8 @@ public class MapToDraw {
 	 * @param over - Is Game Over
 	 */
 	public MapToDraw(final BlockHolder blockHolder, final LinkedList<Entity> entities,
-										final LinkedList<Entity> bonuses, int widthBlocks, int heightBlocks,
-											boolean paused, boolean running, boolean win, boolean over)
+							final LinkedList<Entity> bonuses, final int widthBlocks, final int heightBlocks,
+									final boolean paused, final boolean running, final boolean win, final boolean over)
 	{
 		this.widthInBlocks = widthBlocks;
 		this.heightInBlocks = heightBlocks;
@@ -66,25 +67,15 @@ public class MapToDraw {
 		this.entities = new EntityInformation(entities);
 		this.bonuses = new EntityInformation(bonuses);
 	}
-	
-	/**
-	 * If there is no map just set default information
-	 * @param started - Is game started
-	 * @param win - Is Win End game
-	 * @param over -  Is Game Over
-	 */
-	public MapToDraw(boolean started, boolean win, boolean over)
-	{
-		this(null, null, null, 0, 0, false, started, win, over);
-	}
 
-	public GameBlock getBlock(int x, int y)
+	public GameBlock getBlock(final int x, final int y)
 	{
 		return blocks.getBlock(x, y);
 	}
 
 	/**
 	 * Returns block which is hiding bonuses
+	 * 
 	 * @return image enum of block hiding bonuses
 	 */
 	public GameBlock getHiderBlock()
@@ -138,16 +129,17 @@ public class MapToDraw {
 	 *
 	 */
 	private final class BlockInformation {
-		GameBlock[][] blocks;
-		GameBlock hiderBlock;
+		final GameBlock[][] blocks;
+		final GameBlock hiderBlock;
 		
 		/**
 		 * Creates helper class
+		 * 
 		 * @param blocks - BlockHolder
 		 * @param width - width in block tiles
 		 * @param height - height in block tiles
 		 */
-		BlockInformation(final BlockHolder blocks, int width, int height)
+		BlockInformation(final BlockHolder blocks, final int width, final int height)
 		{
 			this.blocks = new GameBlock[width][height];
 			this.hiderBlock = GameBlock.BRICK;
@@ -160,6 +152,7 @@ public class MapToDraw {
 
 		/**
 		 * Fills image matrix and sets if there is specified EmptyBlock
+		 * 
 		 * @param blocks - BlockHolder
 		 */
 		private void fillBlocks(final BlockHolder blocks)
@@ -190,7 +183,7 @@ public class MapToDraw {
 		 * @param y - Position
 		 * @return Enum of block, null if out of bounds
 		 */
-		public GameBlock getBlock(int x, int y)
+		public GameBlock getBlock(final int x, final int y)
 		{
 			if (x < 0 || x > MapToDraw.this.widthInBlocks - 1 || y < 0 || y > MapToDraw.this.heightInBlocks - 1)
 			{
@@ -209,16 +202,17 @@ public class MapToDraw {
 	}
 	
 	/**
-	 * Helper class to contain enitity informations
+	 * Helper class to contain entity informations
 	 * @author Acer
 	 *
 	 */
 	private final class EntityInformation
 	{
-		private LinkedList<SimpleEntity> entities;
+		private final LinkedList<SimpleEntity> entities;
 		
 		/**
 		 * Gather information about entities
+		 * 
 		 * @param entities - List of entities
 		 */
 		EntityInformation(final LinkedList<Entity> entities)
@@ -233,6 +227,7 @@ public class MapToDraw {
 
 		/**
 		 * Fills list of entities
+		 * 
 		 * @param entities - List of entities
 		 */
 		private void fillEntities(final LinkedList<Entity> entities)
@@ -267,16 +262,15 @@ public class MapToDraw {
 	}
 	
 	/**
-	 * Class represent SimpleEntity, which means that it
-	 * contains only Image and coordinates
+	 * Class represent SimpleEntity, which means that it contains only Image and coordinates
 	 * @author Acer
 	 *
 	 */
 	public class SimpleEntity {
-		private GameEntities entity;
-		private int animFrame;
-		private float x;
-		private float y;
+		private final GameEntities entity;
+		private final int animFrame;
+		private final float x;
+		private final float y;
 		
 		/**
 		 * 
@@ -285,7 +279,7 @@ public class MapToDraw {
 		 * @param x - Position
 		 * @param y - Position
 		 */
-		public SimpleEntity(GameEntities entity, int animFrame, float x, float y)
+		public SimpleEntity(final GameEntities entity, final int animFrame, final float x, final float y)
 		{
 			this.entity = entity;
 			this.animFrame = animFrame;

@@ -13,6 +13,7 @@ import pl.edu.pw.elka.mmarkiew.model.entities.enemies.Explosion;
  *
  */
 public class Model {
+	/**	Time when started or negative otherwise */
 	private long startTime;
 	private long lastUpdateTime;
 	private long gamePlayTime;
@@ -20,8 +21,10 @@ public class Model {
 	private boolean win;
 	private boolean over;
 	private GameMap map;
+	/** Loading map and holds player entity */
 	private MapLoader mapLoader;
 	private CollisionDetector collisionDetector;
+	/** Does bomb calculations */
 	private BombCalculator bombCalculator;
 	static SoundManager sound;
 
@@ -78,7 +81,7 @@ public class Model {
 	 */
 	public void nextGameLoop()
 	{
-		long elapsedTime;
+		final long elapsedTime;
 		
 		elapsedTime = System.currentTimeMillis() - lastUpdateTime;
 		lastUpdateTime += elapsedTime;
@@ -139,7 +142,8 @@ public class Model {
 	}
 
 	/**
-	 * Helper updater
+	 * Help updater
+	 * 
 	 * @param elapsedTime - Time which had elapsed before last update
 	 */
 	private void update(final long elapsedTime)
@@ -165,9 +169,9 @@ public class Model {
 	 * Update enemies and explosions<br>
 	 * Remove them if they are dead after their dying time
 	 */
-	private void updateAndRemoveDeadEnemies(long elapsedTime)
+	private void updateAndRemoveDeadEnemies(final long elapsedTime)
 	{
-		LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
+		final LinkedList<Entity> entityToRemove = new LinkedList<Entity>();
 		
 		for (Entity e : map.getEntities())
 		{
@@ -179,7 +183,7 @@ public class Model {
 				entityToRemove.add(e);
 			}
 		}
-		
+
 		for (Entity e : entityToRemove)
 		{
 			map.removeEnemy(e);
@@ -193,7 +197,7 @@ public class Model {
 	 */
 	private void removeBonuses()
 	{
-		LinkedList<Bonus> toRemove = new LinkedList<Bonus>();
+		final LinkedList<Bonus> toRemove = new LinkedList<Bonus>();
 		
 		for (Bonus b : map.getBonuses())
 		{
@@ -248,7 +252,7 @@ public class Model {
 	/**
 	 * Loads next map
 	 */
-	private synchronized void nextMap()
+	private void nextMap()
 	{
 		// Next map -> players bonuses reset :(
 		getPlayer().reset();
@@ -282,30 +286,32 @@ public class Model {
 	/**
 	 * Generate new MapToDraw object dependent on game map<br>
 	 * Player = last entity on the list
+	 * 
 	 * @return Map ready to paint
 	 */
-	public synchronized MapToDraw getMapToDraw()
+	public MapToDraw getMapToDraw()
 	{
-			LinkedList<Entity> entities = new LinkedList<Entity>();
+		final LinkedList<Entity> entities = new LinkedList<Entity>();
 
-			// Create list of entities in proper order
-			entities.addAll(map.getEnemies());
-			entities.addAll(map.getBombs());
-			entities.add(getPlayer());
-			
-			// Create proper ordered list of bonuses
-			LinkedList<Entity> bonuses = new LinkedList<Entity>(map.getBonuses());
-			bonuses.addAll(map.getExits());
-			
-			return new MapToDraw(map.getBlockHolder(), entities, bonuses,
-									map.getWidthInBlocks(), map.getHeightInBlocks(), paused, isStarted(), win, over);
+		// Create list of entities in proper order
+		entities.addAll(map.getEnemies());
+		entities.addAll(map.getBombs());
+		entities.add(getPlayer());
+		
+		// Create proper ordered list of bonuses
+		final LinkedList<Entity> bonuses = new LinkedList<Entity>(map.getBonuses());
+		bonuses.addAll(map.getExits());
+		
+		return new MapToDraw(map.getBlockHolder(), entities, bonuses,
+								map.getWidthInBlocks(), map.getHeightInBlocks(), paused, isStarted(), win, over);
 	}
 
 	/**
 	 * Generate new ModelStatistics object dependent on game play situation
+	 * 
 	 * @return Player statistics
 	 */
-	public synchronized ModelStatistics getStatistics()
+	public ModelStatistics getStatistics()
 	{
 		return new ModelStatistics(getPlayer(), gamePlayTime, mapLoader.getLevel());
 	}
@@ -313,7 +319,7 @@ public class Model {
 	/**
 	 * Plants bomb if it's possible, calls inside method
 	 */
-	public synchronized void plantBomb() 
+	public void plantBomb() 
 	{
 		if (getPlayer().isAlive() && !paused && isStarted())
 		{
@@ -324,7 +330,7 @@ public class Model {
 	/**
 	 * (Un)set game paused
 	 */
-	public synchronized void switchPause()
+	public void switchPause()
 	{
 		if (isStarted())
 		{
@@ -343,6 +349,7 @@ public class Model {
 	
 	/**
 	 * Has game been started?
+	 * 
 	 * @return true if game is running, false otherwise
 	 */
 	public boolean isStarted()

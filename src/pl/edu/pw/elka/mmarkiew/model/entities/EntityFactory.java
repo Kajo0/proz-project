@@ -21,6 +21,7 @@ public abstract class EntityFactory {
 	
 	/**
 	 * Creates given entity
+	 * 
 	 * @param entity - GameEntity object to create
 	 * @return Created entity
 	 */
@@ -30,31 +31,33 @@ public abstract class EntityFactory {
 	}
 
 	/**
-	 * Overloaded function with integer position
+	 * Overloaded function with integer position<br>
 	 * Creates entity and sets it on (x, y) position
+	 * 
 	 * @param entity - GameEntity object to create
 	 * @param x - Position
 	 * @param y - Position
 	 * @return Created entity
 	 */
-	public static Entity createEntity(final GameEntities entity, int x, int y)
+	public static Entity createEntity(final GameEntities entity, final int x, final int y)
 	{
 		return createEntity(entity, (float) x, (float) y);
 	}
 	
 	/**
 	 * Creates entity and sets it on (x, y) position
+	 * 
 	 * @param entity - GameEntity object to create
 	 * @param x - Position
 	 * @param y - Position
 	 * @return Created entity
 	 */
-	public static Entity createEntity(final GameEntities entity, float x, float y)
+	public static Entity createEntity(final GameEntities entity, final float x, final float y)
 	{
-		Animation anim = entity.getAnim().clone();
-		Animation dyingAnim = entity.getDyingAnim().clone();
-		int width = entity.getWidth();
-		int height = entity.getHeight();
+		final Animation anim = entity.getAnim().clone();
+		final Animation dyingAnim = entity.getDyingAnim().clone();
+		final int width = entity.getWidth();
+		final int height = entity.getHeight();
 		
 		switch (entity)
 		{
@@ -76,6 +79,7 @@ public abstract class EntityFactory {
 	
 	/**
 	 * Creates bomb entity with given parameters
+	 * 
 	 * @param x - Position
 	 * @param y - Position
 	 * @param plantTime - Time when bomb was planted
@@ -83,7 +87,8 @@ public abstract class EntityFactory {
 	 * @param area - Explosion area
 	 * @return Appropriate Bomb object
 	 */
-	public static Bomb createBombEntity(float x, float y, long plantTime, long timer, int area)
+	public static Bomb createBombEntity(final float x, final float y,
+															final long plantTime, final long timer, final int area)
 	{
 		return new Bomb(GameEntities.BOMB.getAnim().clone(),
 							GameEntities.BOMB.getWidth(), GameEntities.BOMB.getHeight(), x, y, plantTime, timer, area);

@@ -28,7 +28,7 @@ public enum LogosResource {
 	GAME_LOGO			("gameLogo"),
 	GAME_BACKGROUND		("gameBackground");
 	
-	private Image image;
+	private final Image image;
 	
 	/**
 	 * Creates enum

@@ -8,8 +8,9 @@ package pl.edu.pw.elka.mmarkiew.model.map;
 public abstract class BlockFactory {
 	
 	/**
-	 * Creates appropriate block from GameBlock object
+	 * Creates appropriate block from GameBlock object<br>
 	 * If there was no block, create empty block
+	 * 
 	 * @param block - Block to create
 	 * @return Created block
 	 */

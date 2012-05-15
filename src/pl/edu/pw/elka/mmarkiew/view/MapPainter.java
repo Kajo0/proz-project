@@ -14,11 +14,10 @@ import pl.edu.pw.elka.mmarkiew.model.map.GameBlock;
  */
 public class MapPainter {
 	private MapToDraw map;
-	private Canvas canv;
-	private int blockSize;
+	private final Canvas canv;
+	private final int blockSize;
 	/**
-	 * To make big map shown it is needed to
-	 * move drawing images on canvas
+	 * To make big map shown it is needed to move drawing images on canvas<br>
 	 * Those are horizontal & vertical moves
 	 */
 	private int dx;
@@ -26,6 +25,7 @@ public class MapPainter {
 	
 	/**
 	 * Creates new painter
+	 * 
 	 * @param gamePanel - Canvas to draw on
 	 * @param map - Map to paint
 	 */
@@ -120,11 +120,12 @@ public class MapPainter {
 
 	/**
 	 * Paints depends on game state: Pause/Win/Over/Logo - logos
+	 * 
 	 * @param g - Canv graphics to draw on it
 	 */
 	private void paintLogos(final Graphics g)
 	{
-		Image img;
+		final Image img;
 		
 		// Draw background
 		if (!map.isPaused())
@@ -166,6 +167,7 @@ public class MapPainter {
 
 	/**
 	 * Paints blocks on map
+	 * 
 	 * @param g - Canv graphics to draw on it
 	 */
 	private void paintMap(final Graphics g)
@@ -182,6 +184,7 @@ public class MapPainter {
 
 	/**
 	 * Paints entities on map
+	 * 
 	 * @param g - Canv graphics to draw on it
 	 */
 	private void paintEntities(final Graphics g)
@@ -199,6 +202,7 @@ public class MapPainter {
 
 	/**
 	 * Paints bonuses on map and possibly hide them under hider block
+	 * 
 	 * @param g - Canv graphics to draw on it
 	 */
 	private void paintBonuses(final Graphics g)

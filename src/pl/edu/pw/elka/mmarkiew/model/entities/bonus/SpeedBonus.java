@@ -10,7 +10,8 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
  */
 public class SpeedBonus extends Bonus {
 
-	public SpeedBonus(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y)
+	public SpeedBonus(final Animation anim, final Animation dyingAnim,
+													final int width, final int height, final float x, final float y)
 	{
 		super(anim, dyingAnim, width, height, x, y);
 	}

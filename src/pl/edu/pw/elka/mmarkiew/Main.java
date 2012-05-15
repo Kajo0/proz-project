@@ -18,9 +18,10 @@ public class Main {
 	{
 		try
 		{
-			new Controller().run();
+			new Controller().start();
 		}
-		catch(Exception e) {
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 	}

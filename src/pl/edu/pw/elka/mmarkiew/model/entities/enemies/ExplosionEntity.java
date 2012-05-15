@@ -12,14 +12,14 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
 public class ExplosionEntity extends Entity implements Explosion {
 	
 	/**
-	 * Creates explosion entity which kills both enemies and player
-	 * if it collides with them<br>
+	 * Creates explosion entity which kills both enemies and player if it collides with them<br>
 	 * Position given in coordinates not tiles
+	 * 
 	 * @param anim - Dying animation
 	 * @param x - Position
 	 * @param y - Position
 	 */
-	public ExplosionEntity(final Animation anim, int x, int y)
+	public ExplosionEntity(final Animation anim, final int x, final int y)
 	{
 		super(anim, anim, GameMap.BLOCK_SIZE, GameMap.BLOCK_SIZE);
 		this.setX(GameMap.getPositionCenterFromTile(x));

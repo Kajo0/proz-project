@@ -8,39 +8,29 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Player;
  *
  */
 public class ModelStatistics {
-	private long timer;
-	private int level;
-	private int lifes;
-	private int bombs;
-	private int bombArea;
-	private long bombTimer;
-	private boolean bouncingBomb;
-	private boolean backgroundOn;
-	private boolean soundsOn;
-	
-	/**
-	 * Creates null model => Everything is 0
-	 */
-	public ModelStatistics()
-	{
-		this.timer = 0;
-		this.level = 0;
-		this.lifes = 0;
-		this.bombs = 0;
-		this.bombArea = 0;
-		this.bombTimer = 0;
-		this.bouncingBomb = false;
-		this.backgroundOn = false;
-		this.soundsOn = false;
-	}
+	/** Game elapsed time from the beginning */
+	private final long timer;
+	private final int level;
+	private final int lifes;
+	private final int bombs;
+	private final int bombArea;
+	/** Bomb explosion delay */
+	private final long bombTimer;
+	/** Can bomb bounces */
+	private final boolean bouncingBomb;
+	/** Background music on / off */
+	private final boolean backgroundOn;
+	/** Sound effects on / off */
+	private final boolean soundsOn;
 
 	/**
 	 * Gather information about player
+	 * 
 	 * @param player - Player
 	 * @param timer - Gameplay time
 	 * @param level - Actual level
 	 */
-	public ModelStatistics(final Player player, long timer, int level)
+	public ModelStatistics(final Player player, final long timer, final int level)
 	{
 		this.timer = timer;
 		this.level = level;

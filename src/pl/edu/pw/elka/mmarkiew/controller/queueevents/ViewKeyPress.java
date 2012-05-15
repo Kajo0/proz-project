@@ -20,9 +20,9 @@ public class ViewKeyPress extends QueueEvent {
 	
 	private final Keys key;
 	/** Pressed or released */
-	private boolean press;
+	private final boolean press;
 	
-	public ViewKeyPress(Keys key, boolean press)
+	public ViewKeyPress(final Keys key, final boolean press)
 	{
 		this.key = key;
 		this.press = press;

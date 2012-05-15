@@ -14,12 +14,14 @@ public abstract class Bonus extends Entity {
 	/**
 	 * Creates Bonus entity<br>
 	 * Calls super Entity constructor
+	 * 
 	 * @param anim - Animation when is alive
 	 * @param dyingAnim - Animation when dying
 	 * @param x - Position
 	 * @param y - Position
 	 */
-	public Bonus(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y)
+	public Bonus(final Animation anim, final Animation dyingAnim,
+													final int width, final int height, final float x, final float y)
 	{
 		super(anim, dyingAnim, width, height);
 		this.setX(x);
@@ -29,6 +31,7 @@ public abstract class Bonus extends Entity {
 	
 	/**
 	 * Update player by giving him appropriate bonus
+	 * 
 	 * @param player - Player
 	 */
 	public void bonusideEntity(final Player player) {}

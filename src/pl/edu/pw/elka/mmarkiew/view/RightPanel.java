@@ -12,11 +12,12 @@ import javax.swing.JTabbedPane;
  */
 @SuppressWarnings("serial")
 public class RightPanel extends JPanel {
-	private JTabbedPane tabs;
+	/** Panel Tabs */
+	private final JTabbedPane tabs;
 	/** Game information panel - statistics */
-	private GameInfoPanel gameInfo;
+	private final GameInfoPanel gameInfo;
 	/** Game option panel - options */
-	private GameOptionsPanel gameOptions;
+	private final GameOptionsPanel gameOptions;
 	
 	/**
 	 * Creates right panel

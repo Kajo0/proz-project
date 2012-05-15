@@ -15,10 +15,11 @@ public class BlockHolder {
 	
 	/**
 	 * Create new holder
+	 * 
 	 * @param widthBlocks - Number of columns
 	 * @param heightBlocks - Number of rows
 	 */
-	public BlockHolder(int widthBlocks, int heightBlocks)
+	public BlockHolder(final int widthBlocks, final int heightBlocks)
 	{
 		this.width = widthBlocks;
 		this.height = heightBlocks;
@@ -26,13 +27,13 @@ public class BlockHolder {
 	}
 	
 	/**
-	 * Sets new block into matrix, or do nothing
-	 * if there was out of bounds position
+	 * Sets new block into matrix, or do nothing if there was out of bounds position
+	 * 
 	 * @param block - BlockElement to put
 	 * @param x - Tile position
 	 * @param y - Tile position
 	 */
-	public void setBlock(BlockElement block, int x, int y)
+	public void setBlock(final BlockElement block, final int x, final int y)
 	{
 		if (x < 0 || x > width - 1 || y < 0 || y > height - 1 )
 		{
@@ -46,11 +47,12 @@ public class BlockHolder {
 	
 	/**
 	 * Return specified block from map matrix
+	 * 
 	 * @param x - Tile position
 	 * @param y - Tile position
 	 * @return Appropriate block or null if out of bounds
 	 */
-	public BlockElement getBlock(int x, int y)
+	public BlockElement getBlock(final int x, final int y)
 	{
 		if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
 		{

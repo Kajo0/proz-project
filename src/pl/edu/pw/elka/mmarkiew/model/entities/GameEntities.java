@@ -26,22 +26,23 @@ public enum GameEntities {
 	BOUNCING_BOMB		("G",	"bouncingBombBonus",		"",					0);
 	
 	/** Character representing the object */
-	private final String character;
+	private String character;
 	private final Animation anim;
 	private final Animation dyingAnim;
 	private final long animInterval;
 	private int width;
 	private int height;
-	private static Random rand = new Random();
+	private final static Random rand = new Random();
 	
 	/**
 	 * Generates game entity
+	 * 
 	 * @param character - String represents entity
 	 * @param anim - Entity animation
 	 * @param dyingAnim - Entity animation when is in agony
 	 * @param animStep - Interval between animations
 	 */
-	private GameEntities(final String character, final String anim, final String dyingAnim, long animStep)
+	private GameEntities(String character, String anim, String dyingAnim, long animStep)
 	{
 		this.character = character;
 		// ~0.25 of 1 sec default, and unitary size
@@ -95,10 +96,11 @@ public enum GameEntities {
 	
 	/**
 	 * Return GameEntity if such exists
+	 * 
 	 * @param character - Entity representation string
 	 * @return Appropriate GameEntity, UNDEFINED if didn't find
 	 */
-	public static GameEntities getEnumEntity(final String character)
+	public static GameEntities getEnumEntity(String character)
 	{
 		for (GameEntities g : values())
 		{
@@ -111,15 +113,15 @@ public enum GameEntities {
 	}
 	
 	/**
-	 * Helper function to load next frames of animation and made it as
-	 * one complete animation.<br>
+	 * Helper function to load next frames of animation and made it as one complete animation.<br>
 	 * First frame suffix: 0.png, next ${number}.png
+	 * 
 	 * @param anim - Filename without number and extension
 	 * @return Created Animation from frames<br>
 	 * If there was no image, return Blank square animation
 	 */
 	private Animation createAnimation(String anim) {
-		Animation a = new Animation();
+		final Animation a = new Animation();
 
 		// Loading next frames if exists
 		anim = "/" + anim;
@@ -148,6 +150,7 @@ public enum GameEntities {
 	
 	/**
 	 * Generates random bonus character
+	 * 
 	 * @return Random string represents bonus
 	 */
 	public static String getRandomBonusCharacter()
@@ -157,6 +160,7 @@ public enum GameEntities {
 	
 	/**
 	 * Generates random enemy character
+	 * 
 	 * @return Random string represents enemy
 	 */
 	public static String getRandomEnemyCharacter()

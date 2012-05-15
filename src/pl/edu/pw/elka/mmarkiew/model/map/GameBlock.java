@@ -11,14 +11,15 @@ public enum GameBlock {
 	EMPTY(" ");
 	
 	/** String representing block */
-	private final String character;
+	private String character;
 	
 	/**
 	 * Creates and load image of block
+	 * 
 	 * @param character - String representing block
 	 * @param image - Path to block image
 	 */
-	private GameBlock(final String character)
+	private GameBlock(String character)
 	{
 		this.character = character;
 	}
@@ -35,10 +36,11 @@ public enum GameBlock {
 	
 	/**
 	 * Return GameBlock if such exists
+	 * 
 	 * @param character - Entity representation string
 	 * @return Appropriate GameBlock, EMPTY if didn't find
 	 */
-	public static GameBlock getEnumBlock(final String character)
+	public static GameBlock getEnumBlock(String character)
 	{
 		for (GameBlock g : values())
 		{

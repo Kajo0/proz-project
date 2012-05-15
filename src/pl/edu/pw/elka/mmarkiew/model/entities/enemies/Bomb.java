@@ -18,6 +18,7 @@ public class Bomb extends Entity {
 	
 	/**
 	 * Creates Bomb with given Animation on position
+	 * 
 	 * @param anim - Bomb Animation
 	 * @param width - Object width
 	 * @param height - Object height
@@ -27,7 +28,8 @@ public class Bomb extends Entity {
 	 * @param timer - Time after which bomb explodes
 	 * @param area - Area which is reachable during explosion
 	 */
-	public Bomb(final Animation anim, int width, int height, float x, float y, long plantTime, long timer, int area)
+	public Bomb(final Animation anim, final int width, final int height, final float x, final float y,
+																final long plantTime, final long timer, final int area)
 	{
 		super(anim, anim, width, height);
 		this.setX(GameMap.getTileCenterFromPosition(x));
@@ -71,8 +73,7 @@ public class Bomb extends Entity {
 	}
 
 	/**
-	 * Sets bomb timer to 0, which means that it should
-	 * explode as fast as can calculate it
+	 * Sets bomb timer to 0, which means that it should explode as fast as can calculate it
 	 */
 	public void setDead()
 	{

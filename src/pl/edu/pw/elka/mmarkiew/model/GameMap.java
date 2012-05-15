@@ -22,23 +22,24 @@ public class GameMap {
 	public final static int BLOCK_SIZE = 40;
 //	/** Size of preferred block size on map */
 //	public final static int PREFFERED_BLOCK_SIZE = 40;
-	private Player player;
-	private Point playerStartPosition;
-	public  BlockHolder map;
-	private int widthInBlocks;
-	private int heightInBlocks;
-	private LinkedList<Entity> enemies;
-	private LinkedList<Bomb> bombs;
-	private LinkedList<Bonus> bonuses;
-	private LinkedList<Exit> exits;
+	private final Player player;
+	private final Point playerStartPosition;
+	private final BlockHolder map;
+	private final int widthInBlocks;
+	private final int heightInBlocks;
+	private final LinkedList<Entity> enemies;
+	private final LinkedList<Bomb> bombs;
+	private final LinkedList<Bonus> bonuses;
+	private final LinkedList<Exit> exits;
 	
 	/**
 	 * Creates new map of game
+	 * 
 	 * @param player - Playing player
 	 * @param widthBlocks - Width in blocks
 	 * @param heightBlocks - Height in blocks
 	 */
-	public GameMap(final Player player, int widthBlocks, int heightBlocks)
+	public GameMap(final Player player, final int widthBlocks, final int heightBlocks)
 	{
 		this.player = player;
 		this.playerStartPosition = new Point(0, 0);
@@ -51,7 +52,14 @@ public class GameMap {
 		this.exits = new LinkedList<Exit>();
 	}
 
-	public synchronized void setBlock(final BlockElement block, int x, int y)
+	/**
+	 * Sets block into table
+	 * 
+	 * @param block - Block to set
+	 * @param x - Tile x position
+	 * @param y - Tile y position
+	 */
+	public void setBlock(final BlockElement block, final int x, final int y)
 	{
 		if (block != null)
 		{
@@ -61,9 +69,10 @@ public class GameMap {
 	
 	/**
 	 * Add enemy into enemy list
+	 * 
 	 * @param enemy - Enemy entity
 	 */
-	public synchronized void addEnemy(final Entity enemy)
+	public void addEnemy(final Entity enemy)
 	{
 		if (enemy != null)
 		{
@@ -73,9 +82,10 @@ public class GameMap {
 	
 	/**
 	 * Removes enemy from map
+	 * 
 	 * @param enemy - Enemy to remove
 	 */
-	public synchronized void removeEnemy(final Entity enemy)
+	public void removeEnemy(final Entity enemy)
 	{
 		for (Entity e : enemies)
 		{
@@ -89,22 +99,24 @@ public class GameMap {
 
 	/**
 	 * Creates and adds bomb into map
+	 * 
 	 * @param x	- x position
 	 * @param y - y position
 	 * @param plantTime - Time when the bomb was planted
 	 * @param timer - Bomb timer, when it'll explode
 	 * @param area - Bomb area, how far it can reach
 	 */
-	public synchronized void addBomb(float x, float y, long plantTime, long timer, int area)
+	public void addBomb(final float x, final float y, final long plantTime, final long timer, final int area)
 	{
 		bombs.add(EntityFactory.createBombEntity(x, y, plantTime, timer, area));
 	}
 	
 	/**
 	 * Removes bomb from map
+	 * 
 	 * @param bomb - Bomb to remove
 	 */
-	public synchronized void removeBomb(final Bomb bomb)
+	public void removeBomb(final Bomb bomb)
 	{
 		for (Bomb b : bombs)
 		{
@@ -119,9 +131,9 @@ public class GameMap {
 	/**
 	 * Removes bombs and explosions from map
 	 */
-	public synchronized void removeExplosions()
+	public void removeExplosions()
 	{
-		LinkedList<Entity> toRemove = new LinkedList<Entity>();
+		final LinkedList<Entity> toRemove = new LinkedList<Entity>();
 		
 		// First remove explosions
 		for (Entity e : enemies)
@@ -157,9 +169,10 @@ public class GameMap {
 	/**
 	 * Adds bonus into map<br>
 	 * if it's exit add to exits 
+	 * 
 	 * @param bonus - Bonus to add
 	 */
-	public synchronized void addBonus(final Bonus bonus)
+	public void addBonus(final Bonus bonus)
 	{
 		if (bonus != null)
 		{
@@ -176,9 +189,10 @@ public class GameMap {
 	
 	/**
 	 * Removes bonus or exit from map
+	 * 
 	 * @param bonus - Bonus to remove
 	 */
-	public synchronized void removeBonus(final Bonus bonus)
+	public void removeBonus(final Bonus bonus)
 	{
 		if (!(bonus instanceof Exit))
 		{
@@ -206,9 +220,10 @@ public class GameMap {
 	
 	/**
 	 * Adds exit into map
+	 * 
 	 * @param exit
 	 */
-	public synchronized void addExit(final Exit exit)
+	public void addExit(final Exit exit)
 	{
 		if (exit != null)
 		{
@@ -218,11 +233,12 @@ public class GameMap {
 
 	/**
 	 * Gets alive enemy entities from map
+	 * 
 	 * @return list containing both enemies and bombs
 	 */
 	public LinkedList<Entity> getEntities()
 	{
-		LinkedList<Entity> l = new LinkedList<Entity>(enemies);
+		final LinkedList<Entity> l = new LinkedList<Entity>(enemies);
 		l.addAll(bombs);
 		return l;
 	}
@@ -231,18 +247,13 @@ public class GameMap {
 	{
 		return player;
 	}
-	
-	public synchronized void setPlayer(final Player player)
-	{
-		this.player = player;
-	}
 
 	public Point getPlayerStartPosition()
 	{
 		return playerStartPosition;
 	}
 	
-	public void setPlayerStartPosition(float x, float y)
+	public void setPlayerStartPosition(final float x, final float y)
 	{
 		playerStartPosition.setLocation(x, y);
 	}
@@ -294,30 +305,33 @@ public class GameMap {
 
 	/**
 	 * Calculate on which tile is given position
+	 * 
 	 * @param xy - x or y position
 	 * @return tile number position
 	 */
-	public static int getTilePosition(float xy)
+	public static int getTilePosition(final float xy)
 	{
 		return (int) (xy / GameMap.BLOCK_SIZE);
 	}
 	
 	/**
 	 * Calculate center of tile from given position
+	 * 
 	 * @param xy - x or y position
 	 * @return center position on tile
 	 */
-	public static float getTileCenterFromPosition(float xy)
+	public static float getTileCenterFromPosition(final float xy)
 	{
 		return ((int) (xy / GameMap.BLOCK_SIZE)) * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2;
 	}
 	
 	/**
 	 * Calculate center of tile from given tile number
+	 * 
 	 * @param ij - i or j tile position
 	 * @return center position on given tile
 	 */
-	public static float getPositionCenterFromTile(int ij)
+	public static float getPositionCenterFromTile(final int ij)
 	{
 		return ij * GameMap.BLOCK_SIZE + GameMap.BLOCK_SIZE / 2;
 	}

@@ -43,10 +43,11 @@ public class MapLoader {
 
 	/**
 	 * Load next map from file ${++level}.txt
-	 * @return
+	 * 
+	 * @return Loaded or generated map
 	 * @throws WinGameException - When game is win
 	 */
-	public synchronized GameMap loadNextMap() throws WinGameException
+	public GameMap loadNextMap() throws WinGameException
 	{
 		++level;
 		try
@@ -73,6 +74,7 @@ public class MapLoader {
 	
 	/**
 	 * Load Map from file
+	 * 
 	 * @param path - Path to map
 	 * @return Map of game
 	 * @throws NullPointerException - If source not found
@@ -80,9 +82,9 @@ public class MapLoader {
 	 */
 	private GameMap loadMap() throws NullPointerException, IOException
 	{
-		ArrayList<String> listOfLines = new ArrayList<String>();
+		final ArrayList<String> listOfLines = new ArrayList<String>();
 		
-		BufferedReader buffer = new BufferedReader(new InputStreamReader(getClass()
+		final BufferedReader buffer = new BufferedReader(new InputStreamReader(getClass()
 																		.getResourceAsStream("/" + level + ".txt")));
 		
 		int width = 0;
@@ -102,14 +104,15 @@ public class MapLoader {
 
 	/**
 	 * Analyzes .txt file with map
+	 * 
 	 * @param listOfLines - List of map lines
 	 * @param width - Maximum length of line
 	 * @param height - Number of lines
 	 * @return game of map
 	 */
-	private GameMap analyzeMap(final ArrayList<String> listOfLines, int width, int height)
+	private GameMap analyzeMap(final ArrayList<String> listOfLines, final int width, final int height)
 	{
-		Iterator<String> it = listOfLines.iterator();
+		final Iterator<String> it = listOfLines.iterator();
 		String line;
 		
 		GameMap tempMap = new GameMap(this.playerEntity, width, height);
@@ -151,12 +154,13 @@ public class MapLoader {
 	
 	/**
 	 * Choosing appropriate entity or/and block to create
+	 * 
 	 * @param tempMap - Actual game of map
 	 * @param charAt - Character to analyze
 	 * @param i - Tile x position
 	 * @param j - Tile y position
 	 */
-	private void chooseBlockEntityToCreate(final GameMap tempMap, char charAt, int i, int j)
+	private void chooseBlockEntityToCreate(final GameMap tempMap, final char charAt, final int i, final int j)
 	{
 		// Create appropriate block on this position
 		tempMap.setBlock(BlockFactory.createElement( GameBlock.getEnumBlock("" + charAt) ), i, j);
@@ -190,6 +194,7 @@ public class MapLoader {
 	
 	/**
 	 * Generates random map
+	 * 
 	 * @return Created random map
 	 * @throws WinGameException - If level > maxLevel => WIN
 	 */
@@ -204,16 +209,16 @@ public class MapLoader {
 		dimension += (dimension % 2 == 0) ? 1 : 0;
 		
 		// How often & how much bonuses are generate
-		int bonusSpawn = 5;
-		int maxBonusAmount = level + 5;
+		final int bonusSpawn = 5;
+		int bonusAmount = level + 5;
 		
 		// How often & how much enemies are generate
-		int enemySpawn = 150 / level + 2;
-		int maxEnemyAmount = level * 2;
+		final int enemySpawn = 150 / level + 2;
+		int enemyAmount = level * 2;
 		
-		ArrayList<String> lines = new ArrayList<String>();
+		final ArrayList<String> lines = new ArrayList<String>();
 		StringBuilder line = new StringBuilder();
-		Random rand = new Random();
+		final Random rand = new Random();
 
 		// Generating map
 		for (int i = 0; i < dimension; ++i)
@@ -237,17 +242,17 @@ public class MapLoader {
 					else
 					{
 						// Rand bonus, enemy or brick
-						if (maxBonusAmount > 0 || maxEnemyAmount > 0)
+						if (bonusAmount > 0 || enemyAmount > 0)
 						{
-							if (maxBonusAmount > 0 && rand.nextInt(bonusSpawn) == 0)
+							if (bonusAmount > 0 && rand.nextInt(bonusSpawn) == 0)
 							{
 								line.append(GameEntities.getRandomBonusCharacter());
-								--maxBonusAmount;
+								--bonusAmount;
 							}
-							else if (maxEnemyAmount > 0 && rand.nextInt(enemySpawn) == 0)
+							else if (enemyAmount > 0 && rand.nextInt(enemySpawn) == 0)
 							{
 								line.append(GameEntities.getRandomEnemyCharacter());
-								--maxEnemyAmount;
+								--enemyAmount;
 							}
 							else
 							{

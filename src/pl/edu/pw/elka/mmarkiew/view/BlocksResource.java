@@ -24,10 +24,11 @@ public enum BlocksResource {
 	
 	/**
 	 * Creates and load image of block
+	 * 
 	 * @param block - Enum representing block
 	 * @param image - Significant part of path to block image
 	 */
-	private BlocksResource(GameBlock block, String image)
+	private BlocksResource(final GameBlock block, String image)
 	{
 		this.block = block;
 		
@@ -55,11 +56,12 @@ public enum BlocksResource {
 	
 	/**
 	 * Gets image of given block
+	 * 
 	 * @param block - Block to get image of
 	 * @return Image representing given block or<br>
 	 * 			empty block if undefined
 	 */
-	public static Image getBlockImage(GameBlock block)
+	public static Image getBlockImage(final GameBlock block)
 	{
 		for (BlocksResource g : values())
 		{

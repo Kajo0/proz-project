@@ -25,6 +25,7 @@ public class BombCalculator {
 	
 	/**
 	 * Takes care about bomb things
+	 * 
 	 * @param map - Actual game map
 	 */
 	public BombCalculator(final GameMap map)
@@ -38,7 +39,7 @@ public class BombCalculator {
 	 */
 	public void calculateBombs()
 	{
-		long currTime = System.currentTimeMillis();
+		final long currTime = System.currentTimeMillis();
 		ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
 		
 		// Finds bombs which suppose to explode
@@ -62,13 +63,14 @@ public class BombCalculator {
 
 	/**
 	 * Exploding bomb, and creates 'Enemy' entities -> explosions
+	 * 
 	 * @param b - Exploding bomb
 	 */
 	private void explodeBomb(Bomb b)
 	{
-		BlockHolder blocks = map.getBlockHolder();
-		int xR = GameMap.getTilePosition(b.getX());
-		int yR = GameMap.getTilePosition(b.getY());
+		final BlockHolder blocks = map.getBlockHolder();
+		final int xR = GameMap.getTilePosition(b.getX());
+		final int yR = GameMap.getTilePosition(b.getY());
 		int x, y;
 
 		// Add explosion entity into place where was planted
@@ -144,11 +146,12 @@ public class BombCalculator {
 
 	/**
 	 * Plants bomb with specific timer on place where player is standing
+	 * 
 	 * @param timer - Time to explode
 	 */
-	public synchronized void plantBomb(long timer)
+	public void plantBomb(final long timer)
 	{
-		Player player = map.getPlayer();
+		final Player player = map.getPlayer();
 		
 		// Check if player can plant any bomb at all
 		if (player.canPlantBomb()) {
@@ -171,7 +174,7 @@ public class BombCalculator {
 		}
 	}
 	
-	public synchronized void setMap(final GameMap map)
+	public void setMap(final GameMap map)
 	{
 		this.map = map;
 	}
