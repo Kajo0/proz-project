@@ -34,11 +34,12 @@ public enum EntitiesResource {
 	
 	/**
 	 * Creates and load images of entity
+	 * 
 	 * @param entity - Enum representing entity
 	 * @param anim - Significant part of path to alive entity image
 	 * @param dyingAnim - Part of path to dead entity image
 	 */
-	private EntitiesResource(GameEntities entity, String anim, String dyingAnim)
+	private EntitiesResource(final GameEntities entity, String anim, String dyingAnim)
 	{
 		this.entity = entity;
 		this.images = new LinkedList<Image>();
@@ -54,6 +55,7 @@ public enum EntitiesResource {
 	
 	/**
 	 * Fills list by images of entity
+	 * 
 	 * @param anim - Part of path to entity image
 	 */
 	private void fillImages(String anim)
@@ -85,13 +87,14 @@ public enum EntitiesResource {
 
 	/**
 	 * Gets image of given entity frame
+	 * 
 	 * @param entity - Entity to get image of
 	 * @param frame - Actual animation frame<br>
 	 * 				if < 0 -> get from end -> dying
 	 * @return Image representing given entity or<br>
 	 * 			undefined 1x1px image instead
 	 */
-	public static Image getEntityImage(GameEntities entity, int frame)
+	public static Image getEntityImage(final GameEntities entity, int frame)
 	{
 		for (EntitiesResource g : values())
 		{

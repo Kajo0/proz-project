@@ -36,7 +36,7 @@ public class KeybordListener implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	
-	private Keys chooseEvent(KeyEvent e)
+	private Keys chooseEvent(final KeyEvent e)
 	{
 		switch (e.getKeyCode())
 		{

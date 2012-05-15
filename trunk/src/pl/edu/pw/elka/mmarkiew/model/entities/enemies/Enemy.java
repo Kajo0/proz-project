@@ -11,13 +11,14 @@ import pl.edu.pw.elka.mmarkiew.model.entities.Entity;
  */
 public abstract class Enemy extends Entity {
 	
-	public Enemy(Animation anim, Animation dyingAnim, int width, int height)
+	public Enemy(final Animation anim, final Animation dyingAnim, final int width, final int height)
 	{
 		super(anim, dyingAnim, width, height);
 	}
 	
 	/**
 	 * Creates entity and set it given position
+	 * 
 	 * @param anim - Animation when is alive
 	 * @param dyingAnim - Animation when is dying
 	 * @param width - Object width
@@ -25,7 +26,8 @@ public abstract class Enemy extends Entity {
 	 * @param x - Position
 	 * @param y - Position
 	 */
-	public Enemy(final Animation anim, final Animation dyingAnim, int width, int height, float x, float y)
+	public Enemy(final Animation anim, final Animation dyingAnim,
+													final int width, final int height, final float x, final float y)
 	{
 		this(anim, dyingAnim, width, height);
 		this.setX(x);

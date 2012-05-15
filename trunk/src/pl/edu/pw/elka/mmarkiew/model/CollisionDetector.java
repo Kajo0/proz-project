@@ -17,10 +17,12 @@ import pl.edu.pw.elka.mmarkiew.model.map.EmptyBlock;
  *
  */
 public class CollisionDetector {
+	/** Actual game map */
 	private GameMap map;
 
 	/**
-	 * Take care abour collisions
+	 * Take care about collisions
+	 * 
 	 * @param map
 	 */
 	public CollisionDetector(final GameMap map)
@@ -59,8 +61,8 @@ public class CollisionDetector {
 	}
 
 	/**
-	 * Checks if is collisions with map blocks and stop entities<br>
-	 * not to go further
+	 * Checks if is collisions with map blocks and stop entities not to go further
+	 * 
 	 * @param entity - Entity to check collision
 	 * @param blocks - Block to check collision with
 	 */
@@ -68,10 +70,10 @@ public class CollisionDetector {
 	{
 		float xPlayerPosition = entity.getX();
 		float yPlayerPosition = entity.getY();
-		int xTilePlayerPosition = GameMap.getTilePosition(xPlayerPosition);
-		int yTilePlayerPosition = GameMap.getTilePosition(yPlayerPosition);
-		float dividedAnimWidth = entity.getWidth() / 2;
-		float dividedAnimHeight = entity.getHeight() / 2;
+		final int xTilePlayerPosition = GameMap.getTilePosition(xPlayerPosition);
+		final int yTilePlayerPosition = GameMap.getTilePosition(yPlayerPosition);
+		final float dividedAnimWidth = entity.getWidth() / 2;
+		final float dividedAnimHeight = entity.getHeight() / 2;
 		
 		// Explosion entities like destroyed block or explosion has no collisions with blocks 
 		if (entity instanceof ExplosionEntity)
@@ -134,8 +136,8 @@ public class CollisionDetector {
 		
 		
 		// helpers
-		float oldX = xPlayerPosition;
-		float oldY = yPlayerPosition;
+		final float oldX = xPlayerPosition;
+		final float oldY = yPlayerPosition;
 		float newX = xPlayerPosition = entity.getX();
 		float newY = yPlayerPosition = entity.getY();
 		
@@ -259,11 +261,12 @@ public class CollisionDetector {
 	
 	/**
 	 * Checks player-entities collisions
+	 * 
 	 * @param entities - Entities with which is need to be checked collision
 	 */
 	private void checkPlayerEntityCollision(final LinkedList<Entity> entities)
 	{
-		Player player = map.getPlayer();
+		final Player player = map.getPlayer();
 		
 		for (Entity e : entities)
 		{
@@ -292,11 +295,12 @@ public class CollisionDetector {
 	/**
 	 * Checks player - bombs collisions<br>
 	 * If player is standing on any bomb, bombs should'nt block him
+	 * 
 	 * @param bombs - List of planted bombs
 	 */
 	private void checkPlayerBombCollision(final LinkedList<Bomb> bombs)
 	{
-		Player player = map.getPlayer();
+		final Player player = map.getPlayer();
 		int onAnyBombStanding = 0;
 		
 		for (Bomb b : bombs)
@@ -330,26 +334,27 @@ public class CollisionDetector {
 	/**
 	 * Checks if player collide with object which can stop him<br><br>
 	 * It depends on player trajectory to stop him correctly
+	 * 
 	 * @param player - Player
-	 * @param entity - Collide entity potencial stopping
+	 * @param entity - Collide entity potential stopping
 	 */
 	private void checkPlayerStopCollision(final Player player, final Entity entity)
 	{
-		float xPlayerPosition = player.getX();
-		float yPlayerPosition = player.getY();
-		float xEntityPosition = entity.getX();
-		float yEntityPosition = entity.getY();
-		float dividedPlayerWidth = player.getWidth() / 2;
-		float dividedPlayerHeight = player.getHeight() / 2;
-		float dividedEntityWidth = entity.getWidth() / 2;
-		float dividedEntityHeight = entity.getHeight() / 2;
+		final float xPlayerPosition = player.getX();
+		final float yPlayerPosition = player.getY();
+		final float xEntityPosition = entity.getX();
+		final float yEntityPosition = entity.getY();
+		final float dividedPlayerWidth = player.getWidth() / 2;
+		final float dividedPlayerHeight = player.getHeight() / 2;
+		final float dividedEntityWidth = entity.getWidth() / 2;
+		final float dividedEntityHeight = entity.getHeight() / 2;
 		
 		// Is there one direction of player movement
 		boolean oneDirection = false;
 		// Is he moving horizontal or vertical 
 		boolean horizontalCollision = false;
 		
-		boolean isBombEntity = (entity instanceof Bomb);
+		final boolean isBombEntity = (entity instanceof Bomb);
 		
 		/*
 		 * If there are 2 directions of player movement
@@ -357,8 +362,8 @@ public class CollisionDetector {
 		 */
 		if (player.getXVelocity() != 0 && player.getYVelocity() != 0)
 		{
-			float deltaX = Math.abs(xPlayerPosition - xEntityPosition);
-			float deltaY = Math.abs(yPlayerPosition - yEntityPosition);
+			final float deltaX = Math.abs(xPlayerPosition - xEntityPosition);
+			final float deltaY = Math.abs(yPlayerPosition - yEntityPosition);
 			
 			if (deltaX > deltaY)
 			{
@@ -448,11 +453,12 @@ public class CollisionDetector {
 	/**
 	 * Checks player - bonus collisions<br>
 	 * If there is such collision, add bonus to collide player
+	 * 
 	 * @param bonuses - list of active bonuses
 	 */
 	private void checkPlayerBonusCollision(final LinkedList<Bonus> bonuses)
 	{
-		Player player = map.getPlayer();
+		final Player player = map.getPlayer();
 		
 		// If there is collision, add bonus to player and kill bonus
 		for (Bonus b : bonuses)
@@ -468,11 +474,12 @@ public class CollisionDetector {
 
 	/**
 	 * Checks collision between enemies and bombs
+	 * 
 	 * @param enemies - List of enemies
 	 */
 	private void checkEnemiesCollision(final LinkedList<Entity> enemies)
 	{
-		Entity[] entities = enemies.toArray(new Entity[enemies.size()]);
+		final Entity[] entities = enemies.toArray(new Entity[enemies.size()]);
 
 		for (int i = 0; i < entities.length - 1; ++i)
 		{
@@ -512,12 +519,13 @@ public class CollisionDetector {
 	}
 	
 	/**
-	 * Checks is there any collisions between entities 
+	 * Checks is there any collisions between entities
+	 * 
 	 * @param first - First entity
 	 * @param second - Second entity
 	 * @return true if collision, false otherwise<br>also false if first == second
 	 */
-	public static boolean isEntitiesCollision(Entity first, Entity second)
+	public static boolean isEntitiesCollision(final Entity first, final Entity second)
 	{
 		if (first == second)
 		{
@@ -530,7 +538,7 @@ public class CollisionDetector {
 				first.getY() - first.getHeight() / 2 - second.getY() - second.getHeight() / 2 < 0);
 	}
 
-	public synchronized void setMap(final GameMap map)
+	public void setMap(final GameMap map)
 	{
 		this.map = map;
 	}

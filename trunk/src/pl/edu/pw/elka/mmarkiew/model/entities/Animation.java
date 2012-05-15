@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  */
 public class Animation {
-	private ArrayList<AnimFrame> frames;
+	private final ArrayList<AnimFrame> frames;
 	private int currentImage;
 	private long animTime;
 	private long duration;
@@ -27,10 +27,11 @@ public class Animation {
 	
 	/**
 	 * Copy constructor to clone animation
+	 * 
 	 * @param frames - List of frames
 	 * @param duration - Animation duration
 	 */
-	private Animation(final ArrayList<AnimFrame> frames, long duration)
+	private Animation(final ArrayList<AnimFrame> frames, final long duration)
 	{
 		this.frames = frames;
 		this.duration = duration;
@@ -40,6 +41,7 @@ public class Animation {
 	/**
 	 * Creates instance of .this animation<br>
 	 * contain shared images
+	 * 
 	 * @return cloned Animation object
 	 */
 	public Animation clone()
@@ -50,7 +52,7 @@ public class Animation {
 	/**
 	 * Set animation started
 	 */
-	public synchronized void start()
+	public void start()
 	{
 		this.currentImage = 0;
 		this.animTime = 0;
@@ -59,10 +61,11 @@ public class Animation {
 	/**
 	 * Adds frame image into end of animation<br>
 	 * which is display for duration time
+	 * 
 	 * @param image - Frame image
 	 * @param duration - Display time
 	 */
-	public synchronized void addFrame(int animFrame, long duration)
+	public void addFrame(final int animFrame, final long duration)
 	{
 		this.duration += duration;
 		this.frames.add(new AnimFrame(animFrame, this.duration));
@@ -70,9 +73,10 @@ public class Animation {
 
 	/**
 	 * Update animation's frame state
+	 * 
 	 * @param elapsedTime - Elapsed time from last update
 	 */
-	public void update(long elapsedTime)
+	public void update(final long elapsedTime)
 	{
 		if (frames.size() > 1) 
 		{
@@ -95,7 +99,7 @@ public class Animation {
 	 * 
 	 * @return Frame number if exists (can be 0), 0 otherwise
 	 */
-	public synchronized int getAnimFrame()
+	public int getAnimFrame()
 	{
 		if (frames.size() == 0)
 		{
@@ -118,10 +122,11 @@ public class Animation {
 
 	/**
 	 * Gets frame
+	 * 
 	 * @param index - frame index
 	 * @return Frame on given index
 	 */
-	private AnimFrame getFrame(int index)
+	private AnimFrame getFrame(final int index)
 	{
 		return frames.get(index);
 	}
@@ -132,10 +137,10 @@ public class Animation {
 	 *
 	 */
 	private class AnimFrame {
-		int animFrame;
-		long endTime;
+		final int animFrame;
+		final long endTime;
 		
-		public AnimFrame(int animFrame, long endTime)
+		public AnimFrame(final int animFrame, final long endTime)
 		{
 			this.animFrame = animFrame;
 			this.endTime = endTime;

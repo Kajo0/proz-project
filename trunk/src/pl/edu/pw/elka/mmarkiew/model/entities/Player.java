@@ -22,7 +22,7 @@ public class Player extends Entity {
 	/** If player is immortal */
 	private boolean immoritality;
 	
-	public Player(final Animation anim, final Animation dyingAnim, int width, int height)
+	public Player(final Animation anim, final Animation dyingAnim, final int width, final int height)
 	{
 		super(anim, dyingAnim, width, height);
 		this.setMaxVelocity(0.15f);
@@ -70,7 +70,7 @@ public class Player extends Entity {
 		return lifes;
 	}
 
-	public void setLifes(int lifes)
+	public void setLifes(final int lifes)
 	{
 		this.lifes = lifes;
 	}
@@ -80,7 +80,7 @@ public class Player extends Entity {
 		return bombArea;
 	}
 
-	public void setBombArea(int bombArea)
+	public void setBombArea(final int bombArea)
 	{
 		this.bombArea = bombArea;
 	}
@@ -90,7 +90,7 @@ public class Player extends Entity {
 		return this.possibleBombs;
 	}
 	
-	public void setPossibleBombs(int amount)
+	public void setPossibleBombs(final int amount)
 	{
 		this.possibleBombs = amount;
 	}
@@ -100,7 +100,7 @@ public class Player extends Entity {
 		return this.bouncingBomb;
 	}
 	
-	public void setBouncingBomb(boolean bouncing)
+	public void setBouncingBomb(final boolean bouncing)
 	{
 		this.bouncingBomb = bouncing;
 	}
@@ -110,7 +110,7 @@ public class Player extends Entity {
 		return this.bombTimer;
 	}
 	
-	public void setBombTimer(long timer)
+	public void setBombTimer(final long timer)
 	{
 		this.bombTimer = timer;
 	}
@@ -120,7 +120,7 @@ public class Player extends Entity {
 		return onBomb;
 	}
 	
-	public void setOnBomb(boolean onBomb)
+	public void setOnBomb(final boolean onBomb)
 	{
 		this.onBomb = onBomb;
 	}
@@ -130,14 +130,13 @@ public class Player extends Entity {
 		return immoritality;
 	}
 	
-	public void setImmortality(boolean immortality)
+	public void setImmortality(final boolean immortality)
 	{
 		this.immoritality = immortality;
 	}
 	
 	/**
-	 * Set player dead, decrement life counter
-	 * and clear bomb planted counter
+	 * Set player dead, decrement life counter and clear bomb planted counter
 	 */
 	public void setDead()
 	{
@@ -147,8 +146,7 @@ public class Player extends Entity {
 	}
 
 	/**
-	 * Reset player state into defaults
-	 * without touching lifes counter
+	 * Reset player state into defaults without touching lifes counter
 	 */
 	public void reset()
 	{

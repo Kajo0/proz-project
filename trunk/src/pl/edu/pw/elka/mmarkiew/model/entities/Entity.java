@@ -25,12 +25,13 @@ public abstract class Entity {
 	
 	/**
 	 * Creates entity with its animations in game
+	 * 
 	 * @param anim - Animation when is alive
 	 * @param dyingAnim - Animation when is dead
 	 * @param width - Object width
 	 * @param height - Object height
 	 */
-	public Entity(final Animation anim, final Animation dyingAnim, int width, int height)
+	public Entity(final Animation anim, final Animation dyingAnim, final int width, final int height)
 	{
 		this.anim = anim;
 		this.dyingAnim = dyingAnim;
@@ -48,9 +49,10 @@ public abstract class Entity {
 	
 	/**
 	 * Update state of entity
+	 * 
 	 * @param elapsedTime
 	 */
-	public void update(long elapsedTime)
+	public void update(final long elapsedTime)
 	{
 		if (alive)
 		{
@@ -82,6 +84,7 @@ public abstract class Entity {
 
 	/**
 	 * Return actual animation animFrame
+	 * 
 	 * @return Actual animFrame, if dead -animFrame
 	 */
 	public int getAnimFrame()
@@ -118,7 +121,7 @@ public abstract class Entity {
 		return x;
 	}
 
-	public void setX(float x)
+	public void setX(final float x)
 	{
 		this.x = x;
 	}
@@ -128,7 +131,7 @@ public abstract class Entity {
 		return y;
 	}
 
-	public void setY(float y)
+	public void setY(final float y)
 	{
 		this.y = y;
 	}
@@ -138,7 +141,7 @@ public abstract class Entity {
 		return xVelocity;
 	}
 
-	public void setXVelocity(float xVelocity)
+	public void setXVelocity(final float xVelocity)
 	{
 		this.xVelocity = xVelocity;
 	}
@@ -148,7 +151,7 @@ public abstract class Entity {
 		return yVelocity;
 	}
 
-	public void setYVelocity(float yVelocity)
+	public void setYVelocity(final float yVelocity)
 	{
 		this.yVelocity = yVelocity;
 	}
@@ -158,7 +161,7 @@ public abstract class Entity {
 		return maxVelocity;
 	}
 	
-	public void setMaxVelocity(float maxVelocity)
+	public void setMaxVelocity(final float maxVelocity)
 	{
 		this.maxVelocity = maxVelocity;
 	}
@@ -168,7 +171,7 @@ public abstract class Entity {
 		return width;
 	}
 	
-	public void setWidth(float width)
+	public void setWidth(final float width)
 	{
 		this.width = width;
 	}
@@ -178,7 +181,7 @@ public abstract class Entity {
 		return height;
 	}
 	
-	public void setHeight(float height)
+	public void setHeight(final float height)
 	{
 		this.height = height;
 	}
@@ -188,7 +191,7 @@ public abstract class Entity {
 		return this.alive;
 	}
 
-	public void setAlive(boolean alive)
+	public void setAlive(final boolean alive)
 	{
 		this.alive = alive;
 	}
@@ -207,7 +210,7 @@ public abstract class Entity {
 		return dieTime;
 	}
 
-	public void setDieTime(long dieTime)
+	public void setDieTime(final long dieTime)
 	{
 		this.dieTime = dieTime;
 	}
@@ -217,7 +220,7 @@ public abstract class Entity {
 		return this.dyingTime;
 	}
 	
-	public void setDyingTime(int dyingTime)
+	public void setDyingTime(final int dyingTime)
 	{
 		this.dyingTime = dyingTime;
 	}

@@ -46,13 +46,14 @@ public class SoundManager {
 	
 	/**
 	 * Plays chosen sound
+	 * 
 	 * @param sound - Sound chosen from:<br>
 	 * EXLPOSION = 0<br>
 	 * EXIT = 1<br>
 	 * BONUS = 2<br>
 	 * KILL = 3
 	 */
-	public void playSound(int sound)
+	public void playSound(final int sound)
 	{
 		// If sounds off, do nothing
 		if (!soundEffectOn || !soundsOn)

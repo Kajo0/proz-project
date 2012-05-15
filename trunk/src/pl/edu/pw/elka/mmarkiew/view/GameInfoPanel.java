@@ -18,20 +18,19 @@ import pl.edu.pw.elka.mmarkiew.controller.queueevents.ViewKeyPress.Keys;
  */
 @SuppressWarnings("serial")
 public class GameInfoPanel extends JPanel {
-	private JLabel timerLabel;
-	private JLabel levelLabel;
-	private JLabel lifeLabel;
-	private JLabel bombLabel;
-	private JLabel bombAreaLabel;
-	private JLabel bombTimerLabel;
-	private JLabel bouncingBombLabel;
-	private JButton newGameButton;
-	private JButton backgroundMusicToogleButton;
-	private JButton soundEffectsToogleButton;
+	private final JLabel timerLabel;
+	private final JLabel levelLabel;
+	private final JLabel lifeLabel;
+	private final JLabel bombLabel;
+	private final JLabel bombAreaLabel;
+	private final JLabel bombTimerLabel;
+	private final JLabel bouncingBombLabel;
+	private final JButton newGameButton;
+	private final JButton backgroundMusicToogleButton;
+	private final JButton soundEffectsToogleButton;
 	
 	/**
-	 * Creates game info panel
-	 * and components on it
+	 * Creates game info panel and components on it
 	 */
 	public GameInfoPanel()
 	{
@@ -55,13 +54,13 @@ public class GameInfoPanel extends JPanel {
 	}
 
 	/**
-	 * Initialize game info panel componentes
+	 * Initialize game info panel components
 	 */
 	private void init()
 	{
 		// Game things
-		ArrayList<JLabel> labels = new ArrayList<JLabel>(Arrays.asList(timerLabel, levelLabel, lifeLabel, bombLabel,
-																	bombAreaLabel, bombTimerLabel, bouncingBombLabel));
+		final ArrayList<JLabel> labels = new ArrayList<JLabel>(Arrays.asList(timerLabel, levelLabel, lifeLabel,
+														bombLabel, bombAreaLabel, bombTimerLabel, bouncingBombLabel));
 		int i = 0;
 		for (JLabel l : labels)
 		{
@@ -80,7 +79,7 @@ public class GameInfoPanel extends JPanel {
 		newGameButton.setFocusable(false);
 		newGameButton.setActionCommand(Keys.NEW_GAME.toString());
 		
-		ClickingListener actionListener = new ClickingListener();
+		final ClickingListener actionListener = new ClickingListener();
 		newGameButton.addActionListener(actionListener);
 		
 		// Sound buttons
@@ -113,13 +112,13 @@ public class GameInfoPanel extends JPanel {
 	/**
 	 * Paints components of game info panel 
 	 */
-	public void paint(Graphics g)
+	public void paint(final Graphics g)
 	{
 		super.paint(g);
 		
 		g.drawImage(LogosResource.INFO_BACKGROUND.getImage(), 0, 0, null);
 		
-		ArrayList<LogosResource> logos = new ArrayList<LogosResource>(Arrays.asList(LogosResource.LEVEL,
+		final ArrayList<LogosResource> logos = new ArrayList<LogosResource>(Arrays.asList(LogosResource.LEVEL,
 														LogosResource.LIFES, LogosResource.BOMBS, LogosResource.STEPS,
 														LogosResource.TIMER, LogosResource.BOUNCE));
 		int i = 1;
@@ -133,58 +132,58 @@ public class GameInfoPanel extends JPanel {
 		g.dispose();
 	}
 	
-	public void setTimerLabel(long timerLabel)
+	public void setTimerLabel(final long timerLabel)
 	{
 		this.timerLabel.setText("Timer: " + timerLabel + " s");
 	}
 	
-	public void setLevelLabel(int levelLabel)
+	public void setLevelLabel(final int levelLabel)
 	{
 		this.levelLabel.setText("<html><body>" + levelLabel + " <span style=\"font-size: 15px;\">level");
 	}
 
-	public void setLifeLabel(int lifeLabel)
+	public void setLifeLabel(final int lifeLabel)
 	{
 		this.lifeLabel.setText("<html><body>" + lifeLabel + " <span style=\"font-size: 15px;\">life" +
 																					((lifeLabel != 1) ? "s" : ""));
 	}
 
-	public void setBombLabel(int bombLabel)
+	public void setBombLabel(final int bombLabel)
 	{
 		this.bombLabel.setText("<html><body>" + bombLabel + " <span style=\"font-size: 15px;\">bomb" +
 																					((bombLabel != 1) ? "s" : ""));
 	}
 
-	public void setBombAreaLabel(int bombAreaLabel)
+	public void setBombAreaLabel(final int bombAreaLabel)
 	{
 		this.bombAreaLabel.setText("<html><body>" + bombAreaLabel + " <span style=\"font-size: 15px;\">step" +
 																				((bombAreaLabel != 1) ? "s" : ""));
 	}
 
-	public void setBombTimerLabel(long bombTimerLabel)
+	public void setBombTimerLabel(final long bombTimerLabel)
 	{
 		this.bombTimerLabel.setText("<html><body>" + (float) bombTimerLabel / 1000 +
 																			" <span style=\"font-size: 15px;\">sec.");
 	}
 	
-	public void setBouncingBombLabel(boolean bouncingBombLabel)
+	public void setBouncingBombLabel(final boolean bouncingBombLabel)
 	{
 		this.bouncingBombLabel.setText("<html><body><span style=\"font-size: 15px;\">Can" +
 												(bouncingBombLabel ? "" : "'t") + " push bombs!");
 	}
 	
-	public void setNewGameButtonEnable(boolean enable)
+	public void setNewGameButtonEnable(final boolean enable)
 	{
 		newGameButton.setEnabled(enable);
 	}
 	
-	public void setBackgroundMusicButtonIcon(boolean onOff)
+	public void setBackgroundMusicButtonIcon(final boolean onOff)
 	{
 		backgroundMusicToogleButton.setIcon( onOff ? new ImageIcon(LogosResource.BACKGROUND_MUSIC_ON.getImage()) :
 														new ImageIcon(LogosResource.BACKGROUND_MUSIC_OFF.getImage()));
 	}
 	
-	public void setSoundEffectsButtonIcon(boolean onOff)
+	public void setSoundEffectsButtonIcon(final boolean onOff)
 	{
 		soundEffectsToogleButton.setIcon( onOff ? new ImageIcon(LogosResource.SOUND_EFFECTS_ON.getImage()) :
 														new ImageIcon(LogosResource.SOUND_EFFECTS_OFF.getImage()));

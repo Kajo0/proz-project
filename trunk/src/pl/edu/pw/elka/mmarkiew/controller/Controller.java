@@ -19,10 +19,15 @@ import pl.edu.pw.elka.mmarkiew.view.View;
  *
  */
 public class Controller {
+	/** Queue for events */
 	private final BlockingQueue<QueueEvent> blockingQueue;
+	/** Sound things */
 	private final SoundManager sound;
+	/** Counts timeouts and put event into queue */
 	private final Timer timer;
+	/** Game model */
 	private final Model model;
+	/** Game view */
 	private final View view;
 	
 	public Controller()
@@ -42,7 +47,7 @@ public class Controller {
 	 * Every 10 milliseconds gets map and statistics<br>
 	 * which sends to view. View should draw it.
 	 */
-	public void run()
+	public void start()
 	{
 		QueueEvent event = null;
 		
@@ -60,18 +65,19 @@ public class Controller {
 	/**
 	 * Check what is that event, and invoke some actions<br>
 	 * depended on event. Almost all events change player state.
+	 * 
 	 * @param event - Event from View or Timer event
 	 */
 	private void checkInput(final QueueEvent event)
 	{
-		Player player = model.getPlayer();
-		boolean xVelocity = (player.getXVelocity() != 0);
-		boolean yVelocity = (player.getYVelocity() != 0);
+		final Player player = model.getPlayer();
+		final boolean xVelocity = (player.getXVelocity() != 0);
+		final boolean yVelocity = (player.getYVelocity() != 0);
 		
 		if (event instanceof ViewKeyPress)
 		{
-			Keys code = ((ViewKeyPress) event).getKey();
-			boolean pressed = ((ViewKeyPress) event).isPress();
+			final Keys code = ((ViewKeyPress) event).getKey();
+			final boolean pressed = ((ViewKeyPress) event).isPress();
 			
 			switch (code)
 			{				//set velocity only if it's needed to set it, and reset it the same

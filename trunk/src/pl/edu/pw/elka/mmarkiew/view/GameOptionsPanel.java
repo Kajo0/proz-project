@@ -11,12 +11,11 @@ import javax.swing.JPanel;
  */
 @SuppressWarnings("serial")
 public class GameOptionsPanel extends JPanel {
-	private JLabel optionLabel;
-	private JButton[] keyButtons;
+	private final JLabel optionLabel;
+	private final JButton[] keyButtons;
 	
 	/**
-	 * Creates game options panel
-	 * and swing components on it
+	 * Creates game options panel and swing components on it
 	 */
 	public GameOptionsPanel()
 	{
